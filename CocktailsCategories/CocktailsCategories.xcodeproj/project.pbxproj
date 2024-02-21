@@ -56,15 +56,103 @@
 		DD4BB6352B8696240076A34F /* CocktailsCategories */ = {
 			isa = PBXGroup;
 			children = (
-				DD4BB6362B8696240076A34F /* AppDelegate.swift */,
-				DD4BB6382B8696240076A34F /* SceneDelegate.swift */,
+				DD4BB64A2B8697E60076A34F /* Classes */,
+				DD4BB6512B8699470076A34F /* Resources */,
+				DD4BB6542B8699F20076A34F /* SupportingFiles */,
 				DD4BB63A2B8696240076A34F /* ViewController.swift */,
+				DD4BB6382B8696240076A34F /* SceneDelegate.swift */,
+				DD4BB6362B8696240076A34F /* AppDelegate.swift */,
 				DD4BB63C2B8696240076A34F /* Main.storyboard */,
 				DD4BB63F2B8696250076A34F /* Assets.xcassets */,
 				DD4BB6412B8696250076A34F /* LaunchScreen.storyboard */,
 				DD4BB6442B8696250076A34F /* Info.plist */,
 			);
 			path = CocktailsCategories;
+			sourceTree = "<group>";
+		};
+		DD4BB64A2B8697E60076A34F /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DD4BB64F2B86986A0076A34F /* Extensions */,
+				DD4BB64E2B86985B0076A34F /* API */,
+				DD4BB64D2B8698380076A34F /* ViewModels */,
+				DD4BB64C2B8698230076A34F /* Views */,
+				DD4BB64B2B86980C0076A34F /* Models */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		DD4BB64B2B86980C0076A34F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		DD4BB64C2B8698230076A34F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DD4BB6502B86989B0076A34F /* Controllers */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DD4BB64D2B8698380076A34F /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		DD4BB64E2B86985B0076A34F /* API */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		DD4BB64F2B86986A0076A34F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		DD4BB6502B86989B0076A34F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		DD4BB6512B8699470076A34F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DD4BB6532B8699830076A34F /* Images */,
+				DD4BB6522B8699680076A34F /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DD4BB6522B8699680076A34F /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		DD4BB6532B8699830076A34F /* Images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		DD4BB6542B8699F20076A34F /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
