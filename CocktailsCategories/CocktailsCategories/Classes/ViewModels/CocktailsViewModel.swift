@@ -64,6 +64,8 @@ func getCoctailsBy(category: String) {
                 print("ERROR - \(error)")
             }
         }.resume()
+    } else {
+        print("It's coctail category does't present in db")
     }
 }
 

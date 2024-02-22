@@ -11,8 +11,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        getCoctailsCategory()
-        getCoctailsBy(category: "Ordinary_Drink")
+//        getCoctailsCategory()
+        getCoctailsBy(category: "Ordinawedry_Drink")
     }
 
 }
