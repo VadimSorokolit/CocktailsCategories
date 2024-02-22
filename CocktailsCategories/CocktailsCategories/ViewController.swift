@@ -8,11 +8,14 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    let cocktailsViewModel = CocktailsViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        getCoctailsCategory()
-        getCoctailsBy(category: "Ordinawedry_Drink")
+        
+        self.view.backgroundColor = .gray
+        cocktailsViewModel.getCoctailsCategory()
     }
 
 }
