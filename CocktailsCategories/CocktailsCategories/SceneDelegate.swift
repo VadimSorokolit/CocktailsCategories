@@ -14,8 +14,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let viewController = CocktailsViewController()
-        window?.rootViewController = UINavigationController(rootViewController: viewController)
+        let cocktailsViewController = CocktailsViewController()
+        window?.rootViewController = UINavigationController(rootViewController: cocktailsViewController)
         window?.makeKeyAndVisible()
     }
     
