@@ -21,13 +21,20 @@ class CocktailsViewModel {
         components.scheme = "https"
         components.host = "thecocktaildb.com"
         components.path = "/api/json/v1/1/list.php"
-        components.queryItems = [ URLQueryItem(name: "c", value: "list")]
+        components.queryItems = [
+            URLQueryItem(name: "c", value: "list")
+        ]
         
         guard let coctailCategoriesURL = components.string else { return }
         guard let url = URL(string: coctailCategoriesURL) else { return }
         URLSession.shared.dataTask(with: url, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
+            guard error  == nil else {
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+                return
+            }
             guard let data = data else { return }
-            guard error == nil else { return }
             
             do {
                 let parse = try JSONDecoder().decode(CocktailsCategoriesWrapper.self, from: data)
@@ -40,7 +47,7 @@ class CocktailsViewModel {
                 }
                 
             } catch let error {
-                print("ERROR - \(error.localizedDescription)")
+                print(error.localizedDescription)
             }
         }).resume()
     }
@@ -50,13 +57,20 @@ class CocktailsViewModel {
         components.scheme = "https"
         components.host = "thecocktaildb.com"
         components.path = "/api/json/v1/1/filter.php"
-        components.queryItems = [ URLQueryItem(name: "c", value: categoryName)]
+        components.queryItems = [
+            URLQueryItem(name: "c", value: categoryName)
+        ]
         
         guard let coctailsByCategoryNameURL = components.string else { return }
         guard let url = URL(string: coctailsByCategoryNameURL) else { return }
         URLSession.shared.dataTask(with: url, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
+            guard error  == nil else {
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+                return
+            }
             guard let data = data else { return }
-            guard error == nil else { return }
             
             do {
                 let parse = try JSONDecoder().decode(CocktailsListWrapper.self, from: data)
@@ -71,7 +85,7 @@ class CocktailsViewModel {
                 }
                 
             } catch let error {
-                print("ERROR - \(error.localizedDescription)")
+                print(error.localizedDescription)
             }
         }).resume()
     }
