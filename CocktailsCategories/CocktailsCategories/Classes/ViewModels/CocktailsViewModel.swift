@@ -9,12 +9,23 @@ import Foundation
 
 class CocktailsViewModel {
     
-    var cocktailCategories: [CocktailsCategory] = []
-    var cocktailsByCategory: [CocktailsCategory: [CocktailInfo]] = [:]
+    // MARK: Properties
+    
+    private var cocktailCategories: [CocktailsCategory] = []
+    private var cocktailsByCategory: [CocktailsCategory: [CocktailInfo]] = [:]
+    
+    // MARK: Methods
     
     func getCoctailsCategory() {
-        guard let url = URL(string: "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list") else { return }
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "thecocktaildb.com"
+        components.path = "/api/json/v1/1/list.php"
+        components.queryItems = [ URLQueryItem(name: "c", value: "list")]
+        
+        guard let coctailCategoriesURL = components.string else { return }
+        guard let url = URL(string: coctailCategoriesURL) else { return }
+        URLSession.shared.dataTask(with: url, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
             guard let data = data else { return }
             guard error == nil else { return }
             
@@ -31,13 +42,19 @@ class CocktailsViewModel {
             } catch let error {
                 print("ERROR - \(error.localizedDescription)")
             }
-        }.resume()
+        }).resume()
     }
     
     private func getCoctailsBy(categoryName: String) {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "thecocktaildb.com"
+        components.path = "/api/json/v1/1/filter.php"
+        components.queryItems = [ URLQueryItem(name: "c", value: categoryName)]
         
-        guard let url = URL(string: "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=\(categoryName)") else { return }
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        guard let coctailsByCategoryNameURL = components.string else { return }
+        guard let url = URL(string: coctailsByCategoryNameURL) else { return }
+        URLSession.shared.dataTask(with: url, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
             guard let data = data else { return }
             guard error == nil else { return }
             
@@ -56,7 +73,7 @@ class CocktailsViewModel {
             } catch let error {
                 print("ERROR - \(error.localizedDescription)")
             }
-        }.resume()
+        }).resume()
     }
     
 }
