@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CocktailsViewController: UIViewController {
     
     let cocktailsViewModel = CocktailsViewModel()
     

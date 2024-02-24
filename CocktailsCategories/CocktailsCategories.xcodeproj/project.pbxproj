@@ -12,7 +12,7 @@
 		DD30A82F2B87842B00D9C842 /* CoctailsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD30A82E2B87842B00D9C842 /* CoctailsListModel.swift */; };
 		DD4BB6372B8696240076A34F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB6362B8696240076A34F /* AppDelegate.swift */; };
 		DD4BB6392B8696240076A34F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB6382B8696240076A34F /* SceneDelegate.swift */; };
-		DD4BB63B2B8696240076A34F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB63A2B8696240076A34F /* ViewController.swift */; };
+		DD4BB63B2B8696240076A34F /* CocktailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB63A2B8696240076A34F /* CocktailsViewController.swift */; };
 		DD4BB6402B8696250076A34F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD4BB63F2B8696250076A34F /* Assets.xcassets */; };
 		DD4BB6432B8696250076A34F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD4BB6412B8696250076A34F /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -24,7 +24,7 @@
 		DD4BB6332B8696240076A34F /* CocktailsCategories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CocktailsCategories.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD4BB6362B8696240076A34F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD4BB6382B8696240076A34F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DD4BB63A2B8696240076A34F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DD4BB63A2B8696240076A34F /* CocktailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailsViewController.swift; sourceTree = "<group>"; };
 		DD4BB63F2B8696250076A34F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DD4BB6422B8696250076A34F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DD4BB6442B8696250076A34F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -63,7 +63,7 @@
 				DD4BB64A2B8697E60076A34F /* Classes */,
 				DD4BB6512B8699470076A34F /* Resources */,
 				DD4BB6542B8699F20076A34F /* SupportingFiles */,
-				DD4BB63A2B8696240076A34F /* ViewController.swift */,
+				DD4BB63A2B8696240076A34F /* CocktailsViewController.swift */,
 				DD4BB6382B8696240076A34F /* SceneDelegate.swift */,
 				DD4BB6362B8696240076A34F /* AppDelegate.swift */,
 				DD4BB63F2B8696250076A34F /* Assets.xcassets */,
@@ -233,7 +233,7 @@
 			files = (
 				DD30A82D2B8782AE00D9C842 /* CoctailsCategoryModel.swift in Sources */,
 				DD30A82F2B87842B00D9C842 /* CoctailsListModel.swift in Sources */,
-				DD4BB63B2B8696240076A34F /* ViewController.swift in Sources */,
+				DD4BB63B2B8696240076A34F /* CocktailsViewController.swift in Sources */,
 				DD30A82B2B87765600D9C842 /* CocktailsViewModel.swift in Sources */,
 				DD4BB6372B8696240076A34F /* AppDelegate.swift in Sources */,
 				DD4BB6392B8696240076A34F /* SceneDelegate.swift in Sources */,
