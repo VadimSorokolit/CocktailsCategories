@@ -11,7 +11,8 @@ class CocktailsViewModel {
     
     // MARK: Properties
     
-    private var cocktailCategories: [CocktailsCategory] = []
+    var cocktailCategories: [CocktailsCategory] = []
+    var categoryDrinkIndex = 0
     private var cocktailsByCategory: [CocktailsCategory: [CocktailInfo]] = [:]
     
     // MARK: Methods
@@ -40,10 +41,14 @@ class CocktailsViewModel {
                 let parse = try JSONDecoder().decode(CocktailsCategoriesWrapper.self, from: data)
                 guard let drinks = parse.drinks else { return }
                 self.cocktailCategories = drinks
-                
-                if let firstCategory = self.cocktailCategories.randomElement() {
+                let cocktailCategoriesCount = self.cocktailCategories.count
+                if cocktailCategoriesCount > 0, self.categoryDrinkIndex <= cocktailCategoriesCount - 1 {
+                    let firstCategory = self.cocktailCategories[self.categoryDrinkIndex]
                     let categoryName = firstCategory.name
                     self.getCoctailsBy(categoryName: categoryName)
+                } else {
+                    print("It was last coctails category")
+                    return
                 }
                 
             } catch let error {
@@ -75,7 +80,6 @@ class CocktailsViewModel {
             do {
                 let parse = try JSONDecoder().decode(CocktailsListWrapper.self, from: data)
                 guard let drinks = parse.drinks else { return }
-                
                 print(categoryName, "(\(drinks.count))")
                 
                 for drink in drinks {
@@ -88,9 +92,8 @@ class CocktailsViewModel {
                 print(error.localizedDescription)
             }
         }).resume()
+        self.categoryDrinkIndex += 1
     }
-    
-
     
 }
 

@@ -63,7 +63,6 @@
 				DD4BB64A2B8697E60076A34F /* Classes */,
 				DD4BB6512B8699470076A34F /* Resources */,
 				DD4BB6542B8699F20076A34F /* SupportingFiles */,
-				DD4BB63A2B8696240076A34F /* CocktailsViewController.swift */,
 				DD4BB6382B8696240076A34F /* SceneDelegate.swift */,
 				DD4BB6362B8696240076A34F /* AppDelegate.swift */,
 				DD4BB63F2B8696250076A34F /* Assets.xcassets */,
@@ -127,6 +126,7 @@
 		DD4BB6502B86989B0076A34F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				DD4BB63A2B8696240076A34F /* CocktailsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
