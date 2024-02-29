@@ -7,12 +7,17 @@
 
 import Foundation
 
+struct CocktailsByCategory {
+    let category: CocktailsCategory
+    let cocktails: [CocktailInfo]
+}
+
 class CocktailsViewModel {
     
     // MARK: Properties
     
     var cocktailCategories: [CocktailsCategory] = []
-    var categoryDrinkIndex = 0
+    var categories = [CocktailsByCategory]()
     private var cocktailsByCategory: [CocktailsCategory: [CocktailInfo]] = [:]
     
     // MARK: Methods
@@ -86,15 +91,18 @@ class CocktailsViewModel {
                     print(error.localizedDescription)
                 case .success(let drinks):
                     self.cocktailCategories = drinks
-                    guard let firstCategoryName = self.cocktailCategories.first?.name else { 
-                        completion(false)
-                        return }
+                    guard let firstCategory = self.cocktailCategories.first else { completion(false)
+                        return
+                    }
+                    let firstCategoryName = firstCategory.name
                     self.getCoctailsBy(categoryName: firstCategoryName, completion: { (result: Result<[CocktailInfo], Error>) in
                         switch result {
                             case .failure(let error):
                                 print(error.localizedDescription)
                             case .success(let drinks):
                                 completion(true)
+                                let newCategory = CocktailsByCategory(category: firstCategory, cocktails: drinks)
+                                self.categories.append(newCategory)
                                 print(firstCategoryName, drinks.count)
                                 drinks.forEach { drink in
                                     if let drinkName  = drink.name{
@@ -108,11 +116,31 @@ class CocktailsViewModel {
         
         }
         
+    func loadNextCategory(completion: @escaping (Bool) -> Void) {
         
-    
-     
-    func loadNextCategory() {
-        
+        let nextIndex = self.categories.count
+        if self.cocktailCategories.indices.contains(nextIndex) {
+            let nextCategory = self.cocktailCategories[nextIndex]
+            let nextCategoryName = nextCategory.name
+            self.getCoctailsBy(categoryName: nextCategoryName, completion: { (result: Result<[CocktailInfo], Error>) in
+                switch result {
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    case .success(let drinks):
+                        let newCategory = CocktailsByCategory(category: nextCategory, cocktails: drinks)
+                        self.categories.append(newCategory)
+                        print(nextCategoryName, drinks.count)
+                        drinks.forEach { drink in
+                            if let drinkName  = drink.name{
+                                print(".....\(drinkName)")
+                            }
+                        }
+                }
+                completion(true)
+            })
+        } else {
+            completion(false)
+        }
     }
     
 }

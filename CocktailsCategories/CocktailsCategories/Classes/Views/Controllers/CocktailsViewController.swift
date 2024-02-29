@@ -46,6 +46,13 @@ class CocktailsViewController: UIViewController {
     }
     
     @objc private func getCocktailsDidTap(_ sender: UIButton) {
+        self.cocktailsViewModel.loadNextCategory(completion: { (completed: Bool) in    switch completed {
+            case true :
+                print("Load new cocktails")
+            case false :
+                print("Don't load cocktails")
+            }
+        })
     }
     
 }
