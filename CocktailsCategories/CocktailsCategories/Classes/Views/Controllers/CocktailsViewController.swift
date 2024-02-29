@@ -11,55 +11,42 @@ class CocktailsViewController: UIViewController {
     
     let cocktailsViewModel = CocktailsViewModel()
     
+    // Load first cocktails on Start!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = .yellow
-        self.title = "Good !!!"
-        self.myButton()
+        self.title = "Hello !!!"
+        self.setupButton()
+        self.cocktailsViewModel.loadFirstCategory(completion: { (completed: Bool) in
+            switch completed {
+                case true :
+                    print("Load first cocktails")
+                case false :
+                    print("Don't load first cocktails")
+            }
+        })
     }
     
     // MARK: Methods
     
-    private func myButton() {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 160, height: 60))
+    private func setupButton() {
+        
+        let button = UIButton(type: .system)
+        button.frame = CGRect(x: 0.0, y: 0.0, width: 160.0, height: 60.0)
         button.center = view.center
         button.backgroundColor = .red
+        button.tintColor = .white
         button.layer.cornerRadius = 12
-        button.setTitle("First button", for: .normal)
         button.layer.masksToBounds = true
-        button.addTarget(self, action: #selector(myButtonDidTap), for: .touchUpInside)
+        button.setTitle("Get cocktails", for: .normal)
+        button.addTarget(self, action: #selector(getCocktailsDidTap), for: .touchUpInside)
         view.addSubview(button)
     }
     
-    @objc private func myButtonDidTap(_ sender: UIButton) {
-        sender.showAnimation {
-            self.cocktailsViewModel.getCoctailsCategory()
-        }
-        
+    @objc private func getCocktailsDidTap(_ sender: UIButton) {
     }
     
-}
-
-public extension UIView {
-    func showAnimation(_ completionBlock: @escaping () -> Void) {
-      isUserInteractionEnabled = false
-        UIView.animate(withDuration: 0.1,
-                       delay: 0,
-                       options: .curveLinear,
-                       animations: { [weak self] in
-                            self?.transform = CGAffineTransform.init(scaleX: 0.95, y: 0.95)
-        }) {  (done) in
-            UIView.animate(withDuration: 0.1,
-                           delay: 0,
-                           options: .curveLinear,
-                           animations: { [weak self] in
-                                self?.transform = CGAffineTransform.init(scaleX: 1, y: 1)
-            }) { [weak self] (_) in
-                self?.isUserInteractionEnabled = true
-                completionBlock()
-            }
-        }
-    }
 }
 
