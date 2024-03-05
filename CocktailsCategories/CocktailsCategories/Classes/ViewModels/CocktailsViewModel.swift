@@ -7,22 +7,35 @@
 
 import Foundation
 
+enum NetworkingError: Error {
+    case wrongURL
+    case invalidURL
+    case invalidCategories
+    case invalidDecodedData
+    case invalidDrinks
+    case invalidData
+    case invalidFirstCategory
+    case noMoreCocktails
+    case error(Error)
+}
+
 struct CocktailsByCategory {
-    let category: CocktailsCategory
-    let cocktails: [CocktailInfo]
+    let category: Category
+    let cocktails: [Cocktail]
 }
 
 class CocktailsViewModel {
     
     // MARK: Properties
     
-    var cocktailCategories: [CocktailsCategory] = []
-    var categories = [CocktailsByCategory]()
-    private var cocktailsByCategory: [CocktailsCategory: [CocktailInfo]] = [:]
+    var categories: [Category] = []
+    var cocktailsByCategory = [CocktailsByCategory]()
     
-    // MARK: Methods
+    // MARK: - Methods
     
-    private func getCocktailCategories(completion: @escaping (Result<[CocktailsCategory], Error>) -> Void) {
+    // MARK: Get all categories
+    
+    private func getCategories(completion: @escaping (Result<[Category], NetworkingError>) -> Void) {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "thecocktaildb.com"
@@ -31,28 +44,41 @@ class CocktailsViewModel {
             URLQueryItem(name: "c", value: "list")
         ]
         
-        guard let cocktailCategoriesURL = components.string else { return }
-        guard let url = URL(string: cocktailCategoriesURL) else { return }
+        guard let urlString = components.string else {
+            completion(.failure(NetworkingError.wrongURL))
+            return
+        }
+        guard let url = URL(string: urlString) else {
+            completion(.failure(NetworkingError.invalidURL))
+            return
+        }
         URLSession.shared.dataTask(with: url, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
-            guard error  == nil else {
-                if let error = error {
-                    completion(.failure(error))
-                }
+            if let error {
+                completion(.failure(NetworkingError.error(error)))
                 return
             }
-            guard let data = data else { return }
-            
+            guard let data = data else {
+                completion(.failure(NetworkingError.invalidData))
+                return
+            }
             do {
-                let parse = try JSONDecoder().decode(CocktailsCategoriesWrapper.self, from: data)
-                guard let drinks = parse.drinks else { return }
-                completion(Result.success(drinks))
+                let decodedData = try JSONDecoder().decode(CocktailsCategoriesWrapper.self, from: data)
+                guard let categories = decodedData.drinks else {
+                   completion(.failure(NetworkingError.invalidDecodedData))
+
+                    return
+                }
+                completion(Result.success(categories))
             } catch let error {
-                completion(Result.failure(error))
+                completion(Result.failure(NetworkingError.error(error)))
             }
         }).resume()
     }
     
-    private func getCoctailsBy(categoryName: String, completion: @escaping (Result<[CocktailInfo], Error>) -> Void) {
+    
+    // MARK: Get Cocktails List by Category
+    
+    private func getCoctails(by categoryName: String, completion: @escaping (Result<[Cocktail], NetworkingError>) -> Void) {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "thecocktaildb.com"
@@ -60,50 +86,90 @@ class CocktailsViewModel {
         components.queryItems = [
             URLQueryItem(name: "c", value: categoryName)
         ]
-        
-        guard let cocktailsByCategoryNameURL = components.string else { return }
-        guard let url = URL(string: cocktailsByCategoryNameURL) else { return }
+        guard let urlString = components.string else {
+            completion(.failure(NetworkingError.wrongURL))
+            return
+        }
+        guard let url = URL(string: urlString) else {
+            completion(.failure(NetworkingError.invalidURL))
+            return
+        }
         URLSession.shared.dataTask(with: url, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
-            guard error  == nil else {
-                if let error = error {
-                    completion(Result.failure(error))
-                }
+            if let error {
+                completion(Result.failure(NetworkingError.error(error)))
                 return
             }
-            guard let data = data else { return }
-            
+            guard let data = data else {
+                completion(.failure(NetworkingError.invalidData))
+                return
+            }
             do {
-                let parse = try JSONDecoder().decode(CocktailsListWrapper.self, from: data)
-                guard let drinks = parse.drinks else { return }
+                let decodedData = try JSONDecoder().decode(CocktailsListWrapper.self, from: data)
+                guard let drinks = decodedData.drinks else {
+                   completion(.failure(NetworkingError.invalidDecodedData))
+                    return
+                }
                 completion(Result.success(drinks))
-                
             } catch let error {
-                completion(Result.failure(error))
+                completion(Result.failure(NetworkingError.error(error)))
             }
         }).resume()
     }
     
-    func loadFirstCategory(completion: @escaping (Bool) -> Void) {
-        
-        self.getCocktailCategories(completion: { (result: Result<[CocktailsCategory], Error>) in
+    // MARK: Get first category
+    
+    func loadFirstCategory(completion: @escaping (Result<CocktailsByCategory, NetworkingError>) -> Void) {
+        self.getCategories(completion: { (result: Result<[Category], NetworkingError>) -> Void in
             switch result {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .success(let drinks):
-                    self.cocktailCategories = drinks
-                    guard let firstCategory = self.cocktailCategories.first else { completion(false)
+                case .failure(NetworkingError.error(let error)):
+                    completion(.failure(NetworkingError.error(error)))
+                case .failure(NetworkingError.wrongURL):
+                    completion(.failure(NetworkingError.wrongURL))
+                case .failure(NetworkingError.invalidURL):
+                    completion(.failure(NetworkingError.invalidURL))
+                case .failure(NetworkingError.invalidData):
+                    completion(.failure(NetworkingError.invalidData))
+                case .failure(NetworkingError.invalidDecodedData):
+                    completion(.failure(NetworkingError.invalidDecodedData))
+                case .failure(.invalidCategories):
+                    completion(.failure(NetworkingError.invalidCategories))
+                case .failure(NetworkingError.invalidDrinks):
+                    completion(.failure(NetworkingError.invalidDrinks))
+                case .failure(NetworkingError.invalidFirstCategory):
+                    completion(.failure(NetworkingError.invalidFirstCategory))
+                case .failure(NetworkingError.noMoreCocktails):
+                    completion(.failure(NetworkingError.noMoreCocktails))
+                case .success(let categories):
+                    self.categories = categories
+                    guard let firstCategory = self.categories.first else { 
+                        completion(.failure(NetworkingError.invalidFirstCategory))
                         return
                     }
-                    let firstCategoryName = firstCategory.name
-                    self.getCoctailsBy(categoryName: firstCategoryName, completion: { (result: Result<[CocktailInfo], Error>) in
+                    self.getCoctails(by: firstCategory.name, completion: { (result: Result<[Cocktail], NetworkingError>) -> Void in
                         switch result {
-                            case .failure(let error):
-                                print(error.localizedDescription)
+                            case .failure(NetworkingError.error(let error)):
+                                completion(.failure(NetworkingError.error(error)))
+                            case .failure(NetworkingError.wrongURL):
+                                completion(.failure(NetworkingError.wrongURL))
+                            case .failure(NetworkingError.invalidURL):
+                                completion(.failure(NetworkingError.invalidURL))
+                            case .failure(NetworkingError.invalidData):
+                                completion(.failure(NetworkingError.invalidData))
+                            case .failure(NetworkingError.invalidDecodedData):
+                                completion(.failure(NetworkingError.invalidDecodedData))
+                            case .failure(.invalidCategories):
+                                completion(.failure(NetworkingError.invalidCategories))
+                            case .failure(NetworkingError.invalidDrinks):
+                                completion(.failure(NetworkingError.invalidDrinks))
+                            case .failure(NetworkingError.invalidFirstCategory):
+                                completion(.failure(NetworkingError.invalidFirstCategory))
+                            case .failure(NetworkingError.noMoreCocktails):
+                                completion(.failure(NetworkingError.noMoreCocktails))
                             case .success(let drinks):
-                                completion(true)
                                 let newCategory = CocktailsByCategory(category: firstCategory, cocktails: drinks)
-                                self.categories.append(newCategory)
-                                print(firstCategoryName, drinks.count)
+                                completion(.success(newCategory))
+                                self.cocktailsByCategory.append(newCategory)
+                                print(firstCategory.name, drinks.count)
                                 drinks.forEach { drink in
                                     if let drinkName  = drink.name{
                                         print(".....\(drinkName)")
@@ -111,38 +177,55 @@ class CocktailsViewModel {
                                 }
                         }
                     })
-            }
-        })
-        
-        }
-        
-    func loadNextCategory(completion: @escaping (Bool) -> Void) {
-        
-        let nextIndex = self.categories.count
-        if self.cocktailCategories.indices.contains(nextIndex) {
-            let nextCategory = self.cocktailCategories[nextIndex]
-            let nextCategoryName = nextCategory.name
-            self.getCoctailsBy(categoryName: nextCategoryName, completion: { (result: Result<[CocktailInfo], Error>) in
-                switch result {
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                    case .success(let drinks):
-                        let newCategory = CocktailsByCategory(category: nextCategory, cocktails: drinks)
-                        self.categories.append(newCategory)
-                        print(nextCategoryName, drinks.count)
-                        drinks.forEach { drink in
-                            if let drinkName  = drink.name{
-                                print(".....\(drinkName)")
-                            }
-                        }
                 }
-                completion(true)
             })
-        } else {
-            completion(false)
-        }
     }
     
+    // MARK: Get next category
+    
+    func loadNextCategory(completion: @escaping (Result<CocktailsByCategory, NetworkingError>) -> Void) {
+            let nextIndex = self.cocktailsByCategory.count
+                    let isNextCategoryExist = self.categories.indices.contains(nextIndex)
+                    if isNextCategoryExist {
+                        let nextCategory = self.categories[nextIndex]
+                        self.getCoctails(by: nextCategory.name, completion: { (result: Result<[Cocktail], NetworkingError>) in
+                            switch result {
+                                case .failure(NetworkingError.error(let error)):
+                                    completion(.failure(NetworkingError.error(error)))
+                                case .failure(NetworkingError.wrongURL):
+                                    completion(.failure(NetworkingError.wrongURL))
+                                case .failure(NetworkingError.invalidURL):
+                                    completion(.failure(NetworkingError.invalidURL))
+                                case .failure(NetworkingError.invalidData):
+                                    completion(.failure(NetworkingError.invalidData))
+                                case .failure(NetworkingError.invalidDecodedData):
+                                    completion(.failure(NetworkingError.invalidDecodedData))
+                                case .failure(.invalidCategories):
+                                    completion(.failure(NetworkingError.invalidCategories))
+                                case .failure(NetworkingError.invalidDrinks):
+                                    completion(.failure(NetworkingError.invalidDrinks))
+                                case .failure(NetworkingError.invalidFirstCategory):
+                                    completion(.failure(NetworkingError.invalidFirstCategory))
+                                case .failure(NetworkingError.noMoreCocktails):
+                                    completion(.failure(NetworkingError.noMoreCocktails))
+                                case .success(let drinks):
+                                    let newCategory = CocktailsByCategory(category: nextCategory, cocktails: drinks)
+    
+                                    completion(.success(newCategory))
+    
+                                    self.cocktailsByCategory.append(newCategory)
+                                    print(nextCategory.name, drinks.count)
+                                    drinks.forEach { drink in
+                                        if let drinkName  = drink.name{
+                                            print(".....\(drinkName)")
+                                        }
+    
+                                    }
+                            }
+                        })
+                    } else {
+                        completion(.failure(NetworkingError.noMoreCocktails))
+                    }
+                }
+    
 }
-
-

@@ -8,10 +8,10 @@
 import Foundation
 
 struct CocktailsListWrapper: Decodable {
-    var drinks: [CocktailInfo]?
+    var drinks: [Cocktail]?
 }
 
-struct CocktailInfo: Decodable {
+struct Cocktail: Decodable {
     let name: String?
     let thumbLink: String?
     let idDrink: String?

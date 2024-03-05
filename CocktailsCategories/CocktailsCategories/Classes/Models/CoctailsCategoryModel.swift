@@ -8,10 +8,10 @@
 import Foundation
 
 struct CocktailsCategoriesWrapper: Decodable {
-    var drinks: [CocktailsCategory]?
+    var drinks: [Category]?
 }
 
-struct CocktailsCategory: Decodable, Hashable {
+struct Category: Decodable, Hashable {
     let name: String
     
     enum CodingKeys: String, CodingKey {
