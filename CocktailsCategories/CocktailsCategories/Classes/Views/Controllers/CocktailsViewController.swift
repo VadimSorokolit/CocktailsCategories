@@ -37,7 +37,6 @@ class CocktailsViewController: UIViewController {
         button.layer.cornerRadius = 12.0
         button.layer.masksToBounds = true
         button.setTitle("Get cocktails", for: .normal)
-        button.isEnabled = true
         button.addTarget(self, action: #selector(self.getCocktailsDidTap), for: .touchUpInside)
         self.view.addSubview(button)
     }
@@ -70,7 +69,7 @@ class CocktailsViewController: UIViewController {
     }
     
     @objc private func getCocktailsDidTap(withSender sender: UIButton) {
-        self.cocktailsViewModel.loadNextCategory(completion: { (result: Result<CocktailsByCategory, NetworkingError>) in
+        self.cocktailsViewModel.loadNextCategory(withSender: sender, completion: { (result: Result<CocktailsByCategory, NetworkingError>) in
             switch result {
                case .failure(NetworkingError.error(let error)):
                   print(NetworkingError.error(error.localizedDescription as! Error))

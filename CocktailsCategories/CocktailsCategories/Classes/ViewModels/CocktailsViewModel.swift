@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum NetworkingError: Error {
     case wrongURL
@@ -183,7 +184,7 @@ class CocktailsViewModel {
     
     // MARK: Get next category
     
-    func loadNextCategory(completion: @escaping (Result<CocktailsByCategory, NetworkingError>) -> Void) {
+    func loadNextCategory(withSender sender: UIButton, completion: @escaping (Result<CocktailsByCategory, NetworkingError>) -> Void) {
             let nextIndex = self.cocktailsByCategory.count
                     let isNextCategoryExist = self.categories.indices.contains(nextIndex)
                     if isNextCategoryExist {
@@ -191,22 +192,30 @@ class CocktailsViewModel {
                         self.getCoctails(by: nextCategory.name, completion: { (result: Result<[Cocktail], NetworkingError>) in
                             switch result {
                                 case .failure(NetworkingError.error(let error)):
+                                    sender.isEnabled = false
                                     completion(.failure(NetworkingError.error(error)))
                                 case .failure(NetworkingError.wrongURL):
+                                    sender.isEnabled = false
                                     completion(.failure(NetworkingError.wrongURL))
                                 case .failure(NetworkingError.invalidURL):
+                                    sender.isEnabled = false
                                     completion(.failure(NetworkingError.invalidURL))
                                 case .failure(NetworkingError.invalidData):
+                                    sender.isEnabled = false
                                     completion(.failure(NetworkingError.invalidData))
                                 case .failure(NetworkingError.invalidDecodedData):
                                     completion(.failure(NetworkingError.invalidDecodedData))
                                 case .failure(.invalidCategories):
+                                    sender.isEnabled = false
                                     completion(.failure(NetworkingError.invalidCategories))
                                 case .failure(NetworkingError.invalidDrinks):
+                                    sender.isEnabled = false
                                     completion(.failure(NetworkingError.invalidDrinks))
                                 case .failure(NetworkingError.invalidFirstCategory):
+                                    sender.isEnabled = false
                                     completion(.failure(NetworkingError.invalidFirstCategory))
                                 case .failure(NetworkingError.noMoreCocktails):
+                                    sender.isEnabled = false
                                     completion(.failure(NetworkingError.noMoreCocktails))
                                 case .success(let drinks):
                                     let newCategory = CocktailsByCategory(category: nextCategory, cocktails: drinks)
@@ -224,6 +233,7 @@ class CocktailsViewModel {
                             }
                         })
                     } else {
+                        sender.isEnabled = false
                         completion(.failure(NetworkingError.noMoreCocktails))
                     }
                 }
