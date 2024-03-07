@@ -41,8 +41,8 @@ class CocktailsViewController: UIViewController {
     private func printData(_ category: CocktailsByCategory) {
         let categoryName = category.category.name
         let cocktailsCount = category.cocktails.count
-        let formatedString = String(format: "CATEGORY: %@  COUNT OF COCKTAILS ARE: %d", arguments: [categoryName, cocktailsCount])
-        print(formatedString)
+        let resultFormatedString = String(format: "CATEGORY: %@  COUNT OF COCKTAILS ARE: %d", arguments: [categoryName, cocktailsCount])
+        print(resultFormatedString)
     }
     
     private func loadFirstCategory() {
