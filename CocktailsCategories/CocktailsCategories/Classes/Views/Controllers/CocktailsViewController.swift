@@ -16,19 +16,16 @@ class CocktailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setupView()
+        self.setupViews()
         self.loadFirstCategory()
     }
     
     // MARK: Methods
     
-    private func setupView() {
+    private func setupViews() {
         self.view.backgroundColor = .yellow
         self.title = "Hello !!!"
-        self.setupButton()
-    }
-    
-    private func setupButton() {
+        
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0.0, y: 0.0, width: 160.0, height: 60.0)
         button.center = self.view.center
@@ -41,56 +38,38 @@ class CocktailsViewController: UIViewController {
         self.view.addSubview(button)
     }
     
+    private func printData(_ category: CocktailsByCategory) {
+        let categoryName = category.category.name
+        let cocktailsCount = category.cocktails.count
+        print(categoryName, cocktailsCount)
+    }
+    
     private func loadFirstCategory() {
         self.cocktailsViewModel.loadFirstCategory(completion: { (result: Result<CocktailsByCategory, NetworkingError>) in
             switch result {
-               case .failure(NetworkingError.error(let error)):
-                  print(NetworkingError.error(error.localizedDescription as! Error))
-                case .failure(NetworkingError.wrongURL):
-                    print(NetworkingError.wrongURL)
-               case .failure(NetworkingError.invalidURL):
-                   print(NetworkingError.invalidURL)
-                case .failure(NetworkingError.invalidData):
-                    print(NetworkingError.invalidData)
-                case .failure(NetworkingError.invalidDecodedData):
-                    print(NetworkingError.invalidDecodedData)
-                case .failure(.invalidCategories):
-                    print(NetworkingError.invalidCategories)
-               case .failure(NetworkingError.invalidDrinks):
-                    print(NetworkingError.invalidDrinks)
-               case .failure(NetworkingError.invalidFirstCategory):
-                   print(NetworkingError.invalidFirstCategory)
-               case .failure(NetworkingError.noMoreCocktails):
+                case .success(let category):
+                    print("----Loaded first category----")
+                    self.printData(category)
+                case .failure(NetworkingError.noMoreCocktails):
                    print(NetworkingError.noMoreCocktails)
-                case .success(_):
-                  print("----Loaded first category----")
+                default:
+                    print("Unknown Error")
            }
         })
     }
     
     @objc private func getCocktailsDidTap(withSender sender: UIButton) {
-        self.cocktailsViewModel.loadNextCategory(withSender: sender, completion: { (result: Result<CocktailsByCategory, NetworkingError>) in
+        sender.isEnabled = false
+        self.cocktailsViewModel.loadNextCategory(completion: { (result: Result<CocktailsByCategory, NetworkingError>) in
             switch result {
-               case .failure(NetworkingError.error(let error)):
-                  print(NetworkingError.error(error.localizedDescription as! Error))
-                case .failure(NetworkingError.wrongURL):
-                    print(NetworkingError.wrongURL)
-               case .failure(NetworkingError.invalidURL):
-                   print(NetworkingError.invalidURL)
-                case .failure(NetworkingError.invalidData):
-                    print(NetworkingError.invalidData)
-                case .failure(NetworkingError.invalidDecodedData):
-                    print(NetworkingError.invalidDecodedData)
-                case .failure(.invalidCategories):
-                    print(NetworkingError.invalidCategories)
-               case .failure(NetworkingError.invalidDrinks):
-                    print(NetworkingError.invalidDrinks)
-               case .failure(NetworkingError.invalidFirstCategory):
-                   print(NetworkingError.invalidFirstCategory)
-               case .failure(NetworkingError.noMoreCocktails):
+                case .success(let category):
+                    sender.isEnabled = true
+                    print("----Loaded next category----")
+                    self.printData(category)
+                case .failure(NetworkingError.noMoreCocktails):
                    print(NetworkingError.noMoreCocktails)
-                case .success(_):
-                  print("----Loaded next category----")
+                default:
+                    print("Unknown Error")
            }
         })
     }
