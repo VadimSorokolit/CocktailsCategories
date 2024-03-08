@@ -25,13 +25,14 @@ class CocktailsViewModel {
     
     // MARK: - Properties
     
-    private var categories: [Category] = []
-    public var cocktailsByCategory = [CocktailsByCategory]()
+    private var AllCategories: [Category] = []
+    var loadedCocktailsByCategory: [CocktailsByCategory] = []
+    var filteredCocktailsByCategory: [CocktailsByCategory] = []
     
     // MARK: - Methods
     
     // Get all categories
-    private func getCategories(completion: @escaping (Result<[Category], NetworkingError>) -> Void) {
+    private func getAllCategories(completion: @escaping (Result<[Category], NetworkingError>) -> Void) {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "thecocktaildb.com"
@@ -112,13 +113,13 @@ class CocktailsViewModel {
     
     // Get first category
     func loadFirstCategory(completion: @escaping (Result<CocktailsByCategory, NetworkingError>) -> Void) {
-        self.getCategories(completion: { (result: Result<[Category], NetworkingError>) -> Void in
+        self.getAllCategories(completion: { (result: Result<[Category], NetworkingError>) -> Void in
             switch result {
                 case .failure(let error):
                     completion(.failure(error))
                 case .success(let categories):
-                    self.categories = categories
-                    guard let firstCategory = self.categories.first else {
+                    self.AllCategories = categories
+                    guard let firstCategory = self.AllCategories.first else {
                         completion(.failure(NetworkingError.emptyFirstCategory))
                         return
                     }
@@ -128,8 +129,9 @@ class CocktailsViewModel {
                                 completion(.failure(error))
                             case .success(let drinks):
                                 let newCategory = CocktailsByCategory(category: firstCategory, cocktails: drinks)
+                                self.loadedCocktailsByCategory.append(newCategory)
+                                self.filteredCocktailsByCategory.append(newCategory)
                                 completion(.success(newCategory))
-                                self.cocktailsByCategory.append(newCategory)
                         }
                     })
             }
@@ -138,19 +140,20 @@ class CocktailsViewModel {
     
     // Get next category
     func loadNextCategory(completion: @escaping (Result<CocktailsByCategory, NetworkingError>) -> Void) {
-        let nextIndex = self.cocktailsByCategory.count
-        let isNextCategoryExist = self.categories.indices.contains(nextIndex)
+        let nextIndex = self.loadedCocktailsByCategory.count
+        let isNextCategoryExist = self.AllCategories.indices.contains(nextIndex)
         
         if isNextCategoryExist {
-            let nextCategory = self.categories[nextIndex]
+            let nextCategory = self.AllCategories[nextIndex]
             self.getCoctails(by: nextCategory.name, completion: { (result: Result<[Cocktail], NetworkingError>) in
                 switch result {
                     case .failure(let error):
                         completion(.failure(error))
                     case .success(let drinks):
                         let newCategory = CocktailsByCategory(category: nextCategory, cocktails: drinks)
+                        self.loadedCocktailsByCategory.append(newCategory)
+                        self.filteredCocktailsByCategory.append(newCategory)
                         completion(.success(newCategory))
-                        self.cocktailsByCategory.append(newCategory)
                 }
             })
         } else {
