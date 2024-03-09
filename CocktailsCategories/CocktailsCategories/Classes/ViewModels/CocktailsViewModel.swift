@@ -26,8 +26,8 @@ class CocktailsViewModel {
     // MARK: - Properties
     
     private var allCategories: [Category] = []
-    var loadedCocktailsByCategory: [CocktailsByCategory] = []
-    var filteredCocktailsByCategory: [CocktailsByCategory] = []
+    var loadedCategories: [CocktailsByCategory] = []
+    var filteredCategories: [CocktailsByCategory] = []
     
     // MARK: - Methods
     
@@ -129,8 +129,8 @@ class CocktailsViewModel {
                                 completion(.failure(error))
                             case .success(let drinks):
                                 let newCategory = CocktailsByCategory(category: firstCategory, cocktails: drinks)
-                                self.loadedCocktailsByCategory.append(newCategory)
-                                self.filteredCocktailsByCategory.append(newCategory)
+                                self.loadedCategories.append(newCategory)
+                                self.filteredCategories.append(newCategory)
                                 completion(.success(newCategory))
                         }
                     })
@@ -140,7 +140,7 @@ class CocktailsViewModel {
     
     // Get next category
     func loadNextCategory(completion: @escaping (Result<CocktailsByCategory, NetworkingError>) -> Void) {
-        let nextIndex = self.loadedCocktailsByCategory.count
+        let nextIndex = self.loadedCategories.count
         let isNextCategoryExist = self.allCategories.indices.contains(nextIndex)
         
         if isNextCategoryExist {
@@ -151,8 +151,8 @@ class CocktailsViewModel {
                         completion(.failure(error))
                     case .success(let drinks):
                         let newCategory = CocktailsByCategory(category: nextCategory, cocktails: drinks)
-                        self.loadedCocktailsByCategory.append(newCategory)
-                        self.filteredCocktailsByCategory.append(newCategory)
+                        self.loadedCategories.append(newCategory)
+                        self.filteredCategories.append(newCategory)
                         completion(.success(newCategory))
                 }
             })
@@ -160,5 +160,28 @@ class CocktailsViewModel {
             completion(.failure(NetworkingError.noMoreCocktails))
         }
     }
+    
+    //Get filtered categories
+    func filterByIndices(_ indices: [Int]) {
+        var existIndeces: [Int] = []
+        for index in indices {
+            if self.loadedCategories.indices.contains(index) {
+                existIndeces.append(index)
+            }
+        }
+        self.filteredCategories = existIndeces.map { self.loadedCategories[$0] }
+        self.printFilteredCategories(self.filteredCategories)
+    }
+    
+    //Print filtered categories
+    private func printFilteredCategories(_ categories: [CocktailsByCategory]) {
+        for category in categories {
+            let categoryName = category.category.name
+            let cocktailsCount = category.cocktails.count
+            let resultFormatedString = String(format: "CATEGORY: %@  COUNT OF COCKTAILS ARE: %d", arguments: [categoryName, cocktailsCount])
+            print(resultFormatedString)
+        }
+    }
+
     
 }

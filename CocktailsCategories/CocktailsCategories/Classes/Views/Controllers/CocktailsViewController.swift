@@ -11,8 +11,9 @@ class CocktailsViewController: UIViewController, UITextFieldDelegate {
     
     let cocktailsViewModel = CocktailsViewModel()
     
-    private lazy var nameTextField: UITextField = {
-        let inputTextField = UITextField(frame:CGRectMake(116.5, 200.0, 160.0, 60.0))
+    private lazy var inputTextField: UITextField = {
+        let inputTextField = UITextField()
+        inputTextField.frame = CGRectMake(116.5, 200.0, 160.0, 60.0)
         inputTextField.backgroundColor = .green
         inputTextField.layer.cornerRadius = 12.0
         inputTextField.textColor = .black
@@ -23,6 +24,31 @@ class CocktailsViewController: UIViewController, UITextFieldDelegate {
         inputTextField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 20, height: 40))
         inputTextField.leftViewMode = .always
         return inputTextField
+    }()
+    
+    private lazy var loadNextButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.frame = CGRect(x: 0.0, y: 0.0, width: 160.0, height: 60.0)
+        button.center = self.view.center
+        button.backgroundColor = .blue
+        button.tintColor = .white
+        button.layer.cornerRadius = 12.0
+        button.layer.masksToBounds = true
+        button.setTitle("Get cocktails", for: .normal)
+        button.addTarget(self, action: #selector(self.buttonDidTap), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var applyButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.frame = CGRect(x: 116.5, y: 600.0, width: 160.0, height: 60.0)
+        button.backgroundColor = .red
+        button.layer.cornerRadius = 12.0
+        button.tintColor = .white
+        button.layer.masksToBounds = true
+        button.setTitle("Apply filter", for: .normal)
+        button.addTarget(self, action: #selector(self.appleButtonDidTap), for: .touchUpInside)
+        return button
     }()
     
     // Load first cocktails on Start!
@@ -40,29 +66,9 @@ class CocktailsViewController: UIViewController, UITextFieldDelegate {
         self.view.backgroundColor = .yellow
         self.title = "Hello !!!"
         
-        self.view.addSubview(nameTextField)
-        
-        let button = UIButton(type: .system)
-        button.frame = CGRect(x: 0.0, y: 0.0, width: 160.0, height: 60.0)
-        button.center = self.view.center
-        button.backgroundColor = .blue
-        button.tintColor = .white
-        button.layer.cornerRadius = 12.0
-        button.layer.masksToBounds = true
-        button.setTitle("Get cocktails", for: .normal)
-        button.addTarget(self, action: #selector(self.getCocktailsDidTap), for: .touchUpInside)
-        self.view.addSubview(button)
-        
-        let applyButton = UIButton(type: .system)
-        applyButton.frame = CGRect(x: 116.5, y: 600.0, width: 160.0, height: 60.0)
-        applyButton.backgroundColor = .red
-        applyButton.layer.cornerRadius = 12.0
-        applyButton.tintColor = .white
-        applyButton.layer.masksToBounds = true
-        applyButton.setTitle("Apply filter", for: .normal)
-        applyButton.addTarget(self, action: #selector(self.getFilteredCocktailsDidTap), for: .touchUpInside)
-        self.view.addSubview(applyButton)
-        
+        self.view.addSubview(self.inputTextField)
+        self.view.addSubview(self.loadNextButton)
+        self.view.addSubview(self.applyButton)
     }
     
     private func printData(_ category: CocktailsByCategory) {
@@ -71,14 +77,6 @@ class CocktailsViewController: UIViewController, UITextFieldDelegate {
         let resultFormatedString = String(format: "CATEGORY: %@  COUNT OF COCKTAILS ARE: %d", arguments: [categoryName, cocktailsCount])
         print(resultFormatedString)
     }
-    
-    private func printFilteredCategory(_ category: CocktailsByCategory) {
-            let categoryName = category.category.name
-            let cocktailsCount = category.cocktails.count
-            let resultFormatedString = String(format: "CATEGORY: %@  COUNT OF COCKTAILS ARE: %d", arguments: [categoryName, cocktailsCount])
-            print(resultFormatedString)
-    }
-    
     
     private func loadFirstCategory() {
         self.cocktailsViewModel.loadFirstCategory(completion: { (result: Result<CocktailsByCategory, NetworkingError>) in
@@ -111,36 +109,19 @@ class CocktailsViewController: UIViewController, UITextFieldDelegate {
         })
     }
     
-    @objc private func getCocktailsDidTap(withSender sender: UIButton) {
+    @objc private func buttonDidTap(withSender sender: UIButton) {
         sender.isEnabled = false
-        loadNextCagegory(withSender: sender)
+        self.loadNextCagegory(withSender: sender)
     }
     
-    @objc private func showFilteredCocktailsDidTap(_ text: UITextField) {
-        var intNumbers: [String] = []
-        var myNumbers: [Int] = []
-        if nameTextField.hasText {
-            if let string = nameTextField.text {
-                let intString = "1234567890"
-                for character in string {
-                    if intString.contains(character) {
-                        intNumbers.append(String(character))
-                    }
-                }
-                let numbers = Array(Set(intNumbers))
-                myNumbers = numbers.compactMap { Int($0) }
-            }
-        } else {
-            print("Plese input number cocktail categories")
+    @objc private func appleButtonDidTap(_ textField: UITextField) {
+        guard let text = self.inputTextField.text, let number = Int(text) else {
+            print("Please input number cocktail categories")
+            return
         }
-        for number in myNumbers {
-            if number >= 1 {
-                let index = number - 1
-            let filteredCategory = self.cocktailsViewModel.filteredCocktailsByCategory[index]
-                printFilteredCategory(filteredCategory)
-            }
-        }
-
+        let categoryIndices = Array(Set(text.compactMap { Int(String($0)) })).sorted()
+        print("FILTERED CATEGORIES ARE:")
+        self.cocktailsViewModel.filterByIndices(categoryIndices)
     }
 }
 
