@@ -35,7 +35,7 @@ class CocktailsViewController: UIViewController, UITextFieldDelegate {
         button.layer.cornerRadius = 12.0
         button.layer.masksToBounds = true
         button.setTitle("Get cocktails", for: .normal)
-        button.addTarget(self, action: #selector(self.buttonDidTap), for: .touchUpInside)
+        button.addTarget(self, action: #selector(self.loadNextButtonDidTap), for: .touchUpInside)
         return button
     }()
     
@@ -78,6 +78,15 @@ class CocktailsViewController: UIViewController, UITextFieldDelegate {
         print(resultFormatedString)
     }
     
+    private func printFilteredCategories(_ categories: [CocktailsByCategory]) {
+        for category in categories {
+            let categoryName = category.category.name
+            let cocktailsCount = category.cocktails.count
+            let resultFormatedString = String(format: "CATEGORY: %@  COUNT OF COCKTAILS ARE: %d", arguments: [categoryName, cocktailsCount])
+            print(resultFormatedString)
+        }
+    }
+    
     private func loadFirstCategory() {
         self.cocktailsViewModel.loadFirstCategory(completion: { (result: Result<CocktailsByCategory, NetworkingError>) in
             switch result {
@@ -85,43 +94,61 @@ class CocktailsViewController: UIViewController, UITextFieldDelegate {
                     print("----Loaded first category----")
                     self.printData(category)
                 case .failure(NetworkingError.noMoreCocktails):
-                   print(NetworkingError.noMoreCocktails)
+                    print(NetworkingError.noMoreCocktails)
                 default:
                     print("Unknown Error")
-           }
+            }
         })
     }
     
-    private func loadNextCagegory(withSender sender: UIButton) {
+    private func loadNextCagegory(completion: @escaping (_ completed: Bool) -> Void) {
         self.cocktailsViewModel.loadNextCategory(completion: { (result: Result<CocktailsByCategory, NetworkingError>) in
             switch result {
                 case .success(let category):
                     print("----Loaded next category----")
                     self.printData(category)
-                    DispatchQueue.main.async(execute: {
-                        sender.isEnabled = true
-                    })
+                    completion(true)
                 case .failure(NetworkingError.noMoreCocktails):
-                   print(NetworkingError.noMoreCocktails)
+                    print(NetworkingError.noMoreCocktails)
+                    completion(false)
                 default:
                     print("Unknown Error")
-           }
+                    completion(false)
+            }
         })
     }
     
-    @objc private func buttonDidTap(withSender sender: UIButton) {
-        sender.isEnabled = false
-        self.loadNextCagegory(withSender: sender)
-    }
-    
-    @objc private func appleButtonDidTap(_ textField: UITextField) {
+    private func getfilteredCagegories() {
         guard let text = self.inputTextField.text, let number = Int(text) else {
             print("Please input number cocktail categories")
             return
         }
-        let categoryIndices = Array(Set(text.compactMap { Int(String($0)) })).sorted()
-        print("FILTERED CATEGORIES ARE:")
-        self.cocktailsViewModel.filterByIndices(categoryIndices)
+        let numbers = String(number).compactMap({ Int(String($0)) })
+        let categoryIndices = Array(Set(numbers)).sorted()
+        self.cocktailsViewModel.filterByIndices(categoryIndices, completion: { notExistCategories in
+            if notExistCategories.isEmpty {
+                self.printFilteredCategories(self.cocktailsViewModel.filteredCategories)
+            } else {
+                print("Wasn't load categories: \(notExistCategories)")
+                self.printFilteredCategories(self.cocktailsViewModel.filteredCategories)
+            }
+        })
     }
+    
+    @objc private func loadNextButtonDidTap(withSender sender: UIButton) {
+        sender.isEnabled = false
+        self.loadNextCagegory(completion: { completed in
+            if completed {
+                DispatchQueue.main.async(execute: {
+                    sender.isEnabled = true
+                })
+            }
+        })
+    }
+    
+    @objc private func appleButtonDidTap(_ textField: UITextField) {
+        self.getfilteredCagegories()
+    }
+    
 }
 

@@ -72,7 +72,7 @@ class CocktailsViewModel {
     }
     
     // Get Cocktails List by Category
-    private func getCoctails(by categoryName: String, completion: @escaping (Result<[Cocktail], NetworkingError>) -> Void) {
+    private func getCocktails(by categoryName: String, completion: @escaping (Result<[Cocktail], NetworkingError>) -> Void) {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "thecocktaildb.com"
@@ -123,7 +123,7 @@ class CocktailsViewModel {
                         completion(.failure(NetworkingError.emptyFirstCategory))
                         return
                     }
-                    self.getCoctails(by: firstCategory.name, completion: { (result: Result<[Cocktail], NetworkingError>) -> Void in
+                    self.getCocktails(by: firstCategory.name, completion: { (result: Result<[Cocktail], NetworkingError>) -> Void in
                         switch result {
                             case .failure(let error):
                                 completion(.failure(error))
@@ -145,7 +145,7 @@ class CocktailsViewModel {
         
         if isNextCategoryExist {
             let nextCategory = self.allCategories[nextIndex]
-            self.getCoctails(by: nextCategory.name, completion: { (result: Result<[Cocktail], NetworkingError>) in
+            self.getCocktails(by: nextCategory.name, completion: { (result: Result<[Cocktail], NetworkingError>) in
                 switch result {
                     case .failure(let error):
                         completion(.failure(error))
@@ -161,27 +161,19 @@ class CocktailsViewModel {
         }
     }
     
-    //Get filtered categories
-    func filterByIndices(_ indices: [Int]) {
-        var existIndeces: [Int] = []
+    // Get filtered categories
+    func filterByIndices(_ indices: [Int], completion: ([Int]) -> Void) {
+        self.filteredCategories.removeAll()
+        var notExistedIndices: [Int] = []
         for index in indices {
             if self.loadedCategories.indices.contains(index) {
-                existIndeces.append(index)
+                let loadedCategory = self.loadedCategories[index]
+                self.filteredCategories.append(loadedCategory)
+            } else {
+                notExistedIndices.append(index)
             }
         }
-        self.filteredCategories = existIndeces.map { self.loadedCategories[$0] }
-        self.printFilteredCategories(self.filteredCategories)
+        completion(notExistedIndices)
     }
-    
-    //Print filtered categories
-    private func printFilteredCategories(_ categories: [CocktailsByCategory]) {
-        for category in categories {
-            let categoryName = category.category.name
-            let cocktailsCount = category.cocktails.count
-            let resultFormatedString = String(format: "CATEGORY: %@  COUNT OF COCKTAILS ARE: %d", arguments: [categoryName, cocktailsCount])
-            print(resultFormatedString)
-        }
-    }
-
     
 }
