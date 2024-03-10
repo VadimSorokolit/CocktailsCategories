@@ -162,7 +162,7 @@ class CocktailsViewModel {
     }
     
     // Get filtered categories
-    func filterByIndices(_ indices: [Int], completion: ([Int]) -> Void) {
+    func filterCagegoriesByIndices(byIndices indices: [Int], completion: ([Int]) -> Void) {
         self.filteredCategories.removeAll()
         var notExistedIndices: [Int] = []
         for index in indices {

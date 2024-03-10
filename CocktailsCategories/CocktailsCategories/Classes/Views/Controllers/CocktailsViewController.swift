@@ -9,7 +9,7 @@ import UIKit
 
 class CocktailsViewController: UIViewController, UITextFieldDelegate {
     
-    let cocktailsViewModel = CocktailsViewModel()
+    private let cocktailsViewModel = CocktailsViewModel()
     
     private lazy var inputTextField: UITextField = {
         let inputTextField = UITextField()
@@ -18,7 +18,7 @@ class CocktailsViewController: UIViewController, UITextFieldDelegate {
         inputTextField.layer.cornerRadius = 12.0
         inputTextField.textColor = .black
         inputTextField.layer.masksToBounds = true
-        inputTextField.font = .boldSystemFont(ofSize: 10.0)
+        inputTextField.font = .boldSystemFont(ofSize: 17.0)
         inputTextField.delegate = self
         inputTextField.placeholder = "Input categories to show"
         inputTextField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 20, height: 40))
@@ -47,7 +47,7 @@ class CocktailsViewController: UIViewController, UITextFieldDelegate {
         button.tintColor = .white
         button.layer.masksToBounds = true
         button.setTitle("Apply filter", for: .normal)
-        button.addTarget(self, action: #selector(self.appleButtonDidTap), for: .touchUpInside)
+        button.addTarget(self, action: #selector(self.applyButtonDidTap), for: .touchUpInside)
         return button
     }()
     
@@ -78,7 +78,7 @@ class CocktailsViewController: UIViewController, UITextFieldDelegate {
         print(resultFormatedString)
     }
     
-    private func printFilteredCategories(_ categories: [CocktailsByCategory]) {
+    private func printCategories(_ categories: [CocktailsByCategory]) {
         for category in categories {
             let categoryName = category.category.name
             let cocktailsCount = category.cocktails.count
@@ -88,7 +88,7 @@ class CocktailsViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func loadFirstCategory() {
-        self.cocktailsViewModel.loadFirstCategory(completion: { (result: Result<CocktailsByCategory, NetworkingError>) in
+        self.cocktailsViewModel.loadFirstCategory(completion: { (result: Result<CocktailsByCategory, NetworkingError>) -> Void in
             switch result {
                 case .success(let category):
                     print("----Loaded first category----")
@@ -101,53 +101,53 @@ class CocktailsViewController: UIViewController, UITextFieldDelegate {
         })
     }
     
-    private func loadNextCagegory(completion: @escaping (_ completed: Bool) -> Void) {
-        self.cocktailsViewModel.loadNextCategory(completion: { (result: Result<CocktailsByCategory, NetworkingError>) in
+    private func loadNextCagegory(completion: @escaping () -> Void) {
+        self.cocktailsViewModel.loadNextCategory(completion: { (result: Result<CocktailsByCategory, NetworkingError>) -> Void in
             switch result {
                 case .success(let category):
                     print("----Loaded next category----")
                     self.printData(category)
-                    completion(true)
+                    completion()
                 case .failure(NetworkingError.noMoreCocktails):
                     print(NetworkingError.noMoreCocktails)
-                    completion(false)
                 default:
                     print("Unknown Error")
-                    completion(false)
             }
         })
     }
     
-    private func getfilteredCagegories() {
-        guard let text = self.inputTextField.text, let number = Int(text) else {
-            print("Please input number cocktail categories")
+    private func filterCagegories() {
+        guard let text = self.inputTextField.text else {
+            print("Please input number")
             return
         }
-        let numbers = String(number).compactMap({ Int(String($0)) })
+        guard let number = Int(text) else {
+            print("Please input number")
+            return
+        }
+        let characterNumbers = Array(text)
+        let numbers = characterNumbers.compactMap { Int(String($0)) }
         let categoryIndices = Array(Set(numbers)).sorted()
-        self.cocktailsViewModel.filterByIndices(categoryIndices, completion: { notExistCategories in
-            if notExistCategories.isEmpty {
-                self.printFilteredCategories(self.cocktailsViewModel.filteredCategories)
-            } else {
+        
+        self.cocktailsViewModel.filterCagegoriesByIndices(byIndices: categoryIndices, completion: { (notExistCategories: [Int]) -> Void in
+            if !notExistCategories.isEmpty {
                 print("Wasn't load categories: \(notExistCategories)")
-                self.printFilteredCategories(self.cocktailsViewModel.filteredCategories)
             }
+            self.printCategories(self.cocktailsViewModel.filteredCategories)
         })
     }
     
     @objc private func loadNextButtonDidTap(withSender sender: UIButton) {
         sender.isEnabled = false
-        self.loadNextCagegory(completion: { completed in
-            if completed {
-                DispatchQueue.main.async(execute: {
-                    sender.isEnabled = true
-                })
-            }
+        self.loadNextCagegory(completion: { () -> Void in
+            DispatchQueue.main.async(execute: { () -> Void in
+                sender.isEnabled = true
+            })
         })
     }
     
-    @objc private func appleButtonDidTap(_ textField: UITextField) {
-        self.getfilteredCagegories()
+    @objc private func applyButtonDidTap(_ textField: UITextField) {
+        self.filterCagegories()
     }
     
 }
