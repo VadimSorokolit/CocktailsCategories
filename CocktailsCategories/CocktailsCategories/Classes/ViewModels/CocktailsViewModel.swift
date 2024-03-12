@@ -161,19 +161,23 @@ class CocktailsViewModel {
         }
     }
     
-    // Get filtered categories
-    func filterCagegoriesByIndices(byIndices indices: [Int], completion: ([Int]) -> Void) {
+    // Filter categories
+    func filterCagegories(by stringNumber: String, completion: ([Int]) -> Void) {
+        let characterNumbers = Array(stringNumber)
+        let numbers = characterNumbers.compactMap({ Int(String($0)) })
+        let indices = Array(Set(numbers)).sorted()
         self.filteredCategories.removeAll()
-        var notExistedIndices: [Int] = []
+        var notExistIndices: [Int] = []
+        
         for index in indices {
             if self.loadedCategories.indices.contains(index) {
                 let loadedCategory = self.loadedCategories[index]
                 self.filteredCategories.append(loadedCategory)
             } else {
-                notExistedIndices.append(index)
+                notExistIndices.append(index)
             }
         }
-        completion(notExistedIndices)
+        completion(notExistIndices)
     }
     
 }

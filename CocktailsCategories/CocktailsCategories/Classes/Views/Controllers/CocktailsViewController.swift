@@ -70,14 +70,7 @@ class CocktailsViewController: UIViewController, UITextFieldDelegate {
         self.view.addSubview(self.loadNextButton)
         self.view.addSubview(self.applyButton)
     }
-    
-    private func printData(_ category: CocktailsByCategory) {
-        let categoryName = category.category.name
-        let cocktailsCount = category.cocktails.count
-        let resultFormatedString = String(format: "CATEGORY: %@  COUNT OF COCKTAILS ARE: %d", arguments: [categoryName, cocktailsCount])
-        print(resultFormatedString)
-    }
-    
+
     private func printCategories(_ categories: [CocktailsByCategory]) {
         for category in categories {
             let categoryName = category.category.name
@@ -92,7 +85,7 @@ class CocktailsViewController: UIViewController, UITextFieldDelegate {
             switch result {
                 case .success(let category):
                     print("----Loaded first category----")
-                    self.printData(category)
+                    self.printCategories([category])
                 case .failure(NetworkingError.noMoreCocktails):
                     print(NetworkingError.noMoreCocktails)
                 default:
@@ -106,7 +99,7 @@ class CocktailsViewController: UIViewController, UITextFieldDelegate {
             switch result {
                 case .success(let category):
                     print("----Loaded next category----")
-                    self.printData(category)
+                    self.printCategories([category])
                     completion()
                 case .failure(NetworkingError.noMoreCocktails):
                     print(NetworkingError.noMoreCocktails)
@@ -117,23 +110,18 @@ class CocktailsViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func filterCagegories() {
-        guard let text = self.inputTextField.text else {
+        guard let text = self.inputTextField.text, Int(text) != nil else {
             print("Please input number")
             return
         }
-        guard let number = Int(text) else {
-            print("Please input number")
-            return
-        }
-        let characterNumbers = Array(text)
-        let numbers = characterNumbers.compactMap { Int(String($0)) }
-        let categoryIndices = Array(Set(numbers)).sorted()
+        let stringNumber = text
         
-        self.cocktailsViewModel.filterCagegoriesByIndices(byIndices: categoryIndices, completion: { (notExistCategories: [Int]) -> Void in
-            if !notExistCategories.isEmpty {
-                print("Wasn't load categories: \(notExistCategories)")
+        self.cocktailsViewModel.filterCagegories(by: stringNumber, completion: { (notExistIndices: [Int]) -> Void in
+            if !notExistIndices.isEmpty {
+                print("Wasn't load categories by indices: \(notExistIndices)")
             }
-            self.printCategories(self.cocktailsViewModel.filteredCategories)
+            let categories = self.cocktailsViewModel.filteredCategories
+            self.printCategories(categories)
         })
     }
     
