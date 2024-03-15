@@ -11,6 +11,7 @@ enum NetworkingError: Error {
     case invalidURL
     case invalidDecoding
     case invalidData
+    case responseError
     case emptyFirstCategory
     case noMoreCocktails
     case error(Error)
@@ -54,6 +55,12 @@ class CocktailsViewModel {
                 completion(.failure(NetworkingError.error(error)))
                 return
             }
+            if let response = (response as? HTTPURLResponse), (200...299).contains(response.statusCode) {
+                print("Success with status code: \(response.statusCode)")
+            } else {
+                completion(.failure(NetworkingError.responseError))
+                return
+            }
             guard let data = data else {
                 completion(.failure(NetworkingError.invalidData))
                 return
@@ -92,6 +99,12 @@ class CocktailsViewModel {
         URLSession.shared.dataTask(with: url, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
             if let error {
                 completion(Result.failure(NetworkingError.error(error)))
+                return
+            }
+            if let response = (response as? HTTPURLResponse), (200...299).contains(response.statusCode) {
+                print("Success with status code: \(response.statusCode)")
+            } else {
+                completion(.failure(NetworkingError.responseError))
                 return
             }
             guard let data = data else {
@@ -162,8 +175,8 @@ class CocktailsViewModel {
     }
     
     // Filter categories
-    func filterCagegories(by stringNumber: String, completion: ([Int]) -> Void) {
-        let characterNumbers = Array(stringNumber)
+    func filterCagegories(by text: String, completion: ([Int]) -> Void) {
+        let characterNumbers = Array(text)
         let numbers = characterNumbers.compactMap({ Int(String($0)) })
         let indices = Array(Set(numbers)).sorted()
         self.filteredCategories.removeAll()

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD1066992BA377A500C34563 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1066982BA377A500C34563 /* CategoriesViewController.swift */; };
 		DD30A82B2B87765600D9C842 /* CocktailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD30A82A2B87765600D9C842 /* CocktailsViewModel.swift */; };
 		DD30A82D2B8782AE00D9C842 /* CoctailsCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD30A82C2B8782AE00D9C842 /* CoctailsCategoryModel.swift */; };
 		DD30A82F2B87842B00D9C842 /* CoctailsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD30A82E2B87842B00D9C842 /* CoctailsListModel.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DD1066982BA377A500C34563 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		DD30A82A2B87765600D9C842 /* CocktailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailsViewModel.swift; sourceTree = "<group>"; };
 		DD30A82C2B8782AE00D9C842 /* CoctailsCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoctailsCategoryModel.swift; sourceTree = "<group>"; };
 		DD30A82E2B87842B00D9C842 /* CoctailsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoctailsListModel.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				DD4BB63A2B8696240076A34F /* CocktailsViewController.swift */,
+				DD1066982BA377A500C34563 /* CategoriesViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				DD30A82B2B87765600D9C842 /* CocktailsViewModel.swift in Sources */,
 				DD4BB6372B8696240076A34F /* AppDelegate.swift in Sources */,
 				DD4BB6392B8696240076A34F /* SceneDelegate.swift in Sources */,
+				DD1066992BA377A500C34563 /* CategoriesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
