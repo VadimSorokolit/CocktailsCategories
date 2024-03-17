@@ -16,6 +16,7 @@
 		DD4BB63B2B8696240076A34F /* CocktailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB63A2B8696240076A34F /* CocktailsViewController.swift */; };
 		DD4BB6402B8696250076A34F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD4BB63F2B8696250076A34F /* Assets.xcassets */; };
 		DD4BB6432B8696250076A34F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD4BB6412B8696250076A34F /* LaunchScreen.storyboard */; };
+		DDC0B6292BA750AF0005BE73 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC0B6282BA750AF0005BE73 /* FilterCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		DD4BB63F2B8696250076A34F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DD4BB6422B8696250076A34F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DD4BB6442B8696250076A34F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DDC0B6282BA750AF0005BE73 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 		DD4BB64C2B8698230076A34F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				DDC0B6272BA7507F0005BE73 /* Cells */,
 				DD4BB6502B86989B0076A34F /* Controllers */,
 			);
 			path = Views;
@@ -162,6 +165,14 @@
 			children = (
 			);
 			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		DDC0B6272BA7507F0005BE73 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				DDC0B6282BA750AF0005BE73 /* FilterCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,6 +250,7 @@
 				DD4BB63B2B8696240076A34F /* CocktailsViewController.swift in Sources */,
 				DD30A82B2B87765600D9C842 /* CocktailsViewModel.swift in Sources */,
 				DD4BB6372B8696240076A34F /* AppDelegate.swift in Sources */,
+				DDC0B6292BA750AF0005BE73 /* FilterCell.swift in Sources */,
 				DD4BB6392B8696240076A34F /* SceneDelegate.swift in Sources */,
 				DD1066992BA377A500C34563 /* CategoriesViewController.swift in Sources */,
 			);
