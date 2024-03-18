@@ -20,6 +20,8 @@ class CategoriesViewController: UIViewController, UITableViewDelegate, UITableVi
         let tableView = UITableView()
         tableView.register(FilterCell.self, forCellReuseIdentifier: FilterCell.reuseID)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.delegate = self
+        tableView.dataSource = self
 //        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
 //        tableView.backgroundColor = .beige
 //        tableView.separatorStyle = .none
@@ -42,12 +44,7 @@ class CategoriesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
         self.setupNavBar()
-       
-       
-
     }
     
     override func viewDidLayoutSubviews() {
