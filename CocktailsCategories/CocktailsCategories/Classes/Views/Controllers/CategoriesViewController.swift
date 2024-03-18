@@ -2,23 +2,31 @@
 //  CategoriesViewController.swift
 //  CocktailsCategories
 //
-//  Created by Vadim  on 14.03.2024.
+//  Created by Vadim on 14.03.2024.
 //
 
 import UIKit
 
-class CategoriesViewController: UIViewController {
+class CategoriesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-//    let cocktailsViewModel: CocktailsViewModel
-//    
-//    init(viewModel: CocktailsViewModel) {
-//        self.cocktailsViewModel = viewModel
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+    private var viewModel: CocktailsViewModel!
+    
+    convenience init(viewModel: CocktailsViewModel) {
+        self.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
+    }  
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(FilterCell.self, forCellReuseIdentifier: FilterCell.reuseID)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+//        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+//        tableView.backgroundColor = .beige
+//        tableView.separatorStyle = .none
+     
+        return tableView
+    }()
+    
     private lazy var applyFiltersButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Apply Filters", for: .normal)
@@ -34,12 +42,22 @@ class CategoriesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.view.backgroundColor = .yellow
+        tableView.delegate = self
+        tableView.dataSource = self
+        self.view.backgroundColor = .red
         self.setupNavBar()
+       
         self.view.addSubview(applyFiltersButton)
         self.setupLayout()
+        tableView.frame = view.bounds
 
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.separatorColor = .orange
+//        tableView.backgroundColor = .red
+        self.view.addSubview(tableView)
     }
     
     private func setupNavBar() {
@@ -60,7 +78,24 @@ class CategoriesViewController: UIViewController {
         view.addConstraint(bottomConstraint)
         
     }
-    
 
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+       return 6
+  
+    }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseID, for: indexPath)
+//        let view = UIView()
+//        view.backgroundColor = .gray
+//        cell.selectedBackgroundView = view
+//        cell.backgroundColor = .blue
+//        let category = viewModel.loadedCategories[indexPath.row]
+//        cell.configureCell(with: category.category.name)
+        return cell
+    }
+    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 50
+//    }
 }
