@@ -44,20 +44,20 @@ class CategoriesViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        self.view.backgroundColor = .red
         self.setupNavBar()
        
-        self.view.addSubview(applyFiltersButton)
-        self.setupLayout()
-        tableView.frame = view.bounds
+       
 
     }
     
     override func viewDidLayoutSubviews() {
+        tableView.frame = view.bounds
         super.viewDidLayoutSubviews()
-        tableView.separatorColor = .orange
+        tableView.separatorColor = .black
 //        tableView.backgroundColor = .red
         self.view.addSubview(tableView)
+        self.view.addSubview(applyFiltersButton)
+        self.setupLayout()
     }
     
     private func setupNavBar() {
