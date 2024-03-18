@@ -7,25 +7,29 @@
 
 import UIKit
 
-class CategoriesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CategoriesViewController: UIViewController {
     
-    private var viewModel: CocktailsViewModel!
+    private let viewModel: CocktailsViewModel
     
-    convenience init(viewModel: CocktailsViewModel) {
-        self.init(nibName: nil, bundle: nil)
+    required init(viewModel: CocktailsViewModel) {
         self.viewModel = viewModel
-    }  
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(FilterCell.self, forCellReuseIdentifier: FilterCell.reuseID)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.delegate = self
+//        tableView.delegate = self
         tableView.dataSource = self
-//        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
-//        tableView.backgroundColor = .beige
-//        tableView.separatorStyle = .none
-     
+        //        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+        //        tableView.backgroundColor = .beige
+        //        tableView.separatorStyle = .none
+        
         return tableView
     }()
     
@@ -44,16 +48,18 @@ class CategoriesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.setupNavBar()
+        self.view.addSubview(tableView)
+        self.view.addSubview(applyFiltersButton)
     }
     
     override func viewDidLayoutSubviews() {
-        tableView.frame = view.bounds
         super.viewDidLayoutSubviews()
+        
         tableView.separatorColor = .black
-//        tableView.backgroundColor = .red
-        self.view.addSubview(tableView)
-        self.view.addSubview(applyFiltersButton)
+        tableView.frame = view.bounds
+        //        tableView.backgroundColor = .red
         self.setupLayout()
     }
     
@@ -68,31 +74,40 @@ class CategoriesViewController: UIViewController, UITableViewDelegate, UITableVi
         let rightConstraint = NSLayoutConstraint(item: self.applyFiltersButton, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1.0, constant: -32.0)
         let bottomConstraint = NSLayoutConstraint(item: self.applyFiltersButton, attribute: .bottom, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1.0, constant: -5.0)
         bottomConstraint.isActive = true
-        let heightConstraint = self.applyFiltersButton.heightAnchor.constraint(equalToConstant: 50) 
+        let heightConstraint = self.applyFiltersButton.heightAnchor.constraint(equalToConstant: 50)
         heightConstraint.isActive = true
         view.addConstraint(leftConstraint)
         view.addConstraint(rightConstraint)
         view.addConstraint(bottomConstraint)
         
     }
+    
+}
 
+// MARK: - table view delegate
+
+extension CategoriesViewController: UITableViewDelegate {
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        
+//    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 30.0
+    }
+}
+// MARK: - table view data source
+
+extension CategoriesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return 6
-  
+        return self.viewModel.loadedCategories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseID, for: indexPath)
-//        let view = UIView()
-//        view.backgroundColor = .gray
-//        cell.selectedBackgroundView = view
-//        cell.backgroundColor = .blue
-//        let category = viewModel.loadedCategories[indexPath.row]
-//        cell.configureCell(with: category.category.name)
+        let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseID, for: indexPath) as! FilterCell
+        let category = viewModel.loadedCategories[indexPath.row]
+        cell.configureCell(with: category)
         return cell
     }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 50
-//    }
 }
+    
+

@@ -10,16 +10,16 @@ import UIKit
 class CocktailsViewController: UIViewController {
     
     
-     let cocktailsViewModel = CocktailsViewModel()
-//
-//    init(viewModel: CocktailsViewModel) {
-//        self.cocktailsViewModel = viewModel
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+    private let cocktailsViewModel: CocktailsViewModel
+
+    required init(cocktailsViewModel: CocktailsViewModel) {
+        self.cocktailsViewModel = cocktailsViewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
 //    private lazy var inputTextField: UITextField = {
 //        let inputTextField = UITextField()
@@ -105,7 +105,7 @@ class CocktailsViewController: UIViewController {
     }
     
     @objc private func goToFiltersVC() {
-        let filtersVC = CategoriesViewController()
+        let filtersVC = CategoriesViewController(viewModel: cocktailsViewModel)
         self.navigationController?.pushViewController(filtersVC, animated: false)
     }
     

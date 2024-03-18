@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             let navController = UINavigationController()
-            let viewController = CocktailsViewController()
+            let viewController = CocktailsViewController(cocktailsViewModel: CocktailsViewModel())
             navController.viewControllers = [viewController]
             window.rootViewController = navController
             self.window = window
