@@ -19,7 +19,7 @@ class FilterCell: UITableViewCell {
         return outputLabel
     }()
     
-    private lazy var chevronImageView: UIImageView = {
+    private lazy var checkMark: UIImageView = {
         let outputView = UIImageView()
         outputView.translatesAutoresizingMaskIntoConstraints = false
         outputView.image = UIImage(systemName: "checkmark")
@@ -43,7 +43,7 @@ class FilterCell: UITableViewCell {
     
     private func setupViews() {
         contentView.addSubview(nameLabel)
-        contentView.addSubview(chevronImageView)
+        contentView.addSubview(checkMark)
     }
     
     private func setupLayout() {
@@ -52,10 +52,10 @@ class FilterCell: UITableViewCell {
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
             
-            chevronImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            chevronImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            chevronImageView.widthAnchor.constraint(equalToConstant: 20),
-            chevronImageView.heightAnchor.constraint(equalToConstant: 20),
+            checkMark.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            checkMark.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            checkMark.widthAnchor.constraint(equalToConstant: 20),
+            checkMark.heightAnchor.constraint(equalToConstant: 20),
         ])
     }
     
