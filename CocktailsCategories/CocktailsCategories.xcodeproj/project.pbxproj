@@ -16,6 +16,7 @@
 		DD4BB63B2B8696240076A34F /* CocktailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB63A2B8696240076A34F /* CocktailsViewController.swift */; };
 		DD4BB6402B8696250076A34F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD4BB63F2B8696250076A34F /* Assets.xcassets */; };
 		DD4BB6432B8696250076A34F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD4BB6412B8696250076A34F /* LaunchScreen.storyboard */; };
+		DDAA8D822BAB736900CABE0F /* Constans.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAA8D812BAB736900CABE0F /* Constans.swift */; };
 		DDC0B6292BA750AF0005BE73 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC0B6282BA750AF0005BE73 /* FilterCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		DD4BB63F2B8696250076A34F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DD4BB6422B8696250076A34F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DD4BB6442B8696250076A34F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DDAA8D812BAB736900CABE0F /* Constans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constans.swift; sourceTree = "<group>"; };
 		DDC0B6282BA750AF0005BE73 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,9 +68,10 @@
 			children = (
 				DD4BB64A2B8697E60076A34F /* Classes */,
 				DD4BB6512B8699470076A34F /* Resources */,
+				DDAA8D802BAB729000CABE0F /* Constans */,
 				DD4BB6542B8699F20076A34F /* SupportingFiles */,
-				DD4BB6382B8696240076A34F /* SceneDelegate.swift */,
 				DD4BB6362B8696240076A34F /* AppDelegate.swift */,
+				DD4BB6382B8696240076A34F /* SceneDelegate.swift */,
 				DD4BB63F2B8696250076A34F /* Assets.xcassets */,
 				DD4BB6412B8696250076A34F /* LaunchScreen.storyboard */,
 				DD4BB6442B8696250076A34F /* Info.plist */,
@@ -167,6 +170,14 @@
 			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
+		DDAA8D802BAB729000CABE0F /* Constans */ = {
+			isa = PBXGroup;
+			children = (
+				DDAA8D812BAB736900CABE0F /* Constans.swift */,
+			);
+			path = Constans;
+			sourceTree = "<group>";
+		};
 		DDC0B6272BA7507F0005BE73 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,6 +258,7 @@
 			files = (
 				DD30A82D2B8782AE00D9C842 /* CoctailsCategoryModel.swift in Sources */,
 				DD30A82F2B87842B00D9C842 /* CoctailsListModel.swift in Sources */,
+				DDAA8D822BAB736900CABE0F /* Constans.swift in Sources */,
 				DD4BB63B2B8696240076A34F /* CocktailsViewController.swift in Sources */,
 				DD30A82B2B87765600D9C842 /* CocktailsViewModel.swift in Sources */,
 				DD4BB6372B8696240076A34F /* AppDelegate.swift in Sources */,

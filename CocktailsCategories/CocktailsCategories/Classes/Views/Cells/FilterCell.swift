@@ -2,7 +2,7 @@
 //  FilterCell.swift
 //  CocktailsCategories
 //
-//  Created by Vadim  on 17.03.2024.
+//  Created by Vadim on 17.03.2024.
 //
 
 import UIKit
@@ -10,20 +10,11 @@ import UIKit
 class FilterCell: UITableViewCell {
     static let reuseID = "FilterCell"
     
-    private lazy var mainView: UIView = {
-        let outputView = UIView()
-        outputView.translatesAutoresizingMaskIntoConstraints = false
-        outputView.backgroundColor = .white
-        outputView.layer.cornerRadius = 8
-        outputView.layer.masksToBounds = true
-        return outputView
-    }()
-    
     private lazy var nameLabel: UILabel = {
         let outputLabel = UILabel()
         outputLabel.translatesAutoresizingMaskIntoConstraints = false
         outputLabel.numberOfLines = 0
-        outputLabel.font = UIFont(name: "AvenirNext-DemiBold", size: 16)
+        outputLabel.font = Constants.cocktailCellFont
         outputLabel.textColor = .black
         return outputLabel
     }()
@@ -46,30 +37,25 @@ class FilterCell: UITableViewCell {
     }
     
     private func setup() {
-        contentView.backgroundColor = .white
+        setupViews()
         setupLayout()
     }
     
+    private func setupViews() {
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(chevronImageView)
+    }
+    
     private func setupLayout() {
-        contentView.addSubview(mainView)
-        mainView.addSubview(nameLabel)
-        mainView.addSubview(chevronImageView)
-        
         NSLayoutConstraint.activate([
-            mainView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            mainView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
-            mainView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            mainView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
             
-            nameLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 16),
-            nameLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
-            nameLabel.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -16),
-            
-            chevronImageView.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor),
-            chevronImageView.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 16),
-            chevronImageView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
-            chevronImageView.widthAnchor.constraint(equalToConstant: 30),
-            chevronImageView.heightAnchor.constraint(equalToConstant: 30),
+            chevronImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            chevronImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            chevronImageView.widthAnchor.constraint(equalToConstant: 20),
+            chevronImageView.heightAnchor.constraint(equalToConstant: 20),
         ])
     }
     
@@ -77,3 +63,5 @@ class FilterCell: UITableViewCell {
         nameLabel.text = category.category.name
     }
 }
+
+
