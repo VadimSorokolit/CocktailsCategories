@@ -26,7 +26,9 @@ class CategoriesViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
 //        tableView.delegate = self
         tableView.dataSource = self
-        //        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+    
+        
+
         //        tableView.backgroundColor = .beige
         //        tableView.separatorStyle = .none
         
@@ -48,17 +50,24 @@ class CategoriesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
         self.setupNavBar()
+        view.backgroundColor = .white
         self.view.addSubview(tableView)
+        tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+                tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+                tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
+                tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100.0).isActive = true
         self.view.addSubview(applyFiltersButton)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+   
         
-        tableView.separatorColor = .black
-        tableView.frame = view.bounds
+//        tableView.separatorColor = .black
+//        tableView.frame = view.bounds
         //        tableView.backgroundColor = .red
         self.setupLayout()
     }
