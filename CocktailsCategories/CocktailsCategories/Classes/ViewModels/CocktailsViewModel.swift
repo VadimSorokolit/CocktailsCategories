@@ -17,7 +17,7 @@ enum NetworkingError: Error {
     case error(Error)
 }
 
-struct CocktailsByCategory {
+struct CocktailsSection {
     let category: Category
     let cocktails: [Cocktail]
 }
@@ -27,8 +27,8 @@ class CocktailsViewModel {
     // MARK: - Properties
     
     private var allCategories: [Category] = []
-    var loadedCategories: [CocktailsByCategory] = []
-    var filteredCategories: [CocktailsByCategory] = []
+    var loadedCategories: [CocktailsSection] = []
+    var filteredCategories: [CocktailsSection] = []
     
     // MARK: - Methods
     
@@ -125,7 +125,7 @@ class CocktailsViewModel {
     }
     
     // Get first category
-    func loadFirstCategory(completion: @escaping (Result<CocktailsByCategory, NetworkingError>) -> Void) {
+    func loadFirstCategory(completion: @escaping (Result<CocktailsSection, NetworkingError>) -> Void) {
         self.getAllCategories(completion: { (result: Result<[Category], NetworkingError>) -> Void in
             switch result {
                 case .failure(let error):
@@ -141,7 +141,7 @@ class CocktailsViewModel {
                             case .failure(let error):
                                 completion(.failure(error))
                             case .success(let drinks):
-                                let newCategory = CocktailsByCategory(category: firstCategory, cocktails: drinks)
+                                let newCategory = CocktailsSection(category: firstCategory, cocktails: drinks)
                                 self.loadedCategories.append(newCategory)
                                 self.filteredCategories.append(newCategory)
                                 completion(.success(newCategory))
@@ -152,7 +152,7 @@ class CocktailsViewModel {
     }
     
     // Get next category
-    func loadNextCategory(completion: @escaping (Result<CocktailsByCategory, NetworkingError>) -> Void) {
+    func loadNextCategory(completion: @escaping (Result<CocktailsSection, NetworkingError>) -> Void) {
         let nextIndex = self.loadedCategories.count
         let isNextCategoryExist = self.allCategories.indices.contains(nextIndex)
         
@@ -163,7 +163,7 @@ class CocktailsViewModel {
                     case .failure(let error):
                         completion(.failure(error))
                     case .success(let drinks):
-                        let newCategory = CocktailsByCategory(category: nextCategory, cocktails: drinks)
+                        let newCategory = CocktailsSection(category: nextCategory, cocktails: drinks)
                         self.loadedCategories.append(newCategory)
                         self.filteredCategories.append(newCategory)
                         completion(.success(newCategory))

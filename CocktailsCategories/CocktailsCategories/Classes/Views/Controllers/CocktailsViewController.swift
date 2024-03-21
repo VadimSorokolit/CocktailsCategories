@@ -87,9 +87,9 @@ class CocktailsViewController: UIViewController {
     }
     
     private func setupFiltersBarButton() {
-        let badgeSideSize: CGFloat = 10
+        let badgeSideSize: CGFloat = 10.0
         
-        let badge = UIView(frame: CGRect(x: 17, y: -4, width: badgeSideSize, height: badgeSideSize))
+        let badge = UIView(frame: CGRect(x: 17.0, y: -4.0, width: badgeSideSize, height: badgeSideSize))
         badge.backgroundColor = .red
         badge.clipsToBounds = true
         badge.isHidden = false
@@ -106,10 +106,10 @@ class CocktailsViewController: UIViewController {
     
     @objc private func goToFiltersVC() {
         let filtersVC = CategoriesViewController(viewModel: cocktailsViewModel)
-        self.navigationController?.pushViewController(filtersVC, animated: false)
+        self.navigationController?.pushViewController(filtersVC, animated: true)
     }
     
-    private func printCategories(_ categories: [CocktailsByCategory]) {
+    private func printCategories(_ categories: [CocktailsSection]) {
         for category in categories {
             let categoryName = category.category.name
             let cocktailsCount = category.cocktails.count
@@ -119,7 +119,7 @@ class CocktailsViewController: UIViewController {
     }
     
     private func loadFirstCategory() {
-        self.cocktailsViewModel.loadFirstCategory(completion: { (result: Result<CocktailsByCategory, NetworkingError>) -> Void in
+        self.cocktailsViewModel.loadFirstCategory(completion: { (result: Result<CocktailsSection, NetworkingError>) -> Void in
             switch result {
                 case .success(let category):
                     print("----Loaded first category----")
@@ -133,7 +133,7 @@ class CocktailsViewController: UIViewController {
     }
     
     private func loadNextCagegory(completion: @escaping () -> Void) {
-        self.cocktailsViewModel.loadNextCategory(completion: { (result: Result<CocktailsByCategory, NetworkingError>) -> Void in
+        self.cocktailsViewModel.loadNextCategory(completion: { (result: Result<CocktailsSection, NetworkingError>) -> Void in
             switch result {
                 case .success(let category):
                     print("----Loaded next category----")

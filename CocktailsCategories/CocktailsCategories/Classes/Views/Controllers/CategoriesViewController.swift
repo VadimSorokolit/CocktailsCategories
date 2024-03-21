@@ -20,103 +20,89 @@ class CategoriesViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private lazy var applyFiltersButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Apply Filters", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16.0, weight: .bold)
+        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.gray, for: .disabled)
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 10.0
+        button.layer.masksToBounds = true
+        button.layer.borderWidth = 1.0
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(FilterCell.self, forCellReuseIdentifier: FilterCell.reuseID)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-//        tableView.delegate = self
+        // tableView.delegate = self
         tableView.dataSource = self
-    
-        
-
-        //        tableView.backgroundColor = .beige
-        //        tableView.separatorStyle = .none
-        
         return tableView
-    }()
-    
-    private lazy var applyFiltersButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Apply Filters", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        button.setTitleColor(.black, for: .normal)
-        button.setTitleColor(.gray, for: .disabled)
-        button.backgroundColor = .white
-        button.layer.cornerRadius = 10
-        button.layer.masksToBounds = true
-        button.layer.borderWidth = 1
-        return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
+        self.view.backgroundColor = .white
         self.setupNavBar()
-        view.backgroundColor = .white
-        self.view.addSubview(tableView)
-        tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
-                tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
-                tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
-                tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100.0).isActive = true
-        self.view.addSubview(applyFiltersButton)
+        self.view.addSubview(self.tableView)
+        self.view.addSubview(self.applyFiltersButton)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-   
         
-//        tableView.separatorColor = .black
-//        tableView.frame = view.bounds
-        //        tableView.backgroundColor = .red
         self.setupLayout()
     }
     
     private func setupNavBar() {
         navigationItem.title = NSLocalizedString("Filters", comment: "")
-        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.tintColor = .white
     }
     
     private func setupLayout() {
-        self.applyFiltersButton.translatesAutoresizingMaskIntoConstraints = false
-        let leftConstraint = NSLayoutConstraint(item: self.applyFiltersButton, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 32.0)
-        let rightConstraint = NSLayoutConstraint(item: self.applyFiltersButton, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1.0, constant: -32.0)
-        let bottomConstraint = NSLayoutConstraint(item: self.applyFiltersButton, attribute: .bottom, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1.0, constant: -5.0)
-        bottomConstraint.isActive = true
-        let heightConstraint = self.applyFiltersButton.heightAnchor.constraint(equalToConstant: 50)
-        heightConstraint.isActive = true
-        view.addConstraint(leftConstraint)
-        view.addConstraint(rightConstraint)
-        view.addConstraint(bottomConstraint)
-        
+        self.applyFiltersButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 32.0).isActive = true
+        self.applyFiltersButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -32).isActive = true
+        self.applyFiltersButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -32).isActive = true
+        self.applyFiltersButton.heightAnchor.constraint(equalToConstant: 50.0).isActive = true
+        self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0.0).isActive = true
+        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0.0).isActive = true
+        self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 0.0).isActive = true
+        self.tableView.bottomAnchor.constraint(equalTo: self.applyFiltersButton.topAnchor).isActive = true
     }
-    
 }
 
 // MARK: - table view delegate
 
 extension CategoriesViewController: UITableViewDelegate {
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 30.0
     }
 }
+
 // MARK: - table view data source
 
 extension CategoriesViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.loadedCategories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseID, for: indexPath) as! FilterCell
-        let category = viewModel.loadedCategories[indexPath.row]
+        let category = self.viewModel.loadedCategories[indexPath.row]
         cell.configureCell(with: category)
         return cell
     }
+    
 }
     
 
