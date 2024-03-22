@@ -53,14 +53,13 @@ class FilterCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             checkMark.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            checkMark.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
-            checkMark.widthAnchor.constraint(equalToConstant: 20.0),
-            checkMark.heightAnchor.constraint(equalToConstant: 20.0),
-            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            checkMark.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.defaultPadding),
+            checkMark.widthAnchor.constraint(equalToConstant: Constants.defaultPadding),
+            checkMark.heightAnchor.constraint(equalToConstant: Constants.defaultPadding),
+            
+            nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20.0),
-            nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            nameLabel.trailingAnchor.constraint(equalTo: checkMark.leadingAnchor),
-            nameLabel.heightAnchor.constraint(equalToConstant: 50.0)
+            nameLabel.trailingAnchor.constraint(equalTo: checkMark.leadingAnchor, constant: -Constants.defaultPadding),
         ])
     }
     

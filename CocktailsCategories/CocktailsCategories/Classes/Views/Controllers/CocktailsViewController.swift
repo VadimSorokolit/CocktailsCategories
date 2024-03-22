@@ -105,7 +105,7 @@ class CocktailsViewController: UIViewController {
     }
     
     @objc private func goToFiltersVC() {
-        let filtersVC = CategoriesViewController(viewModel: cocktailsViewModel)
+        let filtersVC = FiltersViewController(viewModel: cocktailsViewModel)
         self.navigationController?.pushViewController(filtersVC, animated: true)
     }
     

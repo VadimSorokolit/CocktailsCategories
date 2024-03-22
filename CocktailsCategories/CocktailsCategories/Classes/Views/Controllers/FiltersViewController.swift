@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CategoriesViewController: UIViewController {
+class FiltersViewController: UIViewController {
     
     private let viewModel: CocktailsViewModel
     
@@ -38,7 +38,7 @@ class CategoriesViewController: UIViewController {
         let tableView = UITableView()
         tableView.register(FilterCell.self, forCellReuseIdentifier: FilterCell.reuseID)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        // tableView.delegate = self
+        tableView.delegate = self
         tableView.dataSource = self
         return tableView
     }()
@@ -59,41 +59,43 @@ class CategoriesViewController: UIViewController {
     }
     
     private func setupNavBar() {
-        navigationItem.title = NSLocalizedString("Filters", comment: "")
-        navigationController?.navigationBar.tintColor = .white
+        self.navigationItem.title = NSLocalizedString("Filters", comment: "")
+        self.navigationController?.navigationBar.tintColor = .black
     }
     
     private func setupLayout() {
         self.applyFiltersButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 32.0).isActive = true
         self.applyFiltersButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -32).isActive = true
-        self.applyFiltersButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -32).isActive = true
         self.applyFiltersButton.heightAnchor.constraint(equalToConstant: 50.0).isActive = true
+        self.applyFiltersButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
+        
         self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0.0).isActive = true
-        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0.0).isActive = true
         self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 0.0).isActive = true
+        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0.0).isActive = true
         self.tableView.bottomAnchor.constraint(equalTo: self.applyFiltersButton.topAnchor).isActive = true
     }
 }
 
-// MARK: - table view delegate
+// MARK: - UITableViewDelegate
 
-extension CategoriesViewController: UITableViewDelegate {
+extension FiltersViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+//        print(indexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 30.0
+        return Constants.heightForRowAt
     }
 }
 
-// MARK: - table view data source
+// MARK: - UITableViewDataSource
 
-extension CategoriesViewController: UITableViewDataSource {
+extension FiltersViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.loadedCategories.count
+        let categoriesCount = self.viewModel.loadedCategories.count
+        return categoriesCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

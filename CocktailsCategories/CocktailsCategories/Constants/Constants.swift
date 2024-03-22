@@ -9,6 +9,8 @@ import UIKit
 
 struct Constants {
     
-    static let cocktailCellFont = UIFont(name: "AvenirNext-DemiBold", size: 16.0)
+    static let cocktailCellFont: UIFont? = UIFont(name: "AvenirNext-DemiBold", size: 16.0) ?? UIFont(name: "SF Compact", size: 16.0)
+    static let defaultPadding: CGFloat = 16.0
+    static let heightForRowAt: CGFloat = 50.0
     
 }
