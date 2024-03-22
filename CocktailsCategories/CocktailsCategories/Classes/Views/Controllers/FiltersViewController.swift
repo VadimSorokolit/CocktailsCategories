@@ -26,7 +26,7 @@ class FiltersViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16.0, weight: .bold)
         button.setTitleColor(.black, for: .normal)
         button.setTitleColor(.gray, for: .disabled)
-        button.backgroundColor = .white
+        button.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
         button.layer.cornerRadius = 10.0
         button.layer.masksToBounds = true
         button.layer.borderWidth = 1.0
@@ -46,7 +46,7 @@ class FiltersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
         self.setupNavBar()
         self.view.addSubview(self.tableView)
         self.view.addSubview(self.applyFiltersButton)
@@ -60,7 +60,7 @@ class FiltersViewController: UIViewController {
     
     private func setupNavBar() {
         self.navigationItem.title = NSLocalizedString("Filters", comment: "")
-        self.navigationController?.navigationBar.tintColor = .black
+        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
     }
     
     private func setupLayout() {
