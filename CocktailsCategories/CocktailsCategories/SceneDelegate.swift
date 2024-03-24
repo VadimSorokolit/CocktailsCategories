@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  CocktailsCategories
 //
-//  Created by Vadim  on 21.02.2024.
+//  Created by Vadym Sorokolit on 21.02.2024.
 //
 
 import UIKit

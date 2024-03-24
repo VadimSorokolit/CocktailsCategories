@@ -2,19 +2,19 @@
 //  FilterCell.swift
 //  CocktailsCategories
 //
-//  Created by Vadim on 17.03.2024.
+//  Created by Vadym Sorokolit on 17.03.2024.
 //
 
 import UIKit
 
 class FilterCell: UITableViewCell {
-    static let reuseID = "FilterCell"
+    static let reuseID = Constants.reuseIDName
     
     private lazy var checkMark: UIImageView = {
         let outputView = UIImageView()
         outputView.translatesAutoresizingMaskIntoConstraints = false
-        outputView.image = UIImage(systemName: "checkmark")
-        outputView.tintColor = .black
+        outputView.image = UIImage(systemName: Constants.imageName)
+        outputView.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         return outputView
     }()
     
@@ -23,7 +23,7 @@ class FilterCell: UITableViewCell {
         outputLabel.translatesAutoresizingMaskIntoConstraints = false
         outputLabel.numberOfLines = 1
         outputLabel.font = Constants.cocktailCellFont
-        outputLabel.textColor = .black
+        outputLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         return outputLabel
     }()
     
@@ -33,7 +33,7 @@ class FilterCell: UITableViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(Constants.fatalError)
     }
     
     private func setup() {
@@ -58,7 +58,7 @@ class FilterCell: UITableViewCell {
             checkMark.heightAnchor.constraint(equalToConstant: Constants.defaultPadding),
             
             nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20.0),
+            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingAnchor),
             nameLabel.trailingAnchor.constraint(equalTo: checkMark.leadingAnchor, constant: -Constants.defaultPadding),
         ])
     }
