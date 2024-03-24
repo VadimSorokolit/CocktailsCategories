@@ -94,7 +94,8 @@ class FiltersViewController: UIViewController {
 extension FiltersViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print(indexPath)
+        self.viewModel.setSelectedCategory(by: indexPath.row)
+        self.tableView.reloadRows(at: [indexPath], with: .none)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
