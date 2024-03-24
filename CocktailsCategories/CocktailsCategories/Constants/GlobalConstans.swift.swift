@@ -1,5 +1,5 @@
 //
-//  Constants.swift
+//  GlobalConstans.swift
 //  CocktailsCategories
 //
 //  Created by Vadym Sorokolit on 20.03.2024.
