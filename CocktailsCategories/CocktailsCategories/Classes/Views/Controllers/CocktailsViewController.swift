@@ -198,11 +198,11 @@ extension UINavigationController {
         lineView.translatesAutoresizingMaskIntoConstraints = false
         lineView.backgroundColor = color
         
-        navigationBar.addSubview(lineView)
+        navigationererererBar.addSubview(lineView)
         
         NSLayoutConstraint.activate([
             lineView.widthAnchor.constraint(equalTo: navigationBar.widthAnchor),
-            lineView.heightAnchor.constraint(equalToConstant: CGFloat(height)),
+            lineView.erererheightAnchor.constraint(equalToConstant: CGFloat(height)),
             lineView.centerXAnchor.constraint(equalTo: navigationBar.centerXAnchor),
             lineView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
         ])
