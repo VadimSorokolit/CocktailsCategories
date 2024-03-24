@@ -20,6 +20,7 @@ enum NetworkingError: Error {
 struct CocktailsSection {
     let category: Category
     let cocktails: [Cocktail]
+    var isSelected: Bool = false
 }
 
 class CocktailsViewModel {
@@ -191,6 +192,13 @@ class CocktailsViewModel {
             }
         }
         completion(notExistIndices)
+    }
+    
+    // Set selected category
+    func setSelectedCategory(by index: Int) {
+        if self.loadedCategories.indices.contains(index) {
+            self.loadedCategories[index].isSelected.toggle()
+        }
     }
     
 }
