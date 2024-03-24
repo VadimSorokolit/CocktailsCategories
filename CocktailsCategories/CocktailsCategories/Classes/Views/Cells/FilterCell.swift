@@ -8,22 +8,33 @@
 import UIKit
 
 class FilterCell: UITableViewCell {
-    static let reuseID = Constants.reuseIDName
+    
+    // MARK: Objects
+    
+    private struct LocalConstants {
+        static let imageName: String = "circle"
+        static let reuseIDName: String = "FilterCell"
+        static let defaultPadding: CGFloat = 16.0
+        static let labelLeadingAnchor: CGFloat = 20.0
+        static let labelNumberOfLines: Int = 1
+    }
+    
+    static let reuseID = LocalConstants.reuseIDName
     
     private lazy var checkMark: UIImageView = {
         let outputView = UIImageView()
         outputView.translatesAutoresizingMaskIntoConstraints = false
-        outputView.image = UIImage(systemName: Constants.imageName)
-        outputView.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        outputView.image = UIImage(systemName: LocalConstants.imageName)
+        outputView.tintColor = .white
         return outputView
     }()
     
     private lazy var nameLabel: UILabel = {
         let outputLabel = UILabel()
         outputLabel.translatesAutoresizingMaskIntoConstraints = false
-        outputLabel.numberOfLines = 1
-        outputLabel.font = Constants.cocktailCellFont
-        outputLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        outputLabel.numberOfLines = LocalConstants.labelNumberOfLines
+        outputLabel.font = GlobalConstants.cocktailCellFont
+        outputLabel.textColor = .black
         return outputLabel
     }()
     
@@ -33,7 +44,7 @@ class FilterCell: UITableViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError(Constants.fatalError)
+        fatalError(GlobalConstants.fatalError)
     }
     
     private func setup() {
@@ -53,19 +64,20 @@ class FilterCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             checkMark.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            checkMark.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.defaultPadding),
-            checkMark.widthAnchor.constraint(equalToConstant: Constants.defaultPadding),
-            checkMark.heightAnchor.constraint(equalToConstant: Constants.defaultPadding),
+            checkMark.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LocalConstants.defaultPadding),
+            checkMark.widthAnchor.constraint(equalToConstant: LocalConstants.defaultPadding),
+            checkMark.heightAnchor.constraint(equalToConstant: LocalConstants.defaultPadding),
             
             nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.labelLeadingAnchor),
-            nameLabel.trailingAnchor.constraint(equalTo: checkMark.leadingAnchor, constant: -Constants.defaultPadding),
+            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LocalConstants.labelLeadingAnchor),
+            nameLabel.trailingAnchor.constraint(equalTo: checkMark.leadingAnchor, constant: -LocalConstants.defaultPadding),
         ])
     }
     
     func configureCell(with section: CocktailsSection) {
         self.nameLabel.text = section.category.name
     }
+    
 }
 
 
