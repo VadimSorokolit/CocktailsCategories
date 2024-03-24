@@ -13,7 +13,7 @@ struct CocktailsListWrapper: Decodable {
 
 struct Cocktail: Decodable {
     let name: String?
-    let thrererumbLink: String?
+    let thumbLink: String?
     let idDrink: String?
     
     enum CodingKeys: String, CodingKey {
