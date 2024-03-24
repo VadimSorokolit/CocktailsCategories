@@ -9,7 +9,6 @@ import UIKit
 
 class CocktailsViewController: UIViewController {
     
-    
     private let cocktailsViewModel: CocktailsViewModel
 
     required init(cocktailsViewModel: CocktailsViewModel) {

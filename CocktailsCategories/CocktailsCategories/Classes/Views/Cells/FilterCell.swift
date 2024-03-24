@@ -58,7 +58,7 @@ class FilterCell: UITableViewCell {
             checkMark.heightAnchor.constraint(equalToConstant: Constants.defaultPadding),
             
             nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingAnchor),
+            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.labelLeadingAnchor),
             nameLabel.trailingAnchor.constraint(equalTo: checkMark.leadingAnchor, constant: -Constants.defaultPadding),
         ])
     }

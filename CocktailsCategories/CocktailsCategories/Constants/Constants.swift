@@ -13,7 +13,7 @@ struct Constants {
     static let titleLabelFont = UIFont.systemFont(ofSize: 16.0, weight: .bold)
     static let defaultPadding: CGFloat = 16.0
     static let heightForRowAt: CGFloat = 50.0
-    static let leadingAnchor: CGFloat = 20.0
+    static let labelLeadingAnchor: CGFloat = 20.0
     static let buttonCornerRadius: CGFloat = 10.0
     static let buttonBorderWidth: CGFloat = 1.0
     static let buttonHeightAnchor: CGFloat = 50
