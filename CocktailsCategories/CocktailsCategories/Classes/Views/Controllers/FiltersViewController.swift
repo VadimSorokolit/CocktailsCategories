@@ -20,6 +20,7 @@ class FiltersViewController: UIViewController {
         static let viewDefaultAnchor: CGFloat = 0.0
         static let safeAreaDefaultAnchor: CGFloat = 0.0
         static let applyFiltersButtonName: String = "Apply Filters"
+        static var isApplyFiltersButtonPressed: Bool = false
     }
     
     private let viewModel: CocktailsViewModel
@@ -77,7 +78,9 @@ class FiltersViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         if isMovingFromParent {
-            self.viewModel.resetFilters()
+            if LocalConstants.isApplyFiltersButtonPressed == false {
+                self.viewModel.resetFilters()
+            }
         }
     }
     
@@ -107,6 +110,7 @@ class FiltersViewController: UIViewController {
     }
     
     @objc private func goTococktailsVC() {
+        LocalConstants.isApplyFiltersButtonPressed = true
         self.navigationController?.popViewController(animated: true)
     }
     
