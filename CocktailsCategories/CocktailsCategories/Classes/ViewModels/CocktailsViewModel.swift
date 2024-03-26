@@ -203,10 +203,13 @@ class CocktailsViewModel {
     
     // On back button did tap
     func resetFilters() {
-        for index in self.loadedCategories.indices {
-            var category = self.loadedCategories
-            category[index].isSelected = false
+        self.filteredCategories.removeAll()
+        for section in self.loadedCategories {
+            var tempSection = section
+            tempSection.isSelected = false
+            self.filteredCategories.append(tempSection)
         }
+        self.loadedCategories = self.filteredCategories
     }
     
     // On "Apply filters" button did tap
