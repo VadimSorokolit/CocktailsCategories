@@ -73,6 +73,14 @@ class FiltersViewController: UIViewController {
         self.setupLayout()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if isMovingFromParent {
+            self.viewModel.resetFilters()
+        }
+    }
+    
     private func setupNavBar() {
         self.navigationItem.title = NSLocalizedString("Filters", comment: "")
         self.navigationController?.navigationBar.tintColor = .black
