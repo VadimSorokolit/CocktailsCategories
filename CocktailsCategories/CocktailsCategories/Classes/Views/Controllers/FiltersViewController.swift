@@ -44,6 +44,7 @@ class FiltersViewController: UIViewController {
         button.layer.masksToBounds = true
         button.layer.borderWidth = LocalConstants.buttonBorderWidth
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.isEnabled = false
         button.addTarget(self, action: #selector(self.goTococktailsVC), for: .touchUpInside)
         return button
     }()
@@ -89,6 +90,14 @@ class FiltersViewController: UIViewController {
         self.tableView.bottomAnchor.constraint(equalTo: self.applyFiltersButton.topAnchor).isActive = true
     }
     
+    private func applyFiltersButtonOnOff() {
+        if viewModel.filteredCategories.isEmpty {
+            self.applyFiltersButton.isEnabled = false
+        } else {
+            self.applyFiltersButton.isEnabled = true
+        }
+    }
+    
     @objc private func goTococktailsVC() {
         self.navigationController?.popViewController(animated: true)
     }
@@ -102,6 +111,9 @@ extension FiltersViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.viewModel.setSelectedCategory(by: indexPath.row)
         self.tableView.reloadRows(at: [indexPath], with: .none)
+        self.viewModel.applyFilters()
+        self.applyFiltersButtonOnOff()
+  
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

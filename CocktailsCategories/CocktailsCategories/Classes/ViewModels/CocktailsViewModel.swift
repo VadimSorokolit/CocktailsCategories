@@ -211,7 +211,7 @@ class CocktailsViewModel {
     
     // On "Apply filters" button did tap
     func applyFilters() {
-        let filteredCategories = self.loadedCategories.filter({ $0.isSelected })
+        self.filteredCategories = self.loadedCategories.filter({ $0.isSelected })
     }
     
 }
