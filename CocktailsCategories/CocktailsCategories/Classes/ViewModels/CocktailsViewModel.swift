@@ -201,4 +201,17 @@ class CocktailsViewModel {
         }
     }
     
+    // On back button did tap
+    func resetFilters() {
+        for index in self.loadedCategories.indices {
+            var category = self.loadedCategories
+            category[index].isSelected = false
+        }
+    }
+    
+    // On "Apply filters" button did tap
+    func applyFilters() {
+        let filteredCategories = self.loadedCategories.filter({ $0.isSelected })
+    }
+    
 }
