@@ -44,6 +44,7 @@ class FiltersViewController: UIViewController {
         button.layer.masksToBounds = true
         button.layer.borderWidth = LocalConstants.buttonBorderWidth
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(self.goTococktailsVC), for: .touchUpInside)
         return button
     }()
     
@@ -87,6 +88,11 @@ class FiltersViewController: UIViewController {
         self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: LocalConstants.viewDefaultAnchor).isActive = true
         self.tableView.bottomAnchor.constraint(equalTo: self.applyFiltersButton.topAnchor).isActive = true
     }
+    
+    @objc private func goTococktailsVC() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 }
 
 // MARK: - UITableViewDelegate
