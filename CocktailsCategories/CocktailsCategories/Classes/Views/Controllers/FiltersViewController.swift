@@ -14,7 +14,7 @@ class FiltersViewController: UIViewController {
     private struct LocalConstants {
         static let filterCellRowHigh: CGFloat = 50.0
         static let buttonCornerRadius: CGFloat = 10.0
-        static let buttonBorderWidth: CGFloat = 1.0
+        static let buttonBorderWidth: CGFloat = 2.0
         static let buttonHeightAnchor: CGFloat = 50.0
         static let buttonDefaultAnchor: CGFloat = 32.0
         static let viewDefaultAnchor: CGFloat = 0.0
@@ -41,6 +41,7 @@ class FiltersViewController: UIViewController {
         button.setTitleColor(.black, for: .normal)
         button.setTitleColor(.gray, for: .disabled)
         button.backgroundColor = .white
+        button.layer.borderColor = UIColor.gray.cgColor
         button.layer.cornerRadius = LocalConstants.buttonCornerRadius
         button.layer.masksToBounds = true
         button.layer.borderWidth = LocalConstants.buttonBorderWidth
@@ -136,22 +137,15 @@ extension FiltersViewController: UITableViewDelegate {
         }
         
         if self.viewModel.saveCategories != self.viewModel.tempCategories, self.viewModel.saveCategories != self.viewModel.filteredCategories, !self.viewModel.filteredCategories.isEmpty {
-                self.applyFiltersButton.isEnabled = true
-            }
-         else {
-            self.applyFiltersButton.isEnabled = false
-             self.viewModel.applyFilters()
-             
+            self.applyFiltersButton.layer.borderColor = UIColor.black.cgColor
+            self.applyFiltersButton.isEnabled = true
         }
-
+        else {
+            self.applyFiltersButton.layer.borderColor = UIColor.gray.cgColor
+            self.applyFiltersButton.isEnabled = false
+            self.viewModel.applyFilters()
+        }
         
-        
-    
- 
-       
-        
-
-  
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

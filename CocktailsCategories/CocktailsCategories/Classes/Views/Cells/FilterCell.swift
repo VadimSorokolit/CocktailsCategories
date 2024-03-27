@@ -14,7 +14,7 @@ class FilterCell: UITableViewCell {
     private struct LocalConstants {
         static let imageName: String = "circle"
         static let reuseIDName: String = "FilterCell"
-        static let defaultPadding: CGFloat = 16.0
+        static let defaultPadding: CGFloat = 20.0
         static let labelLeadingAnchor: CGFloat = 20.0
         static let labelNumberOfLines: Int = 1
     }
@@ -33,7 +33,7 @@ class FilterCell: UITableViewCell {
         let badgeSideSizeView: CGFloat = LocalConstants.defaultPadding
         let badgeView = UIView()
         badgeView.translatesAutoresizingMaskIntoConstraints = false
-        badgeView.backgroundColor = .red
+        badgeView.backgroundColor = GlobalConstants.badgeColor
         badgeView.clipsToBounds = true
         badgeView.layer.cornerRadius = badgeSideSizeView / 2
         return badgeView
