@@ -17,10 +17,14 @@ enum NetworkingError: Error {
     case error(Error)
 }
 
-struct CocktailsSection {
+struct CocktailsSection: Equatable {
+    static func == (lhs: CocktailsSection, rhs: CocktailsSection) -> Bool {
+        return lhs.category == rhs.category
+    }
     let category: Category
     let cocktails: [Cocktail]
     var isSelected: Bool = false
+    
 }
 
 class CocktailsViewModel {
@@ -30,6 +34,8 @@ class CocktailsViewModel {
     private var allCategories: [Category] = []
     var loadedCategories: [CocktailsSection] = []
     var filteredCategories: [CocktailsSection] = []
+    var tempCategories: [CocktailsSection] = []
+    var saveCategories: [CocktailsSection] = []
     
     // MARK: - Methods
     
@@ -203,6 +209,8 @@ class CocktailsViewModel {
     
     // On back button did tap
     func resetFilters() {
+        self.saveCategories.removeAll()
+        self.tempCategories.removeAll()
         self.filteredCategories.removeAll()
         for section in self.loadedCategories {
             var tempSection = section

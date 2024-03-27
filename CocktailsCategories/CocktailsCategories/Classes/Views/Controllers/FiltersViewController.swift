@@ -80,6 +80,9 @@ class FiltersViewController: UIViewController {
         if isMovingFromParent {
             if LocalConstants.isApplyFiltersButtonPressed == false {
                 self.viewModel.resetFilters()
+            } else {
+                self.viewModel.saveCategories = self.viewModel.tempCategories
+                self.viewModel.filteredCategories = self.viewModel.saveCategories
             }
         }
     }
@@ -102,11 +105,7 @@ class FiltersViewController: UIViewController {
     }
     
     private func applyFiltersButtonOnOff() {
-        if viewModel.filteredCategories.isEmpty {
-            self.applyFiltersButton.isEnabled = false
-        } else {
-            self.applyFiltersButton.isEnabled = true
-        }
+
     }
     
     @objc private func goTococktailsVC() {
@@ -123,8 +122,35 @@ extension FiltersViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.viewModel.setSelectedCategory(by: indexPath.row)
         self.tableView.reloadRows(at: [indexPath], with: .none)
-        self.viewModel.applyFilters()
-        self.applyFiltersButtonOnOff()
+        let category = self.viewModel.loadedCategories[indexPath.row]
+        if category.isSelected {
+            self.viewModel.applyFilters()
+            if !self.viewModel.tempCategories.contains(category) {
+                self.viewModel.tempCategories.append(category)
+            }
+        } else {
+            if self.viewModel.tempCategories.contains(category) {
+                self.viewModel.applyFilters()
+                self.viewModel.tempCategories = self.viewModel.tempCategories.filter(){$0 != category}
+            }
+        }
+        
+        if self.viewModel.saveCategories != self.viewModel.tempCategories, self.viewModel.saveCategories != self.viewModel.filteredCategories, !self.viewModel.filteredCategories.isEmpty {
+                self.applyFiltersButton.isEnabled = true
+            }
+         else {
+            self.applyFiltersButton.isEnabled = false
+             self.viewModel.applyFilters()
+             
+        }
+
+        
+        
+    
+ 
+       
+        
+
   
     }
     
