@@ -63,6 +63,7 @@ class FiltersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        LocalConstants.isApplyFiltersButtonPressed = false
         self.view.backgroundColor = .white
         self.setupNavBar()
         self.view.addSubview(self.tableView)
@@ -82,8 +83,7 @@ class FiltersViewController: UIViewController {
             if LocalConstants.isApplyFiltersButtonPressed == false {
                 self.viewModel.resetFilters()
             } else {
-                self.viewModel.saveCategories = self.viewModel.tempCategories
-                self.viewModel.filteredCategories = self.viewModel.saveCategories
+                self.viewModel.savedCategories = self.viewModel.filteredCategories.filter({ $0.isSelected })
             }
         }
     }
@@ -106,7 +106,21 @@ class FiltersViewController: UIViewController {
     }
     
     private func applyFiltersButtonOnOff() {
-
+        var counter = 0
+        for category in self.viewModel.filteredCategories {
+            if self.viewModel.savedCategories.contains(category) {
+                counter += 1
+            }
+        }
+        if self.viewModel.filteredCategories.count != counter {
+            self.applyFiltersButton.isEnabled = true
+        } else {
+            if self.viewModel.filteredCategories.isEmpty || self.viewModel.filteredCategories == self.viewModel.savedCategories {
+                self.applyFiltersButton.isEnabled = false
+            } else {
+                self.applyFiltersButton.isEnabled = true
+            }
+        }
     }
     
     @objc private func goTococktailsVC() {
@@ -123,29 +137,7 @@ extension FiltersViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.viewModel.setSelectedCategory(by: indexPath.row)
         self.tableView.reloadRows(at: [indexPath], with: .none)
-        let category = self.viewModel.loadedCategories[indexPath.row]
-        if category.isSelected {
-            self.viewModel.applyFilters()
-            if !self.viewModel.tempCategories.contains(category) {
-                self.viewModel.tempCategories.append(category)
-            }
-        } else {
-            if self.viewModel.tempCategories.contains(category) {
-                self.viewModel.applyFilters()
-                self.viewModel.tempCategories = self.viewModel.tempCategories.filter(){$0 != category}
-            }
-        }
-        
-        if self.viewModel.saveCategories != self.viewModel.tempCategories, self.viewModel.saveCategories != self.viewModel.filteredCategories, !self.viewModel.filteredCategories.isEmpty {
-            self.applyFiltersButton.layer.borderColor = UIColor.black.cgColor
-            self.applyFiltersButton.isEnabled = true
-        }
-        else {
-            self.applyFiltersButton.layer.borderColor = UIColor.gray.cgColor
-            self.applyFiltersButton.isEnabled = false
-            self.viewModel.applyFilters()
-        }
-        
+        self.applyFiltersButtonOnOff()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -35,7 +35,7 @@ class CocktailsViewModel {
     var loadedCategories: [CocktailsSection] = []
     var filteredCategories: [CocktailsSection] = []
     var tempCategories: [CocktailsSection] = []
-    var saveCategories: [CocktailsSection] = []
+    var savedCategories: [CocktailsSection] = []
     
     // MARK: - Methods
     
@@ -151,6 +151,7 @@ class CocktailsViewModel {
                                 let newCategory = CocktailsSection(category: firstCategory, cocktails: drinks)
                                 self.loadedCategories.append(newCategory)
                                 self.filteredCategories.append(newCategory)
+                                self.tempCategories.append(newCategory)
                                 completion(.success(newCategory))
                         }
                     })
@@ -173,6 +174,7 @@ class CocktailsViewModel {
                         let newCategory = CocktailsSection(category: nextCategory, cocktails: drinks)
                         self.loadedCategories.append(newCategory)
                         self.filteredCategories.append(newCategory)
+                        self.tempCategories.append(newCategory)
                         completion(.success(newCategory))
                 }
             })
@@ -204,20 +206,36 @@ class CocktailsViewModel {
     func setSelectedCategory(by index: Int) {
         if self.loadedCategories.indices.contains(index) {
             self.loadedCategories[index].isSelected.toggle()
+            self.applyFilters()
         }
     }
     
     // On back button did tap
     func resetFilters() {
-        self.saveCategories.removeAll()
-        self.tempCategories.removeAll()
-        self.filteredCategories.removeAll()
-        for section in self.loadedCategories {
-            var tempSection = section
-            tempSection.isSelected = false
-            self.filteredCategories.append(tempSection)
+        if savedCategories.isEmpty, !self.filteredCategories.isEmpty {
+            for section in self.loadedCategories {
+                var tempSection = section
+                tempSection.isSelected = false
+                self.savedCategories.append(tempSection)
+            }
+            self.loadedCategories = self.savedCategories
+            self.filteredCategories = tempCategories
+            self.savedCategories.removeAll()
+          } else {
+            self.tempCategories.removeAll()
+            for section in self.loadedCategories {
+                var tempSection = section
+                tempSection.isSelected = true
+                if self.savedCategories.contains(tempSection) {
+                    self.tempCategories.append(tempSection)
+                } else {
+                    tempSection.isSelected = false
+                    self.tempCategories.append(tempSection)
+                }
+            }
+            self.loadedCategories = tempCategories
+            self.applyFilters()
         }
-        self.loadedCategories = self.filteredCategories
     }
     
     // On "Apply filters" button did tap

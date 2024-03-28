@@ -14,7 +14,7 @@ class FilterCell: UITableViewCell {
     private struct LocalConstants {
         static let imageName: String = "circle"
         static let reuseIDName: String = "FilterCell"
-        static let defaultPadding: CGFloat = 20.0
+        static let defaultPadding: CGFloat = 12.0
         static let labelLeadingAnchor: CGFloat = 20.0
         static let labelNumberOfLines: Int = 1
     }
