@@ -49,7 +49,7 @@ class FiltersViewController: UIViewController {
         button.layer.borderWidth = LocalConstants.buttonBorderWidth
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isEnabled = false
-        button.addTarget(self, action: #selector(self.goTococktailsVC), for: .touchUpInside)
+        button.addTarget(self, action: #selector(self.onApplyFiltersButtonDidTap), for: .touchUpInside)
         return button
     }()
     
@@ -71,11 +71,9 @@ class FiltersViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-            if LocalConstants.isApplyFiltersButtonPressed == false {
-                self.viewModel.resetFilters()
-            } else {
-                self.viewModel.savedCategories = self.viewModel.filteredCategories.filter({ $0.isSelected })
-            }
+        if LocalConstants.isApplyFiltersButtonPressed == false {
+            self.viewModel.resetFilters()
+        }
     }
     
     private func setup() {
@@ -86,6 +84,7 @@ class FiltersViewController: UIViewController {
     
     private func setupViews() {
         self.view.backgroundColor = GlobalConstants.backgroundColor
+        LocalConstants.isApplyFiltersButtonPressed = false
         self.view.addSubview(self.tableView)
         self.view.addSubview(self.applyFiltersButton)
     }
@@ -107,27 +106,21 @@ class FiltersViewController: UIViewController {
         self.tableView.bottomAnchor.constraint(equalTo: self.applyFiltersButton.topAnchor).isActive = true
     }
     
-    private func applyFiltersButtonOnOff() {
-        var counter = 0
-        for category in self.viewModel.filteredCategories {
-            if self.viewModel.savedCategories.contains(category) {
-                counter += 1
-            }
-        }
-        if self.viewModel.filteredCategories.count != counter {
-            self.applyFiltersButton.isEnabled = true
-        } else {
-            if self.viewModel.filteredCategories.isEmpty || self.viewModel.filteredCategories == self.viewModel.savedCategories {
-                self.applyFiltersButton.isEnabled = false
-            } else {
-                self.applyFiltersButton.isEnabled = true
-            }
-        }
+    private func goToVC() {
+        self.navigationController?.popViewController(animated: true)
     }
     
-    @objc private func goTococktailsVC() {
+    private func setupApplyFiltersButton() {
+        if self.viewModel.isEnableButton == true {
+            self.applyFiltersButton.isEnabled = true
+        } else { self.applyFiltersButton.isEnabled = false
+        }
+    }
+
+    @objc private func onApplyFiltersButtonDidTap() {
         LocalConstants.isApplyFiltersButtonPressed = true
-        self.navigationController?.popViewController(animated: true)
+        self.viewModel.applyFilters()
+        self.goToVC()
     }
     
 }
@@ -139,7 +132,8 @@ extension FiltersViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.viewModel.setSelectedCategory(by: indexPath.row)
         self.tableView.reloadRows(at: [indexPath], with: .none)
-        self.applyFiltersButtonOnOff()
+        self.viewModel.updateApplyFiltersButton()
+        self.setupApplyFiltersButton()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

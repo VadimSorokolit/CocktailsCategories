@@ -36,6 +36,7 @@ class CocktailsViewModel {
     var filteredCategories: [CocktailsSection] = []
     var tempCategories: [CocktailsSection] = []
     var savedCategories: [CocktailsSection] = []
+    var isEnableButton: Bool = false
     
     // MARK: - Methods
     
@@ -206,11 +207,10 @@ class CocktailsViewModel {
     func setSelectedCategory(by index: Int) {
         if self.loadedCategories.indices.contains(index) {
             self.loadedCategories[index].isSelected.toggle()
-            self.applyFilters()
+            self.setupFilters()
         }
     }
     
-    // On back button did tap
     func resetFilters() {
         if savedCategories.isEmpty, !self.filteredCategories.isEmpty {
             for section in self.loadedCategories {
@@ -221,7 +221,7 @@ class CocktailsViewModel {
             self.loadedCategories = self.savedCategories
             self.filteredCategories = tempCategories
             self.savedCategories.removeAll()
-          } else {
+        } else {
             self.tempCategories.removeAll()
             for section in self.loadedCategories {
                 var tempSection = section
@@ -234,13 +234,34 @@ class CocktailsViewModel {
                 }
             }
             self.loadedCategories = tempCategories
-            self.applyFilters()
+            self.setupFilters()
         }
     }
     
-    // On "Apply filters" button did tap
-    func applyFilters() {
+    func setupFilters() {
         self.filteredCategories = self.loadedCategories.filter({ $0.isSelected })
+    }
+    
+    func applyFilters() {
+        self.savedCategories = self.filteredCategories.filter({ $0.isSelected })
+    }
+    
+    func updateApplyFiltersButton() {
+        var counter = 0
+        for category in self.filteredCategories {
+            if self.savedCategories.contains(category) {
+                counter += 1
+            }
+        }
+        if self.filteredCategories.count != counter {
+            isEnableButton = true
+        } else {
+            if self.filteredCategories.isEmpty || self.filteredCategories == self.savedCategories {
+                self.isEnableButton = false
+            } else {
+                self.isEnableButton = true
+            }
+        }
     }
     
 }
