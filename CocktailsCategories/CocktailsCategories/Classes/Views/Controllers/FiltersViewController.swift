@@ -12,14 +12,16 @@ class FiltersViewController: UIViewController {
     // MARK: Objects
     
     private struct LocalConstants {
-        static let filterCellRowHigh: CGFloat = 50.0
         static let buttonCornerRadius: CGFloat = 10.0
         static let buttonBorderWidth: CGFloat = 2.0
         static let buttonHeightAnchor: CGFloat = 50.0
         static let buttonDefaultAnchor: CGFloat = 32.0
         static let viewDefaultAnchor: CGFloat = 0.0
         static let safeAreaDefaultAnchor: CGFloat = 0.0
-        static let applyFiltersButtonName: String = "Apply Filters"
+        static let buttonName: String = "Apply Filters"
+        static let buttonIsEnableTintColor: UIColor = UIColor(hexString: "808080")
+        static let buttonIsDisableTintColor: UIColor = UIColor(hexString: "d3d3d3")
+        static let buttonBorderColor: UIColor = UIColor(hexString: "808080")
         static var isApplyFiltersButtonPressed: Bool = false
     }
     
@@ -36,12 +38,12 @@ class FiltersViewController: UIViewController {
     
     private lazy var applyFiltersButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle(LocalConstants.applyFiltersButtonName, for: .normal)
+        button.setTitle(LocalConstants.buttonName, for: .normal)
         button.titleLabel?.font = GlobalConstants.titleLabelFont
-        button.setTitleColor(.black, for: .normal)
-        button.setTitleColor(.gray, for: .disabled)
-        button.backgroundColor = .white
-        button.layer.borderColor = UIColor.gray.cgColor
+        button.setTitleColor(LocalConstants.buttonIsEnableTintColor, for: .normal)
+        button.setTitleColor(LocalConstants.buttonIsDisableTintColor, for: .disabled)
+        button.backgroundColor = GlobalConstants.backgroundColor
+        button.layer.borderColor = LocalConstants.buttonBorderColor.cgColor
         button.layer.cornerRadius = LocalConstants.buttonCornerRadius
         button.layer.masksToBounds = true
         button.layer.borderWidth = LocalConstants.buttonBorderWidth
@@ -63,34 +65,34 @@ class FiltersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        LocalConstants.isApplyFiltersButtonPressed = false
-        self.view.backgroundColor = .white
-        self.setupNavBar()
-        self.view.addSubview(self.tableView)
-        self.view.addSubview(self.applyFiltersButton)
+        self.setup()
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        self.setupLayout()
-    }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if isMovingFromParent {
             if LocalConstants.isApplyFiltersButtonPressed == false {
                 self.viewModel.resetFilters()
             } else {
                 self.viewModel.savedCategories = self.viewModel.filteredCategories.filter({ $0.isSelected })
             }
-        }
+    }
+    
+    private func setup() {
+        self.setupViews()
+        self.setupNavBar()
+        self.setupLayout()
+    }
+    
+    private func setupViews() {
+        self.view.backgroundColor = GlobalConstants.backgroundColor
+        self.view.addSubview(self.tableView)
+        self.view.addSubview(self.applyFiltersButton)
     }
     
     private func setupNavBar() {
         self.navigationItem.title = NSLocalizedString("Filters", comment: "")
-        self.navigationController?.navigationBar.tintColor = .black
+        self.navigationController?.navigationBar.tintColor = GlobalConstants.navigationBarTintColor
     }
     
     private func setupLayout() {
@@ -141,7 +143,7 @@ extension FiltersViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return LocalConstants.filterCellRowHigh
+        return GlobalConstants.filterCellRowHigh
     }
 }
 

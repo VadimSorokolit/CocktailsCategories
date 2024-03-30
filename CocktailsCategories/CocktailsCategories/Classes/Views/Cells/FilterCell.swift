@@ -44,7 +44,7 @@ class FilterCell: UITableViewCell {
         outputLabel.translatesAutoresizingMaskIntoConstraints = false
         outputLabel.numberOfLines = LocalConstants.labelNumberOfLines
         outputLabel.font = GlobalConstants.cocktailCellFont
-        outputLabel.textColor = .black
+        outputLabel.textColor = GlobalConstants.textColor
         return outputLabel
     }()
     
@@ -72,11 +72,12 @@ class FilterCell: UITableViewCell {
         let contentView = self.contentView
         let nameLabel = self.nameLabel
         let badge = self.badge
-//        let checkMark = self.checkMark
+        
+        let badgeTrailingAnchor = (-GlobalConstants.filterCellRowHigh / 2) + (LocalConstants.defaultPadding / 2)
         
         NSLayoutConstraint.activate([
             badge.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            badge.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LocalConstants.defaultPadding),
+            badge.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: badgeTrailingAnchor),
             badge.widthAnchor.constraint(equalToConstant: LocalConstants.defaultPadding),
             badge.heightAnchor.constraint(equalToConstant: LocalConstants.defaultPadding),
 //            checkMark.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
