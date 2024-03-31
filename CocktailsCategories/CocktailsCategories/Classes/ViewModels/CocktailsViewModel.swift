@@ -18,12 +18,14 @@ enum NetworkingError: Error {
 }
 
 struct CocktailsSection: Equatable {
-    static func == (lhs: CocktailsSection, rhs: CocktailsSection) -> Bool {
-        return lhs.category == rhs.category
-    }
+
     let category: Category
     let cocktails: [Cocktail]
     var isSelected: Bool = false
+    
+    static func == (lhs: CocktailsSection, rhs: CocktailsSection) -> Bool {
+        return lhs.category == rhs.category
+    }
     
 }
 
