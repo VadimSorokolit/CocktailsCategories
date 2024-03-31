@@ -14,9 +14,7 @@ class FilterCell: UITableViewCell {
     private struct LocalConstants {
         static let imageName: String = "circle"
         static let reuseIDName: String = "FilterCell"
-        static let defaultPadding: CGFloat = 12.0
         static let labelLeadingAnchor: CGFloat = 20.0
-        static let badgeTrailingAnchor: CGFloat = 16.0
         static let labelNumberOfLines: Int = 1
     }
     
@@ -33,7 +31,7 @@ class FilterCell: UITableViewCell {
 //    }()
     
     private lazy var badge: UIView = {
-        let badgeSideSizeView: CGFloat = LocalConstants.defaultPadding
+        let badgeSideSizeView: CGFloat = GlobalConstants.defaultPadding
         let badgeView = UIView()
         badgeView.translatesAutoresizingMaskIntoConstraints = false
         badgeView.backgroundColor = GlobalConstants.badgeColor
@@ -80,9 +78,9 @@ class FilterCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             badge.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            badge.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LocalConstants.badgeTrailingAnchor),
-            badge.widthAnchor.constraint(equalToConstant: LocalConstants.defaultPadding),
-            badge.heightAnchor.constraint(equalToConstant: LocalConstants.defaultPadding),
+            badge.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -GlobalConstants.defaultPadding),
+            badge.widthAnchor.constraint(equalToConstant: GlobalConstants.defaultPadding),
+            badge.heightAnchor.constraint(equalToConstant: GlobalConstants.defaultPadding),
 //            checkMark.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
 //            checkMark.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LocalConstants.defaultPadding),
 //            checkMark.widthAnchor.constraint(equalToConstant: LocalConstants.defaultPadding),
@@ -91,7 +89,7 @@ class FilterCell: UITableViewCell {
             nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LocalConstants.labelLeadingAnchor),
 //            nameLabel.trailingAnchor.constraint(equalTo: checkMark.leadingAnchor, constant: -LocalConstants.defaultPadding),
-            nameLabel.trailingAnchor.constraint(equalTo: badge.leadingAnchor, constant: -LocalConstants.defaultPadding),
+            nameLabel.trailingAnchor.constraint(equalTo: badge.leadingAnchor, constant: -GlobalConstants.defaultPadding),
         ])
     }
     

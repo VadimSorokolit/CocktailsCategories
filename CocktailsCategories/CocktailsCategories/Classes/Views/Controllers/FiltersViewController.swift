@@ -17,7 +17,7 @@ class FiltersViewController: UIViewController {
         static let buttonHeightAnchor: CGFloat = 50.0
         static let buttonDefaultAnchor: CGFloat = 32.0
         static let viewDefaultAnchor: CGFloat = 0.0
-        static let safeAreaDefaultAnchor: CGFloat = 0.0
+        static let safeAreaDefaultAnchor: CGFloat = 16.0
         static let buttonName: String = "Apply Filters"
         static let buttonIsEnableTintColor: UIColor = UIColor(hexString: "000000")
         static let buttonIsDisableTintColor: UIColor = UIColor(hexString: "808080")
@@ -105,7 +105,7 @@ class FiltersViewController: UIViewController {
         self.applyFiltersButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: LocalConstants.buttonDefaultAnchor).isActive = true
         self.applyFiltersButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -LocalConstants.buttonDefaultAnchor).isActive = true
         self.applyFiltersButton.heightAnchor.constraint(equalToConstant: LocalConstants.buttonHeightAnchor).isActive = true
-        self.applyFiltersButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: LocalConstants.safeAreaDefaultAnchor).isActive = true
+        self.applyFiltersButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -LocalConstants.safeAreaDefaultAnchor).isActive = true
         
         self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: LocalConstants.viewDefaultAnchor).isActive = true
         self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: LocalConstants.viewDefaultAnchor).isActive = true

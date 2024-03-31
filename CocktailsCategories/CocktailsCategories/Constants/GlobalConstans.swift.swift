@@ -13,6 +13,7 @@ struct GlobalConstants {
     static let fatalError: String = "init(coder:) has not been implemented"
     static let titleLabelFont = UIFont.systemFont(ofSize: 16.0, weight: .bold)
     static let filterCellRowHigh: CGFloat = 50.0
+    static let defaultPadding: CGFloat = 16.0
     static let badgeColor: UIColor = UIColor(hexString: "E96247")
     static let backgroundColor: UIColor = UIColor(hexString: "FFFFFF")
     static let navigationBarTintColor: UIColor = UIColor(hexString: "000000")
