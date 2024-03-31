@@ -260,7 +260,7 @@ class CocktailsViewModel {
         if self.filteredCategories.count != counter {
             isEnableButton = true
         } else {
-            if self.filteredCategories.isEmpty || self.filteredCategories == self.savedCategories {
+            if self.filteredCategories == self.savedCategories {
                 self.isEnableButton = false
             } else {
                 self.isEnableButton = true
