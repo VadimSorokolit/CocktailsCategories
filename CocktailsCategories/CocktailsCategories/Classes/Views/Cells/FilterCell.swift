@@ -16,8 +16,11 @@ class FilterCell: UITableViewCell {
         static let reuseIDName: String = "FilterCell"
         static let defaultPadding: CGFloat = 12.0
         static let labelLeadingAnchor: CGFloat = 20.0
+        static let badgeTrailingAnchor: CGFloat = 16.0
         static let labelNumberOfLines: Int = 1
     }
+    
+    // Mark: Properties
     
     static let reuseID = LocalConstants.reuseIDName
     
@@ -57,6 +60,8 @@ class FilterCell: UITableViewCell {
         fatalError(GlobalConstants.fatalError)
     }
     
+    // MARK: Methods
+    
     private func setup() {
         self.setupViews()
         self.setupLayout()
@@ -73,11 +78,9 @@ class FilterCell: UITableViewCell {
         let nameLabel = self.nameLabel
         let badge = self.badge
         
-        let badgeTrailingAnchor = (-GlobalConstants.filterCellRowHigh / 2) + (LocalConstants.defaultPadding / 2)
-        
         NSLayoutConstraint.activate([
             badge.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            badge.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: badgeTrailingAnchor),
+            badge.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LocalConstants.badgeTrailingAnchor),
             badge.widthAnchor.constraint(equalToConstant: LocalConstants.defaultPadding),
             badge.heightAnchor.constraint(equalToConstant: LocalConstants.defaultPadding),
 //            checkMark.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
