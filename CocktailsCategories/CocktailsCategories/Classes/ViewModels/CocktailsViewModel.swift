@@ -66,7 +66,8 @@ class CocktailsViewModel {
                 return
             }
             if let response = (response as? HTTPURLResponse), (200...299).contains(response.statusCode) {
-                print("Success with status code: \(response.statusCode)")
+                let responseString = String(format: "Success with status code: %d", response.statusCode)
+                print(responseString)
             } else {
                 completion(.failure(NetworkingError.responseError))
                 return
@@ -112,7 +113,8 @@ class CocktailsViewModel {
                 return
             }
             if let response = (response as? HTTPURLResponse), (200...299).contains(response.statusCode) {
-                print("Success with status code: \(response.statusCode)")
+                let responseString = String(format: "Success with status code: %d", response.statusCode)
+                print(responseString)
             } else {
                 completion(.failure(NetworkingError.responseError))
                 return
