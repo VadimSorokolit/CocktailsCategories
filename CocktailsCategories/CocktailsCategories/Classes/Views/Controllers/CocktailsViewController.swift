@@ -73,7 +73,7 @@ class CocktailsViewController: UIViewController {
     // MARK: Methods
     
     private func setupViews() {
-        self.view.backgroundColor = .yellow
+        self.view.backgroundColor = GlobalConstants.backgroundColor
 
 //        self.view.addSubview(self.inputTextField)
         self.view.addSubview(self.loadNextButton)
