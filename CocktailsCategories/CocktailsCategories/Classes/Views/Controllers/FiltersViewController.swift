@@ -113,7 +113,7 @@ class FiltersViewController: UIViewController {
         self.tableView.bottomAnchor.constraint(equalTo: self.applyFiltersButton.topAnchor).isActive = true
     }
     
-    private func goToVC() {
+    private func goToCocktailsViewController() {
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -130,7 +130,7 @@ class FiltersViewController: UIViewController {
     @objc private func onApplyFiltersButtonDidTap() {
         isApplyFiltersButtonPressed = true
         self.viewModel.applyFilters()
-        self.goToVC()
+        self.goToCocktailsViewController()
     }
     
 }

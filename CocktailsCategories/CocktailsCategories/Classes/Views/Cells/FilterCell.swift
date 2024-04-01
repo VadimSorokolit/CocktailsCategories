@@ -15,6 +15,7 @@ class FilterCell: UITableViewCell {
         static let imageName: String = "circle"
         static let reuseIDName: String = "FilterCell"
         static let labelLeadingAnchor: CGFloat = 20.0
+        static let badgeDefaultPadding: CGFloat = 12
         static let labelNumberOfLines: Int = 1
     }
     
@@ -31,7 +32,7 @@ class FilterCell: UITableViewCell {
 //    }()
     
     private lazy var badge: UIView = {
-        let badgeSideSizeView: CGFloat = GlobalConstants.defaultPadding
+        let badgeSideSizeView: CGFloat = LocalConstants.badgeDefaultPadding
         let badgeView = UIView()
         badgeView.translatesAutoresizingMaskIntoConstraints = false
         badgeView.backgroundColor = GlobalConstants.badgeColor
@@ -79,8 +80,8 @@ class FilterCell: UITableViewCell {
         NSLayoutConstraint.activate([
             badge.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             badge.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -GlobalConstants.defaultPadding),
-            badge.widthAnchor.constraint(equalToConstant: GlobalConstants.defaultPadding),
-            badge.heightAnchor.constraint(equalToConstant: GlobalConstants.defaultPadding),
+            badge.widthAnchor.constraint(equalToConstant: LocalConstants.badgeDefaultPadding),
+            badge.heightAnchor.constraint(equalToConstant: LocalConstants.badgeDefaultPadding),
 //            checkMark.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
 //            checkMark.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LocalConstants.defaultPadding),
 //            checkMark.widthAnchor.constraint(equalToConstant: LocalConstants.defaultPadding),
