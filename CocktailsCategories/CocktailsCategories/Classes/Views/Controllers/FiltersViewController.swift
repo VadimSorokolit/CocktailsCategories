@@ -56,6 +56,8 @@ class FiltersViewController: UIViewController {
         return tableView
     }()
     
+    // Mark: Initializer
+    
     required init(viewModel: CocktailsViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -76,7 +78,7 @@ class FiltersViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if !isApplyFiltersButtonPressed {
+        if !self.isApplyFiltersButtonPressed {
             self.viewModel.resetFilters()
         }
     }
@@ -118,15 +120,15 @@ class FiltersViewController: UIViewController {
     
     private func setupApplyFiltersButton() {
         self.applyFiltersButton.isEnabled = self.viewModel.isEnableButton
-        if !self.applyFiltersButton.isEnabled {
-            self.applyFiltersButton.layer.borderColor  = LocalConstants.buttonIsDisableBorderColor.cgColor
-        } else {
+        if self.applyFiltersButton.isEnabled {
             self.applyFiltersButton.layer.borderColor = LocalConstants.buttonIsEnableBorderColor.cgColor
+        } else {
+            self.applyFiltersButton.layer.borderColor  = LocalConstants.buttonIsDisableBorderColor.cgColor
         }
     }
 
     @objc private func onApplyFiltersButtonDidTap() {
-        self.isApplyFiltersButtonPressed.toggle()
+        self.isApplyFiltersButtonPressed = true
         self.viewModel.applyFilters()
         self.goToCocktailsViewController()
     }
