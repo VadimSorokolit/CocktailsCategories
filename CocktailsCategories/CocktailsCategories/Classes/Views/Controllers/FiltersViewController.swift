@@ -165,6 +165,7 @@ extension FiltersViewController: UITableViewDataSource {
         }
         let category = self.viewModel.loadedCategories[indexPath.row]
         cell.configureCell(with: category)
+        cell.selectionStyle = .none
         return cell
     }
     
