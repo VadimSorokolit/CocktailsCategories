@@ -38,7 +38,6 @@ class CocktailsViewModel {
     var filteredCategories: [CocktailsSection] = []
     var tempCategories: [CocktailsSection] = []
     var savedCategories: [CocktailsSection] = []
-//    var isEnableButton: Bool = false
     
     var isEnableButton: Bool {
         var counter = 0
@@ -225,7 +224,7 @@ class CocktailsViewModel {
         completion(notExistIndices)
     }
     
-    // Set selected category
+    // Update set selected category
     func updateSetSelectedCategory(by index: Int) {
         if self.loadedCategories.indices.contains(index) {
             self.loadedCategories[index].isSelected.toggle()
@@ -233,6 +232,7 @@ class CocktailsViewModel {
         }
     }
     
+    // Reset filters
     func resetFilters() {
         if savedCategories.isEmpty, !self.filteredCategories.isEmpty {
             for section in self.loadedCategories {
@@ -260,10 +260,12 @@ class CocktailsViewModel {
         }
     }
     
+    // Setup Filters
     func setupFilters() {
         self.filteredCategories = self.loadedCategories.filter({ $0.isSelected })
     }
     
+    // Apply filters
     func applyFilters() {
         self.savedCategories = self.filteredCategories.filter({ $0.isSelected })
     }

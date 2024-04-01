@@ -25,17 +25,8 @@ class FiltersViewController: UIViewController {
         static let buttonIsDisableBorderColor: UIColor = UIColor(hexString: "D3D3D3")
     }
     
-    required init(viewModel: CocktailsViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError(GlobalConstants.fatalError)
-    }
-    
     // MARK: Properties
-    
+        
     private let viewModel: CocktailsViewModel
     private var isApplyFiltersButtonPressed: Bool = false
     
@@ -65,6 +56,15 @@ class FiltersViewController: UIViewController {
         return tableView
     }()
     
+    required init(viewModel: CocktailsViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError(GlobalConstants.fatalError)
+    }
+    
     // MARK: Lifecycle
     
     override func viewDidLoad() {
@@ -91,7 +91,6 @@ class FiltersViewController: UIViewController {
     
     private func setupViews() {
         self.view.backgroundColor = GlobalConstants.backgroundColor
-        isApplyFiltersButtonPressed = false
         self.view.addSubview(self.tableView)
         self.view.addSubview(self.applyFiltersButton)
     }
@@ -127,7 +126,7 @@ class FiltersViewController: UIViewController {
     }
 
     @objc private func onApplyFiltersButtonDidTap() {
-        isApplyFiltersButtonPressed = true
+        self.isApplyFiltersButtonPressed.toggle()
         self.viewModel.applyFilters()
         self.goToCocktailsViewController()
     }
