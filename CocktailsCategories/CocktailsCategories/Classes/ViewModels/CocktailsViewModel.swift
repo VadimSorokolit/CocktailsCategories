@@ -38,7 +38,25 @@ class CocktailsViewModel {
     var filteredCategories: [CocktailsSection] = []
     var tempCategories: [CocktailsSection] = []
     var savedCategories: [CocktailsSection] = []
-    var isEnableButton: Bool = false
+//    var isEnableButton: Bool = false
+    
+    var isEnableButton: Bool {
+        var counter = 0
+        for category in self.filteredCategories {
+            if self.savedCategories.contains(category) {
+                counter += 1
+            }
+        }
+        if self.filteredCategories.count != counter {
+            return true
+        } else {
+            if self.filteredCategories == self.savedCategories {
+                return false
+            } else {
+                return true
+            }
+        }
+    }
     
     // MARK: - Methods
     
@@ -208,7 +226,7 @@ class CocktailsViewModel {
     }
     
     // Set selected category
-    func setSelectedCategory(by index: Int) {
+    func updateSetSelectedCategory(by index: Int) {
         if self.loadedCategories.indices.contains(index) {
             self.loadedCategories[index].isSelected.toggle()
             self.setupFilters()
@@ -249,23 +267,5 @@ class CocktailsViewModel {
     func applyFilters() {
         self.savedCategories = self.filteredCategories.filter({ $0.isSelected })
     }
-    
-    func updateApplyFiltersButton() {
-        var counter = 0
-        for category in self.filteredCategories {
-            if self.savedCategories.contains(category) {
-                counter += 1
-            }
-        }
-        if self.filteredCategories.count != counter {
-            isEnableButton = true
-        } else {
-            if self.filteredCategories == self.savedCategories {
-                self.isEnableButton = false
-            } else {
-                self.isEnableButton = true
-            }
-        }
-    }
-    
+
 }
