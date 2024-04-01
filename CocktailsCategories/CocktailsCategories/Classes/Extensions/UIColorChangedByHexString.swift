@@ -26,3 +26,22 @@ extension UIColor {
         self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
     }
 }
+
+extension UINavigationController {
+    func transparentNavigationBar() {
+        self.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationBar.shadowImage = UIImage()
+        self.navigationBar.isTranslucent = true
+    }
+
+    func setTintColor(_ color: UIColor) {
+        self.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: color]
+        self.navigationBar.tintColor = color
+    }
+
+    func backgroundColor(_ color: UIColor) {
+        navigationBar.setBackgroundImage(nil, for: .default)
+        navigationBar.barTintColor = color
+        navigationBar.shadowImage = UIImage()
+    }
+}

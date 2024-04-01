@@ -69,7 +69,7 @@ class CocktailsViewController: UIViewController {
         self.loadFirstCategory()
         self.setupFiltersBarButton()
     }
-   
+    
     // MARK: Methods
     
     private func setupViews() {
@@ -83,6 +83,7 @@ class CocktailsViewController: UIViewController {
     private func setupNavBar() {
         self.navigationItem.largeTitleDisplayMode = .never
         navigationItem.title = NSLocalizedString("Drinks", comment: "")
+        
     }
     
     private func setupFiltersBarButton() {
