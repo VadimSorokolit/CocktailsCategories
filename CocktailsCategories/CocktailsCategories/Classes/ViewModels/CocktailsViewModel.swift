@@ -241,7 +241,7 @@ class CocktailsViewModel {
                 self.savedCategories.append(tempSection)
             }
             self.loadedCategories = self.savedCategories
-            self.filteredCategories = tempCategories
+            self.filteredCategories = self.tempCategories
             self.savedCategories.removeAll()
         } else {
             self.tempCategories.removeAll()
@@ -255,7 +255,7 @@ class CocktailsViewModel {
                     self.tempCategories.append(tempSection)
                 }
             }
-            self.loadedCategories = tempCategories
+            self.loadedCategories = self.tempCategories
             self.setupFilters()
         }
     }
