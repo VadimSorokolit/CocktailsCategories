@@ -83,7 +83,14 @@ class CocktailsViewController: UIViewController {
     private func setupNavBar() {
         self.navigationItem.largeTitleDisplayMode = .never
         navigationItem.title = NSLocalizedString("Drinks", comment: "")
-        
+        self.navigationController?.navigationBar.tintColor = GlobalConstants.navigationBarTintColor
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithDefaultBackground()
+        appearance.shadowImage = UIImage()
+        appearance.shadowColor = GlobalConstants.navigationBarColor
+        appearance.backgroundColor = GlobalConstants.navigationBarColor
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
     private func setupFiltersBarButton() {
