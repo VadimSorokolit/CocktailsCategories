@@ -21,8 +21,8 @@ class FiltersViewController: UIViewController {
         static let buttonName: String = "Apply Filters"
         static let buttonIsEnableTintColor: UIColor = UIColor(hexString: "000000")
         static let buttonIsDisableTintColor: UIColor = UIColor(hexString: "808080")
-        static let buttonIsEnableBorderColor: UIColor = UIColor(hexString: "D3D3D3")
-        static let buttonIsDisableBorderColor: UIColor = UIColor(hexString: "808080")
+        static let buttonIsEnableBorderColor: UIColor = UIColor(hexString: "808080")
+        static let buttonIsDisableBorderColor: UIColor = UIColor(hexString: "D3D3D3")
     }
     
     required init(viewModel: CocktailsViewModel) {
@@ -46,7 +46,7 @@ class FiltersViewController: UIViewController {
         button.setTitleColor(LocalConstants.buttonIsEnableTintColor, for: .normal)
         button.setTitleColor(LocalConstants.buttonIsDisableTintColor, for: .disabled)
         button.backgroundColor = GlobalConstants.backgroundColor
-        button.layer.borderColor = LocalConstants.buttonIsEnableBorderColor.cgColor
+        button.layer.borderColor = LocalConstants.buttonIsDisableBorderColor.cgColor
         button.layer.cornerRadius = LocalConstants.buttonCornerRadius
         button.layer.masksToBounds = true
         button.layer.borderWidth = LocalConstants.buttonBorderWidth
@@ -118,11 +118,10 @@ class FiltersViewController: UIViewController {
     }
     
     private func setupApplyFiltersButton() {
-        if self.viewModel.isEnableButton == true {
-            self.applyFiltersButton.isEnabled = true
+        self.applyFiltersButton.isEnabled = self.viewModel.isEnableButton
+        if !self.applyFiltersButton.isEnabled {
             self.applyFiltersButton.layer.borderColor  = LocalConstants.buttonIsDisableBorderColor.cgColor
         } else {
-            self.applyFiltersButton.isEnabled = false
             self.applyFiltersButton.layer.borderColor = LocalConstants.buttonIsEnableBorderColor.cgColor
         }
     }
@@ -140,9 +139,8 @@ class FiltersViewController: UIViewController {
 extension FiltersViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.viewModel.setSelectedCategory(by: indexPath.row)
+        self.viewModel.updateSetSelectedCategory(by: indexPath.row)
         self.tableView.reloadRows(at: [indexPath], with: .none)
-        self.viewModel.updateApplyFiltersButton()
         self.setupApplyFiltersButton()
     }
     
