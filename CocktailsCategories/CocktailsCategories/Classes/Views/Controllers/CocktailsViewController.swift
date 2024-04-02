@@ -59,22 +59,25 @@ class CocktailsViewController: UIViewController {
 //        return button
 //    }()
     
-    // Load first cocktails on Start!
+    // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setupNavBar()
-        self.setupViews()
-        self.loadFirstCategory()
-        self.setupFiltersBarButton()
+        self.setup()
     }
     
     // MARK: Methods
     
+    private func setup() {
+        self.setupViews()
+        self.setupNavBar()
+        self.setupFiltersBarButton()
+        self.loadFirstCategory()
+    }
+    
     private func setupViews() {
         self.view.backgroundColor = GlobalConstants.backgroundColor
-
 //        self.view.addSubview(self.inputTextField)
         self.view.addSubview(self.loadNextButton)
 //        self.view.addSubview(self.applyButton)
@@ -110,7 +113,6 @@ class CocktailsViewController: UIViewController {
         let barButton = UIBarButtonItem(customView: button)
         navigationItem.rightBarButtonItem = barButton
     }
-    
     @objc private func goToFiltersVC() {
         let filtersVC = FiltersViewController(viewModel: cocktailsViewModel)
         self.navigationController?.pushViewController(filtersVC, animated: true)
