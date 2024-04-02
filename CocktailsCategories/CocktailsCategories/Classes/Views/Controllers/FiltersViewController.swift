@@ -100,13 +100,6 @@ class FiltersViewController: UIViewController {
     private func setupNavBar() {
         self.navigationItem.title = NSLocalizedString("Filters", comment: "")
         self.navigationController?.navigationBar.tintColor = GlobalConstants.navigationBarTintColor
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithDefaultBackground()
-        appearance.shadowImage = UIImage()
-        appearance.shadowColor = GlobalConstants.navigationBarColor
-        appearance.backgroundColor = GlobalConstants.navigationBarColor
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
     private func setupLayout() {
