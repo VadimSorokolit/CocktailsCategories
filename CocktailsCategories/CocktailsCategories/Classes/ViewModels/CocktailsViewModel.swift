@@ -35,9 +35,9 @@ class CocktailsViewModel {
     
     private var allCategories: [Category] = []
     var loadedCategories: [CocktailsSection] = []
-    var filteredCategories: [CocktailsSection] = []
-    var tempCategories: [CocktailsSection] = []
-    var savedCategories: [CocktailsSection] = []
+    private var filteredCategories: [CocktailsSection] = []
+    private var tempCategories: [CocktailsSection] = []
+    private var savedCategories: [CocktailsSection] = []
     
     var isEnableButton: Bool {
         var counter = 0
@@ -57,14 +57,11 @@ class CocktailsViewModel {
         }
     }
     
-    var isHiddenBadge: Bool {
+    var isBadgeShown: Bool {
         let selectedCategoies = self.loadedCategories.filter({ $0.isSelected })
-        if selectedCategoies.isEmpty {
-            return true
-        } else {
-            return false
-        }
-     }
+        let isBadgeShown = selectedCategoies.isEmpty
+        return isBadgeShown
+    }
     
     // MARK: - Methods
     

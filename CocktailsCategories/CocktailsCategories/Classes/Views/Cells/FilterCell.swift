@@ -97,7 +97,7 @@ class FilterCell: UITableViewCell {
     func configureCell(with section: CocktailsSection) {
         self.nameLabel.text = section.category.name
 //        self.checkMark.tintColor = section.isSelected ? .red : .black
-        self.badge.isHidden = section.isSelected ? false : true
+        self.badge.isHidden = !section.isSelected
     }
     
 }

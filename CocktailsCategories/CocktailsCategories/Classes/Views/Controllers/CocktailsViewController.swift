@@ -25,7 +25,17 @@ class CocktailsViewController: UIViewController {
         button.addTarget(self, action: #selector(self.loadNextButtonDidTap), for: .touchUpInside)
         return button
     }()
+    
+    private lazy var badge: UIView = {
+        let badgeSideSize: CGFloat = 10
         
+        let badge = UIView()
+        badge.frame = CGRect(x: 17, y: -4, width: badgeSideSize, height: badgeSideSize)
+        badge.backgroundColor = GlobalConstants.badgeColor
+        badge.isHidden = true
+        badge.layer.cornerRadius = badgeSideSize / 2
+        return badge
+    }()
     //    private lazy var applyButton: UIButton = {
     //        let button = UIButton(type: .system)
     //        button.frame = CGRect(x: 116.5, y: 600.0, width: 160.0, height: 60.0)
@@ -69,12 +79,15 @@ class CocktailsViewController: UIViewController {
         super.viewDidLoad()
         
         self.setup()
+        self.setupFiltersBarButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.setupFiltersBarButton()
+        let BoolResult = self.cocktailsViewModel.isBadgeShown
+        self.badge.isHidden = BoolResult
+
     }
     
     // MARK: Methods
@@ -96,24 +109,9 @@ class CocktailsViewController: UIViewController {
         self.navigationItem.largeTitleDisplayMode = .never
         navigationItem.title = NSLocalizedString("Drinks", comment: "")
         self.navigationController?.navigationBar.tintColor = GlobalConstants.navigationBarTintColor
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithDefaultBackground()
-        appearance.shadowImage = UIImage()
-        appearance.shadowColor = GlobalConstants.navigationBarColor
-        appearance.backgroundColor = GlobalConstants.navigationBarColor
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
     private func setupFiltersBarButton() {
-        let badgeSideSize: CGFloat = 10
-        
-        let badge = UIView(frame: CGRect(x: 17, y: -4, width: badgeSideSize, height: badgeSideSize))
-        badge.backgroundColor = GlobalConstants.badgeColor
-        let isHiddenBadge = self.cocktailsViewModel.isHiddenBadge
-        badge.isHidden = isHiddenBadge
-        badge.layer.cornerRadius = badgeSideSize / 2
-        
         let button = UIButton()
         button.addSubview(badge)
         button.setImage(UIImage(named: "filter_icon"), for: .normal)
