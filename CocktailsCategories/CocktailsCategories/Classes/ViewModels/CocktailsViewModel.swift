@@ -57,6 +57,15 @@ class CocktailsViewModel {
         }
     }
     
+    var isHiddenBadge: Bool {
+        let selectedCategoies = self.loadedCategories.filter({ $0.isSelected })
+        if selectedCategoies.isEmpty {
+            return true
+        } else {
+            return false
+        }
+     }
+    
     // MARK: - Methods
     
     // Get all categories

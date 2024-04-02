@@ -110,7 +110,8 @@ class CocktailsViewController: UIViewController {
         
         let badge = UIView(frame: CGRect(x: 17, y: -4, width: badgeSideSize, height: badgeSideSize))
         badge.backgroundColor = GlobalConstants.badgeColor
-        badge.isHidden = false
+        let isHiddenBadge = self.cocktailsViewModel.isHiddenBadge
+        badge.isHidden = isHiddenBadge
         badge.layer.cornerRadius = badgeSideSize / 2
         
         let button = UIButton()
