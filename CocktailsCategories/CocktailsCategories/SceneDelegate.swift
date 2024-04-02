@@ -25,7 +25,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func setupNavigationController() {
         let viewController = CocktailsViewController(cocktailsViewModel: CocktailsViewModel())
         navController.viewControllers = [viewController]
-        
     }
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {

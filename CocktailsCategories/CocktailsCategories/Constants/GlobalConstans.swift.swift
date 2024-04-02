@@ -19,4 +19,5 @@ struct GlobalConstants {
     static let navigationBarTintColor: UIColor = UIColor(hexString: "000000")
     static let textColor: UIColor = UIColor(hexString: "000000")
     static let navigationBarColor: UIColor = UIColor(hexString: "F7F8F7")
+    
 }

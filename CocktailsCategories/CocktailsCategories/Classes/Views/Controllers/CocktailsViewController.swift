@@ -36,32 +36,7 @@ class CocktailsViewController: UIViewController {
         badge.layer.cornerRadius = badgeSideSize / 2
         return badge
     }()
-    //    private lazy var applyButton: UIButton = {
-    //        let button = UIButton(type: .system)
-    //        button.frame = CGRect(x: 116.5, y: 600.0, width: 160.0, height: 60.0)
-    //        button.backgroundColor = .red
-    //        button.layer.cornerRadius = 12.0
-    //        button.tintColor = .white
-    //        button.layer.masksToBounds = true
-    //        button.setTitle("Apply filter", for: .normal)
-    //        button.addTarget(self, action: #selector(self.applyButtonDidTap), for: .touchUpInside)
-    //        return button
-    //    }()
-    
-    //    private lazy var inputTextField: UITextField = {
-    //        let inputTextField = UITextField()
-    //        inputTextField.frame = CGRectMake(116.5, 200.0, 160.0, 60.0)
-    //        inputTextField.backgroundColor = .green
-    //        inputTextField.layer.cornerRadius = 12.0
-    //        inputTextField.textColor = .black
-    //        inputTextField.layer.masksToBounds = true
-    //        inputTextField.font = .boldSystemFont(ofSize: 17.0)
-    //        inputTextField.placeholder = "Input categories to show"
-    //        inputTextField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 20, height: 40))
-    //        inputTextField.leftViewMode = .always
-    //        return inputTextField
-    //    }()
-    
+ 
     // Mark: Initializer
     
     required init(cocktailsViewModel: CocktailsViewModel) {
@@ -85,9 +60,8 @@ class CocktailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let BoolResult = self.cocktailsViewModel.isBadgeShown
-        self.badge.isHidden = BoolResult
-
+        let isBadgeShown = self.cocktailsViewModel.isBadgeShown
+        self.badge.isHidden = isBadgeShown
     }
     
     // MARK: Methods
@@ -100,9 +74,7 @@ class CocktailsViewController: UIViewController {
     
     private func setupViews() {
         self.view.backgroundColor = GlobalConstants.backgroundColor
-//        self.view.addSubview(self.inputTextField)
         self.view.addSubview(self.loadNextButton)
-//        self.view.addSubview(self.applyButton)
     }
     
     private func setupNavBar() {
@@ -164,23 +136,7 @@ class CocktailsViewController: UIViewController {
         })
     }
     
-//    private func filterCagegories() {
-//        guard let text = self.inputTextField.text, Int(text) != nil else {
-//            print("Please input number")
-//            return
-//        }
-        
-//        self.cocktailsViewModel.filterCagegories(by: text, completion: { (notExistIndices: [Int]) -> Void in
-//            if !notExistIndices.isEmpty {
-//                print("Wasn't load categories by indices: \(notExistIndices)")
-//            }
-//            let categories = self.cocktailsViewModel.filteredCategories
-//            self.printCategories(categories)
-//        })
-//    }
-//    
     @objc private func loadNextButtonDidTap(withSender sender: UIButton) {
-
         sender.isEnabled = false
         self.loadNextCagegory(completion: { () -> Void in
             DispatchQueue.main.async(execute: { () -> Void in
@@ -188,26 +144,10 @@ class CocktailsViewController: UIViewController {
             })
         })
     }
-//    
-//    @objc private func applyButtonDidTap(_ textField: UITextField) {
-//        self.goToFiltersVC()
-//        self.filterCagegories()
-//    }
     
 }
 
-// MARK: - table view delegate
-
-//extension CocktailsViewController: UITableViewDelegate {
-//    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let brewery = viewModel.loadedCategories[indexPath.row]
-//        let detailsVC = CategoriesViewController(model: brewery)
-//        navigationController?.pushViewController(detailsVC, animated: true)
-//    }
-//}
-
- // MARK: - navigation controller
+// MARK: - navigation controller
 
 extension UINavigationController {
     
@@ -225,5 +165,6 @@ extension UINavigationController {
             lineView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
         ])
     }
+    
 }
 

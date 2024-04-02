@@ -22,15 +22,7 @@ class FilterCell: UITableViewCell {
     // Mark: Properties
     
     static let reuseID = LocalConstants.reuseIDName
-    
-//    private lazy var checkMark: UIImageView = {
-//        let outputView = UIImageView()
-//        outputView.translatesAutoresizingMaskIntoConstraints = false
-//        outputView.image = UIImage(systemName: LocalConstants.imageName)
-//        outputView.tintColor = .white
-//        return outputView
-//    }()
-    
+ 
     private lazy var badge: UIView = {
         let badgeSideSizeView: CGFloat = LocalConstants.badgeDefaultPadding
         let badgeView = UIView()
@@ -67,7 +59,6 @@ class FilterCell: UITableViewCell {
     }
     
     private func setupViews() {
-//      self.contentView.addSubview(self.checkMark)
         self.contentView.addSubview(self.badge)
         self.contentView.addSubview(self.nameLabel)
     }
@@ -82,21 +73,14 @@ class FilterCell: UITableViewCell {
             badge.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -GlobalConstants.defaultPadding),
             badge.widthAnchor.constraint(equalToConstant: LocalConstants.badgeDefaultPadding),
             badge.heightAnchor.constraint(equalToConstant: LocalConstants.badgeDefaultPadding),
-//            checkMark.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-//            checkMark.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LocalConstants.defaultPadding),
-//            checkMark.widthAnchor.constraint(equalToConstant: LocalConstants.defaultPadding),
-//            checkMark.heightAnchor.constraint(equalToConstant: LocalConstants.defaultPadding),
-            
             nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LocalConstants.labelLeadingAnchor),
-//            nameLabel.trailingAnchor.constraint(equalTo: checkMark.leadingAnchor, constant: -LocalConstants.defaultPadding),
             nameLabel.trailingAnchor.constraint(equalTo: badge.leadingAnchor, constant: -GlobalConstants.defaultPadding),
         ])
     }
     
     func configureCell(with section: CocktailsSection) {
         self.nameLabel.text = section.category.name
-//        self.checkMark.tintColor = section.isSelected ? .red : .black
         self.badge.isHidden = !section.isSelected
     }
     
