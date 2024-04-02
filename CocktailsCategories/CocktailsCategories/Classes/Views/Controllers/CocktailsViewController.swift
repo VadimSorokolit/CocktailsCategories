@@ -9,30 +9,9 @@ import UIKit
 
 class CocktailsViewController: UIViewController {
     
+    // MARK: Properties
+    
     private let cocktailsViewModel: CocktailsViewModel
-
-    required init(cocktailsViewModel: CocktailsViewModel) {
-        self.cocktailsViewModel = cocktailsViewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-//    private lazy var inputTextField: UITextField = {
-//        let inputTextField = UITextField()
-//        inputTextField.frame = CGRectMake(116.5, 200.0, 160.0, 60.0)
-//        inputTextField.backgroundColor = .green
-//        inputTextField.layer.cornerRadius = 12.0
-//        inputTextField.textColor = .black
-//        inputTextField.layer.masksToBounds = true
-//        inputTextField.font = .boldSystemFont(ofSize: 17.0)
-//        inputTextField.placeholder = "Input categories to show"
-//        inputTextField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 20, height: 40))
-//        inputTextField.leftViewMode = .always
-//        return inputTextField
-//    }()
     
     private lazy var loadNextButton: UIButton = {
         let button = UIButton(type: .system)
@@ -46,18 +25,43 @@ class CocktailsViewController: UIViewController {
         button.addTarget(self, action: #selector(self.loadNextButtonDidTap), for: .touchUpInside)
         return button
     }()
+        
+    //    private lazy var applyButton: UIButton = {
+    //        let button = UIButton(type: .system)
+    //        button.frame = CGRect(x: 116.5, y: 600.0, width: 160.0, height: 60.0)
+    //        button.backgroundColor = .red
+    //        button.layer.cornerRadius = 12.0
+    //        button.tintColor = .white
+    //        button.layer.masksToBounds = true
+    //        button.setTitle("Apply filter", for: .normal)
+    //        button.addTarget(self, action: #selector(self.applyButtonDidTap), for: .touchUpInside)
+    //        return button
+    //    }()
     
-//    private lazy var applyButton: UIButton = {
-//        let button = UIButton(type: .system)
-//        button.frame = CGRect(x: 116.5, y: 600.0, width: 160.0, height: 60.0)
-//        button.backgroundColor = .red
-//        button.layer.cornerRadius = 12.0
-//        button.tintColor = .white
-//        button.layer.masksToBounds = true
-//        button.setTitle("Apply filter", for: .normal)
-//        button.addTarget(self, action: #selector(self.applyButtonDidTap), for: .touchUpInside)
-//        return button
-//    }()
+    //    private lazy var inputTextField: UITextField = {
+    //        let inputTextField = UITextField()
+    //        inputTextField.frame = CGRectMake(116.5, 200.0, 160.0, 60.0)
+    //        inputTextField.backgroundColor = .green
+    //        inputTextField.layer.cornerRadius = 12.0
+    //        inputTextField.textColor = .black
+    //        inputTextField.layer.masksToBounds = true
+    //        inputTextField.font = .boldSystemFont(ofSize: 17.0)
+    //        inputTextField.placeholder = "Input categories to show"
+    //        inputTextField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 20, height: 40))
+    //        inputTextField.leftViewMode = .always
+    //        return inputTextField
+    //    }()
+    
+    // Mark: Initializer
+    
+    required init(cocktailsViewModel: CocktailsViewModel) {
+        self.cocktailsViewModel = cocktailsViewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: Lifecycle
     
@@ -67,12 +71,17 @@ class CocktailsViewController: UIViewController {
         self.setup()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.setupFiltersBarButton()
+    }
+    
     // MARK: Methods
     
     private func setup() {
         self.setupViews()
         self.setupNavBar()
-        self.setupFiltersBarButton()
         self.loadFirstCategory()
     }
     
@@ -97,22 +106,22 @@ class CocktailsViewController: UIViewController {
     }
     
     private func setupFiltersBarButton() {
-        let badgeSideSize: CGFloat = 10.0
+        let badgeSideSize: CGFloat = 10
         
-        let badge = UIView(frame: CGRect(x: 17.0, y: -4.0, width: badgeSideSize, height: badgeSideSize))
-        badge.backgroundColor = .red
-        badge.clipsToBounds = true
+        let badge = UIView(frame: CGRect(x: 17, y: -4, width: badgeSideSize, height: badgeSideSize))
+        badge.backgroundColor = GlobalConstants.badgeColor
         badge.isHidden = false
         badge.layer.cornerRadius = badgeSideSize / 2
         
         let button = UIButton()
-        button.tintColor = .red
+        button.addSubview(badge)
         button.setImage(UIImage(named: "filter_icon"), for: .normal)
         button.addTarget(self, action: #selector(goToFiltersVC), for: .touchUpInside)
         
         let barButton = UIBarButtonItem(customView: button)
         navigationItem.rightBarButtonItem = barButton
     }
+    
     @objc private func goToFiltersVC() {
         let filtersVC = FiltersViewController(viewModel: cocktailsViewModel)
         self.navigationController?.pushViewController(filtersVC, animated: true)
