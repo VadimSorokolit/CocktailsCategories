@@ -119,7 +119,7 @@ class FiltersViewController: UIViewController {
     }
     
     private func setupApplyFiltersButton() {
-        self.applyFiltersButton.isEnabled = self.viewModel.isEnableButton
+        self.applyFiltersButton.isEnabled = self.viewModel.isEnableApplyFiltersButton
         if self.applyFiltersButton.isEnabled {
             self.applyFiltersButton.layer.borderColor = LocalConstants.buttonIsEnableBorderColor.cgColor
         } else {

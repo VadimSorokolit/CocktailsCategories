@@ -39,7 +39,7 @@ class CocktailsViewModel {
     private var tempCategories: [CocktailsSection] = []
     private var savedCategories: [CocktailsSection] = []
     
-    var isEnableButton: Bool {
+    var isEnableApplyFiltersButton: Bool {
         var counter = 0
         for category in self.filteredCategories {
             if self.savedCategories.contains(category) {
@@ -59,7 +59,7 @@ class CocktailsViewModel {
     
     var isBadgeShown: Bool {
         let selectedCategoies = self.loadedCategories.filter({ $0.isSelected })
-        let isBadgeShown = selectedCategoies.isEmpty
+        let isBadgeShown = !selectedCategoies.isEmpty
         return isBadgeShown
     }
     
