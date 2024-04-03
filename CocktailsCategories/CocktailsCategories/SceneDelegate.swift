@@ -18,15 +18,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appearance.shadowImage = UIImage()
         appearance.shadowColor = GlobalConstants.navigationBarColor
         appearance.backgroundColor = GlobalConstants.navigationBarColor
-        navController.navigationBar.standardAppearance = appearance
-        navController.navigationBar.scrollEdgeAppearance = appearance
+        self.navController.navigationBar.standardAppearance = appearance
+        self.navController.navigationBar.scrollEdgeAppearance = appearance
     }
     
     private func setupNavigationController() {
-        let viewController = CocktailsViewController(cocktailsViewModel: CocktailsViewModel())
-        navController.viewControllers = [viewController]
+        let viewModel = CocktailsViewModel()
+        let viewController = CocktailsViewController(cocktailsViewModel: viewModel)
+        self.navController.viewControllers = [viewController]
         
-        navController.addCustomBottomLine(color: GlobalConstants.separatorColor, height: 1.0)
+        self.navController.addCustomBottomLine(color: GlobalConstants.separatorColor, height: GlobalConstants.separatorHeight)
         
     }
     
@@ -38,11 +39,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.setupNavBarAppearance()
             self.setupNavigationController()
             
-            window.rootViewController = navController
+            self.window?.rootViewController = self.navController
             self.window = window
             window.makeKeyAndVisible()
             
         }
+    }
+    
+}
+
+// NavBarBotton Line
+extension UINavigationController {
+    
+    func addCustomBottomLine(color: UIColor, height: CGFloat) {
+        let lineView = UIView()
+        lineView.translatesAutoresizingMaskIntoConstraints = false
+        lineView.backgroundColor = color
+        
+        navigationBar.addSubview(lineView)
+        
+        NSLayoutConstraint.activate([
+            lineView.widthAnchor.constraint(equalTo: navigationBar.widthAnchor),
+            lineView.heightAnchor.constraint(equalToConstant: height),
+            lineView.centerXAnchor.constraint(equalTo: navigationBar.centerXAnchor),
+            lineView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
+        ])
     }
     
 }

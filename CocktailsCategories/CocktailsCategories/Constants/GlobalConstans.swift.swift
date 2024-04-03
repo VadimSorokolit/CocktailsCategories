@@ -20,5 +20,6 @@ struct GlobalConstants {
     static let textColor: UIColor = UIColor(hexString: "000000")
     static let navigationBarColor: UIColor = UIColor(hexString: "F7F8F7")
     static let separatorColor: UIColor = UIColor(hexString: "DBDADA")
+    static let separatorHeight: CGFloat = 1.0
     
 }

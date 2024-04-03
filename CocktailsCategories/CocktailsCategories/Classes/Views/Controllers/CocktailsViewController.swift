@@ -152,25 +152,7 @@ class CocktailsViewController: UIViewController {
     
 }
 
-// NavBarBotton Line
-extension UINavigationController {
-    
-    func addCustomBottomLine(color: UIColor, height: Double) {
-        let lineView = UIView()
-        lineView.translatesAutoresizingMaskIntoConstraints = false
-        lineView.backgroundColor = color
-        
-        navigationBar.addSubview(lineView)
-        
-        NSLayoutConstraint.activate([
-            lineView.widthAnchor.constraint(equalTo: navigationBar.widthAnchor),
-            lineView.heightAnchor.constraint(equalToConstant: CGFloat(height)),
-            lineView.centerXAnchor.constraint(equalTo: navigationBar.centerXAnchor),
-            lineView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
-        ])
-    }
-    
-}
+
 
 
 
