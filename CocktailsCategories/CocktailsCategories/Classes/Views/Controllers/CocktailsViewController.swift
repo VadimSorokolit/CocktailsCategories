@@ -9,6 +9,12 @@ import UIKit
 
 class CocktailsViewController: UIViewController {
     
+    // MARK: Objects
+    
+    private struct LocalConstants {
+        static let badgeSideSize: CGFloat = 10
+    }
+
     // MARK: Properties
     
     private let cocktailsViewModel: CocktailsViewModel
@@ -27,13 +33,11 @@ class CocktailsViewController: UIViewController {
     }()
     
     private lazy var navBarBadgeButton: UIView = {
-        let badgeSideSize: CGFloat = 10
-        
         let badge = UIView()
-        badge.frame = CGRect(x: 17, y: -4, width: badgeSideSize, height: badgeSideSize)
+        badge.frame = CGRect(x: 17, y: -4, width: LocalConstants.badgeSideSize, height: LocalConstants.badgeSideSize)
         badge.backgroundColor = GlobalConstants.badgeColor
         badge.isHidden = true
-        badge.layer.cornerRadius = badgeSideSize / 2
+        badge.layer.cornerRadius = LocalConstants.badgeSideSize / 2
         return badge
     }()
     
@@ -146,27 +150,6 @@ class CocktailsViewController: UIViewController {
                 sender.isEnabled = true
             })
         })
-    }
-    
-}
-
-// MARK: - navigation controller
-
-extension UINavigationController {
-    
-    func addCustomBottomLine(color: UIColor, height: Double) {
-        let lineView = UIView()
-        lineView.translatesAutoresizingMaskIntoConstraints = false
-        lineView.backgroundColor = color
-        
-        navigationBar.addSubview(lineView)
-        
-        NSLayoutConstraint.activate([
-            lineView.widthAnchor.constraint(equalTo: navigationBar.widthAnchor),
-            lineView.heightAnchor.constraint(equalToConstant: CGFloat(height)),
-            lineView.centerXAnchor.constraint(equalTo: navigationBar.centerXAnchor),
-            lineView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
-        ])
     }
     
 }
