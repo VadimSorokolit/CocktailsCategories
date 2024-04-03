@@ -39,10 +39,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.setupNavBarAppearance()
             self.setupNavigationController()
             
-            self.window?.rootViewController = self.navController
-            self.window = window
+            window.rootViewController = self.navController
             window.makeKeyAndVisible()
-            
+            self.window = window
         }
     }
     
