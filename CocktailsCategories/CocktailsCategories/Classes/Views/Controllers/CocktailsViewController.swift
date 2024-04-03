@@ -49,6 +49,9 @@ class CocktailsViewController: UIViewController {
         return button
     }()
     
+//    let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.width, height: Constants.headerViewHeight))
+//    headerView.backgroundColor = Constants.headerBgColor
+    
     // Mark: Initializer
     
     required init(cocktailsViewModel: CocktailsViewModel) {
@@ -152,6 +155,49 @@ class CocktailsViewController: UIViewController {
     
 }
 
+//// MARK: - table view delegate -
+//
+//extension CocktailsViewController: UITableViewDelegate {
+//    
+//    private func setupSectionHeaderView(for section: Int) -> UIView {
+//        
+//
+//        
+//        let textLabel = UILabel()
+//        textLabel.font = Constants.headerTextFont
+//        textLabel.textColor = Constants.headerTextColor
+//        textLabel.text = cocktailsViewModel.sections.value[section].model.name.uppercased()
+//        
+//        headerView.addSubview(textLabel)
+//        textLabel.snp.makeConstraints { make in
+//            make.height.equalTo(20)
+//            make.leading.trailing.equalToSuperview().inset(16)
+//            make.centerY.equalToSuperview()
+//        }
+//        
+//        let separator = UIView()
+//        separator.backgroundColor = Constants.separatorColor
+//        
+//        headerView.addSubview(separator)
+//        separator.snp.makeConstraints { make in
+//            make.leading.trailing.bottom.equalTo(headerView)
+//            make.height.equalTo(1)
+//        }
+//        return headerView
+//    }
+//    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        return setupSectionHeaderView(for: section)
+//    }
+//    
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return Constants.headerViewHeight
+//    }
+//    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return Constants.rowHeight
+//    }
+//}
 
 
 

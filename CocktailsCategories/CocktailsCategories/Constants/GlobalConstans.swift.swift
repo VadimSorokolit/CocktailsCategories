@@ -14,12 +14,15 @@ struct GlobalConstants {
     static let titleLabelFont = UIFont.systemFont(ofSize: 16.0, weight: .bold)
     static let filterCellRowHigh: CGFloat = 50.0
     static let defaultPadding: CGFloat = 16.0
+    static let separatorHeight: CGFloat = 1.0
+    static let headerViewHeight: CGFloat = 30.0
     static let badgeColor: UIColor = UIColor(hexString: "E96247")
     static let backgroundColor: UIColor = UIColor(hexString: "FFFFFF")
     static let navigationBarTintColor: UIColor = UIColor(hexString: "000000")
     static let textColor: UIColor = UIColor(hexString: "000000")
     static let navigationBarColor: UIColor = UIColor(hexString: "F7F8F7")
     static let separatorColor: UIColor = UIColor(hexString: "DBDADA")
-    static let separatorHeight: CGFloat = 1.0
-    
+    static let headerBackgroundColor: UIColor = UIColor(hexString: "EFF0f4")
+    static let headerTextColor: UIColor = UIColor(hexString: "808080")
+
 }
