@@ -26,7 +26,7 @@ class CocktailsViewController: UIViewController {
         return button
     }()
     
-    private lazy var badge: UIView = {
+    private lazy var navBarBadgeButton: UIView = {
         let badgeSideSize: CGFloat = 10
         
         let badge = UIView()
@@ -36,7 +36,15 @@ class CocktailsViewController: UIViewController {
         badge.layer.cornerRadius = badgeSideSize / 2
         return badge
     }()
- 
+    
+    private lazy var navBarButton: UIButton = {
+        let button = UIButton()
+        button.addSubview(self.navBarBadgeButton)
+        button.setImage(UIImage(named: "filter_icon"), for: .normal)
+        button.addTarget(self, action: #selector(goToFiltersVC), for: .touchUpInside)
+        return button
+    }()
+    
     // Mark: Initializer
     
     required init(cocktailsViewModel: CocktailsViewModel) {
@@ -54,14 +62,13 @@ class CocktailsViewController: UIViewController {
         super.viewDidLoad()
         
         self.setup()
-        self.setupFiltersBarButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         let isBadgeShown = self.cocktailsViewModel.isBadgeShown
-        self.badge.isHidden = isBadgeShown
+        self.navBarBadgeButton.isHidden = isBadgeShown
     }
     
     // MARK: Methods
@@ -81,15 +88,11 @@ class CocktailsViewController: UIViewController {
         self.navigationItem.largeTitleDisplayMode = .never
         navigationItem.title = NSLocalizedString("Drinks", comment: "")
         self.navigationController?.navigationBar.tintColor = GlobalConstants.navigationBarTintColor
+        self.setupNavBarFiltersButton()
     }
     
-    private func setupFiltersBarButton() {
-        let button = UIButton()
-        button.addSubview(badge)
-        button.setImage(UIImage(named: "filter_icon"), for: .normal)
-        button.addTarget(self, action: #selector(goToFiltersVC), for: .touchUpInside)
-        
-        let barButton = UIBarButtonItem(customView: button)
+    private func setupNavBarFiltersButton() {
+        let barButton = UIBarButtonItem(customView: self.navBarButton)
         navigationItem.rightBarButtonItem = barButton
     }
     
