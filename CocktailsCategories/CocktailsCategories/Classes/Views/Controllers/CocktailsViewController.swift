@@ -12,7 +12,7 @@ class CocktailsViewController: UIViewController {
     // MARK: Objects
     
     private struct LocalConstants {
-        static let badgeSideSize: CGFloat = 10
+        static let badgeSideSize: CGFloat = 10.0
     }
 
     // MARK: Properties
@@ -32,18 +32,18 @@ class CocktailsViewController: UIViewController {
         return button
     }()
     
-    private lazy var navBarBadgeButton: UIView = {
+    private lazy var navBarBadge: UIView = {
         let badge = UIView()
-        badge.frame = CGRect(x: 17, y: -4, width: LocalConstants.badgeSideSize, height: LocalConstants.badgeSideSize)
+        badge.frame = CGRect(x: 17.0, y: -4.0, width: LocalConstants.badgeSideSize, height: LocalConstants.badgeSideSize)
         badge.backgroundColor = GlobalConstants.badgeColor
         badge.isHidden = true
         badge.layer.cornerRadius = LocalConstants.badgeSideSize / 2
         return badge
     }()
     
-    private lazy var navBarButton: UIButton = {
+    private lazy var navBarFilterButton: UIButton = {
         let button = UIButton()
-        button.addSubview(self.navBarBadgeButton)
+        button.addSubview(self.navBarBadge)
         button.setImage(UIImage(named: "filter_icon"), for: .normal)
         button.addTarget(self, action: #selector(goToFiltersVC), for: .touchUpInside)
         return button
@@ -57,7 +57,7 @@ class CocktailsViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(GlobalConstants.fatalError)
     }
     
     // MARK: Lifecycle
@@ -72,7 +72,7 @@ class CocktailsViewController: UIViewController {
         super.viewWillAppear(animated)
         
         let isBadgeShown = self.cocktailsViewModel.isBadgeShown
-        self.navBarBadgeButton.isHidden = isBadgeShown
+        self.navBarBadge.isHidden = !isBadgeShown
     }
     
     // MARK: Methods
@@ -92,11 +92,8 @@ class CocktailsViewController: UIViewController {
         self.navigationItem.largeTitleDisplayMode = .never
         navigationItem.title = NSLocalizedString("Drinks", comment: "")
         self.navigationController?.navigationBar.tintColor = GlobalConstants.navigationBarTintColor
-        self.setupNavBarFiltersButton()
-    }
-    
-    private func setupNavBarFiltersButton() {
-        let barButton = UIBarButtonItem(customView: self.navBarButton)
+        
+        let barButton = UIBarButtonItem(customView: self.navBarFilterButton)
         navigationItem.rightBarButtonItem = barButton
     }
     
