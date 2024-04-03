@@ -25,6 +25,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func setupNavigationController() {
         let viewController = CocktailsViewController(cocktailsViewModel: CocktailsViewModel())
         navController.viewControllers = [viewController]
+        
+        navController.addCustomBottomLine(color: GlobalConstants.separatorColor, height: 1.0)
+        
     }
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {

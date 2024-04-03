@@ -45,7 +45,7 @@ class CocktailsViewController: UIViewController {
         let button = UIButton()
         button.addSubview(self.navBarBadge)
         button.setImage(UIImage(named: "filter_icon"), for: .normal)
-        button.addTarget(self, action: #selector(goToFiltersVC), for: .touchUpInside)
+        button.addTarget(self, action: #selector(self.goToFiltersVC), for: .touchUpInside)
         return button
     }()
     
@@ -90,11 +90,12 @@ class CocktailsViewController: UIViewController {
     
     private func setupNavBar() {
         self.navigationItem.largeTitleDisplayMode = .never
-        navigationItem.title = NSLocalizedString("Drinks", comment: "")
+        self.navigationItem.title = NSLocalizedString("Drinks", comment: "")
         self.navigationController?.navigationBar.tintColor = GlobalConstants.navigationBarTintColor
         
         let barButton = UIBarButtonItem(customView: self.navBarFilterButton)
-        navigationItem.rightBarButtonItem = barButton
+        self.navigationItem.rightBarButtonItem = barButton
+        
     }
     
     @objc private func goToFiltersVC() {
@@ -150,4 +151,27 @@ class CocktailsViewController: UIViewController {
     }
     
 }
+
+// NavBarBotton Line
+extension UINavigationController {
+    
+    func addCustomBottomLine(color: UIColor, height: Double) {
+        let lineView = UIView()
+        lineView.translatesAutoresizingMaskIntoConstraints = false
+        lineView.backgroundColor = color
+        
+        navigationBar.addSubview(lineView)
+        
+        NSLayoutConstraint.activate([
+            lineView.widthAnchor.constraint(equalTo: navigationBar.widthAnchor),
+            lineView.heightAnchor.constraint(equalToConstant: CGFloat(height)),
+            lineView.centerXAnchor.constraint(equalTo: navigationBar.centerXAnchor),
+            lineView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
+        ])
+    }
+    
+}
+
+
+
 
