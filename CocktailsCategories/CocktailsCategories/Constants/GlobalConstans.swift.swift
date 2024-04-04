@@ -10,12 +10,14 @@ import UIKit
 struct GlobalConstants {
     
     static let cocktailCellFont: UIFont? = UIFont(name: "AvenirNext-DemiBold", size: 16.0) ?? UIFont(name: "SF Compact", size: 16.0)
+    static let headerTextFont: UIFont? = UIFont(name: "Avenir-Light", size: 13.0) ?? UIFont(name: "SF Compact", size: 13.0)
     static let fatalError: String = "init(coder:) has not been implemented"
     static let titleLabelFont = UIFont.systemFont(ofSize: 16.0, weight: .bold)
     static let filterCellRowHigh: CGFloat = 50.0
     static let defaultPadding: CGFloat = 16.0
     static let separatorHeight: CGFloat = 1.0
     static let headerViewHeight: CGFloat = 30.0
+    static let rowHeight: CGFloat = 90.0
     static let badgeColor: UIColor = UIColor(hexString: "E96247")
     static let backgroundColor: UIColor = UIColor(hexString: "FFFFFF")
     static let navigationBarTintColor: UIColor = UIColor(hexString: "000000")

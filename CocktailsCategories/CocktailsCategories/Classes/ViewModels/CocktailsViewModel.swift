@@ -35,7 +35,7 @@ class CocktailsViewModel {
     
     private var allCategories: [Category] = []
     var loadedCategories: [CocktailsSection] = []
-    private var filteredCategories: [CocktailsSection] = []
+    var filteredCategories: [CocktailsSection] = []
     private var tempCategories: [CocktailsSection] = []
     private var savedCategories: [CocktailsSection] = []
     

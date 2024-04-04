@@ -19,18 +19,18 @@ class CocktailsViewController: UIViewController {
     
     private let cocktailsViewModel: CocktailsViewModel
     
-    private lazy var loadNextButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.frame = CGRect(x: 0.0, y: 0.0, width: 160.0, height: 60.0)
-        button.center = self.view.center
-        button.backgroundColor = .blue
-        button.tintColor = .white
-        button.layer.cornerRadius = 12.0
-        button.layer.masksToBounds = true
-        button.setTitle("Paginate cocktails", for: .normal)
-        button.addTarget(self, action: #selector(self.loadNextButtonDidTap), for: .touchUpInside)
-        return button
-    }()
+//    private lazy var loadNextButton: UIButton = {
+//        let button = UIButton(type: .system)
+//        button.frame = CGRect(x: 0.0, y: 0.0, width: 160.0, height: 60.0)
+//        button.center = self.view.center
+//        button.backgroundColor = .blue
+//        button.tintColor = .white
+//        button.layer.cornerRadius = 12.0
+//        button.layer.masksToBounds = true
+//        button.setTitle("Paginate cocktails", for: .normal)
+//        button.addTarget(self, action: #selector(self.loadNextButtonDidTap), for: .touchUpInside)
+//        return button
+//    }()
     
     private lazy var navBarBadge: UIView = {
         let badge = UIView()
@@ -49,6 +49,19 @@ class CocktailsViewController: UIViewController {
         return button
     }()
     
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(FilterCell.self, forCellReuseIdentifier: FilterCell.reuseID)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.delegate = self
+        tableView.dataSource = self
+        return tableView
+    }()
+//    private lazy var header: UIView = {
+//        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: cocktailsViewModel. , height: GlobalConstants.headerViewHeight))
+//        headerView.backgroundColor = GlobalConstants.headerBackgroundColor
+//        return header
+//    }()
 //    let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.width, height: Constants.headerViewHeight))
 //    headerView.backgroundColor = Constants.headerBgColor
     
@@ -88,7 +101,8 @@ class CocktailsViewController: UIViewController {
     
     private func setupViews() {
         self.view.backgroundColor = GlobalConstants.backgroundColor
-        self.view.addSubview(self.loadNextButton)
+        // self.view.addSubview(self.loadNextButton)
+        self.view.addSubview(self.tableView)
     }
     
     private func setupNavBar() {
@@ -98,6 +112,10 @@ class CocktailsViewController: UIViewController {
         
         let barButton = UIBarButtonItem(customView: self.navBarFilterButton)
         self.navigationItem.rightBarButtonItem = barButton
+        
+    }
+    
+    private func setupLayout() {
         
     }
     
@@ -155,18 +173,19 @@ class CocktailsViewController: UIViewController {
     
 }
 
-//// MARK: - table view delegate -
-//
-//extension CocktailsViewController: UITableViewDelegate {
-//    
+// MARK: - table view delegate 
+
+extension CocktailsViewController: UITableViewDelegate {
+    
 //    private func setupSectionHeaderView(for section: Int) -> UIView {
 //        
-//
+//        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.width, height: GlobalConstants.headerViewHeight))
+//        headerView.backgroundColor = GlobalConstants.headerBackgroundColor
 //        
 //        let textLabel = UILabel()
-//        textLabel.font = Constants.headerTextFont
-//        textLabel.textColor = Constants.headerTextColor
-//        textLabel.text = cocktailsViewModel.sections.value[section].model.name.uppercased()
+//        textLabel.font = GlobalConstants.headerTextFont
+//        textLabel.textColor = GlobalConstants.headerTextColor
+//        textLabel.text = "Hello Vadimon"
 //        
 //        headerView.addSubview(textLabel)
 //        textLabel.snp.makeConstraints { make in
@@ -176,7 +195,7 @@ class CocktailsViewController: UIViewController {
 //        }
 //        
 //        let separator = UIView()
-//        separator.backgroundColor = Constants.separatorColor
+//        separator.backgroundColor = GlobalConstants.separatorColor
 //        
 //        headerView.addSubview(separator)
 //        separator.snp.makeConstraints { make in
@@ -190,14 +209,36 @@ class CocktailsViewController: UIViewController {
 //        return setupSectionHeaderView(for: section)
 //    }
 //    
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return Constants.headerViewHeight
-//    }
-//    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return Constants.rowHeight
-//    }
-//}
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return GlobalConstants.headerViewHeight
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return GlobalConstants.rowHeight
+    }
+    
+}
+
+// MARK: - UITableViewDataSource
+
+extension CocktailsViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.cocktailsViewModel.filteredCategories.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CocktailCell.reuseID, for: indexPath) as? CocktailCell else {
+            return UITableViewCell()
+        }
+        let category = self.cocktailsViewModel.filteredCategories[0]
+            cell.setupCell(with: category)
+        return cell
+
+    }
+    
+}
+
 
 
 
