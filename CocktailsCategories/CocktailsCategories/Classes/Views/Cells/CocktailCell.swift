@@ -72,10 +72,10 @@ class CocktailCell: UITableViewCell {
             cocktailLabel.leadingAnchor.constraint(equalTo: cocktailImageView.trailingAnchor, constant: -20),
         ])
     }
-
-        func setupCell(with cocktail: CocktailsSection) {
-            cocktailLabel.text = cocktail.category.name
-            separatorInset.left = GlobalConstants.defaultPadding * 2
-        }
+    
+    func setupCell(with cocktail: CocktailsSection) {
+        cocktailLabel.text = cocktail.category.name
+        separatorInset.left = GlobalConstants.defaultPadding * 2
+    }
     
 }

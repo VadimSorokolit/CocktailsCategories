@@ -14,23 +14,23 @@ class CocktailsViewController: UIViewController {
     private struct LocalConstants {
         static let badgeSideSize: CGFloat = 10.0
     }
-
+    
     // MARK: Properties
     
     private let cocktailsViewModel: CocktailsViewModel
     
-//    private lazy var loadNextButton: UIButton = {
-//        let button = UIButton(type: .system)
-//        button.frame = CGRect(x: 0.0, y: 0.0, width: 160.0, height: 60.0)
-//        button.center = self.view.center
-//        button.backgroundColor = .blue
-//        button.tintColor = .white
-//        button.layer.cornerRadius = 12.0
-//        button.layer.masksToBounds = true
-//        button.setTitle("Paginate cocktails", for: .normal)
-//        button.addTarget(self, action: #selector(self.loadNextButtonDidTap), for: .touchUpInside)
-//        return button
-//    }()
+    //    private lazy var loadNextButton: UIButton = {
+    //        let button = UIButton(type: .system)
+    //        button.frame = CGRect(x: 0.0, y: 0.0, width: 160.0, height: 60.0)
+    //        button.center = self.view.center
+    //        button.backgroundColor = .blue
+    //        button.tintColor = .white
+    //        button.layer.cornerRadius = 12.0
+    //        button.layer.masksToBounds = true
+    //        button.setTitle("Paginate cocktails", for: .normal)
+    //        button.addTarget(self, action: #selector(self.loadNextButtonDidTap), for: .touchUpInside)
+    //        return button
+    //    }()
     
     private lazy var navBarBadge: UIView = {
         let badge = UIView()
@@ -57,13 +57,13 @@ class CocktailsViewController: UIViewController {
         tableView.dataSource = self
         return tableView
     }()
-//    private lazy var header: UIView = {
-//        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: cocktailsViewModel. , height: GlobalConstants.headerViewHeight))
-//        headerView.backgroundColor = GlobalConstants.headerBackgroundColor
-//        return header
-//    }()
-//    let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.width, height: Constants.headerViewHeight))
-//    headerView.backgroundColor = Constants.headerBgColor
+    //    private lazy var header: UIView = {
+    //        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: cocktailsViewModel. , height: GlobalConstants.headerViewHeight))
+    //        headerView.backgroundColor = GlobalConstants.headerBackgroundColor
+    //        return header
+    //    }()
+    //    let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.width, height: Constants.headerViewHeight))
+    //    headerView.backgroundColor = Constants.headerBgColor
     
     // Mark: Initializer
     
@@ -192,14 +192,14 @@ extension CocktailsViewController: UITableViewDelegate {
         textLabel.textColor = GlobalConstants.headerTextColor
         textLabel.text = "Vadimon"
         textLabel.translatesAutoresizingMaskIntoConstraints = false
-
+        
         headerView.addSubview(textLabel)
         
         textLabel.heightAnchor.constraint(equalToConstant: 20.0).isActive = true
         textLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16.0).isActive = true
         textLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16.0).isActive = true
         textLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor).isActive = true
-
+        
         let separator = UIView()
         separator.backgroundColor = GlobalConstants.separatorColor
         separator.translatesAutoresizingMaskIntoConstraints = false
@@ -210,14 +210,14 @@ extension CocktailsViewController: UITableViewDelegate {
         separator.leadingAnchor.constraint(equalTo: headerView.leadingAnchor).isActive = true
         separator.trailingAnchor.constraint(equalTo: headerView.trailingAnchor).isActive = true
         separator.bottomAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
-
+        
         return headerView
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-            return setupSectionHeaderView(for: section)
+        return setupSectionHeaderView(for: section)
     }
-
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return GlobalConstants.headerViewHeight
     }
@@ -237,11 +237,11 @@ extension CocktailsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: CocktailCell.reuseID, for: indexPath) as? CocktailCell else {
-//            return UITableViewCell()
-//        }
-//        let category = self.cocktailsViewModel.filteredCategories[indexPath.row]
-//            cell.setupCell(with: category)
+        //        guard let cell = tableView.dequeueReusableCell(withIdentifier: CocktailCell.reuseID, for: indexPath) as? CocktailCell else {
+        //            return UITableViewCell()
+        //        }
+        //        let category = self.cocktailsViewModel.filteredCategories[indexPath.row]
+        //            cell.setupCell(with: category)
         let cell = tableView.dequeueReusableCell(withIdentifier: CocktailCell.reuseID, for: indexPath)
         cell.textLabel?.text = "Hello"
         return cell
