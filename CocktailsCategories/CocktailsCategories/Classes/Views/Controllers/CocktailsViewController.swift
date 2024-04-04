@@ -177,7 +177,7 @@ class CocktailsViewController: UIViewController {
     
 }
 
-// MARK: - table view delegate 
+// MARK: - table view delegate
 
 extension CocktailsViewController: UITableViewDelegate {
     
@@ -190,7 +190,7 @@ extension CocktailsViewController: UITableViewDelegate {
         let textLabel = UILabel()
         textLabel.font = GlobalConstants.headerTextFont
         textLabel.textColor = GlobalConstants.headerTextColor
-        textLabel.text = "Vadimon"
+        textLabel.text = "Vadimon".uppercased()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         
         headerView.addSubview(textLabel)
@@ -237,13 +237,11 @@ extension CocktailsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //        guard let cell = tableView.dequeueReusableCell(withIdentifier: CocktailCell.reuseID, for: indexPath) as? CocktailCell else {
-        //            return UITableViewCell()
-        //        }
-        //        let category = self.cocktailsViewModel.filteredCategories[indexPath.row]
-        //            cell.setupCell(with: category)
-        let cell = tableView.dequeueReusableCell(withIdentifier: CocktailCell.reuseID, for: indexPath)
-        cell.textLabel?.text = "Hello"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CocktailCell.reuseID, for: indexPath) as? CocktailCell else {
+            return UITableViewCell()
+        }
+        let category = self.cocktailsViewModel.filteredCategories[indexPath.row]
+        cell.setupCell(with: category)
         return cell
     }
     
