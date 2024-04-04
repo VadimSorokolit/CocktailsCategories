@@ -19,14 +19,17 @@ class CocktailCell: UITableViewCell {
     
     static let reuseID = LocalConstants.reuseIDName
     
-    let cocktailLabel: UILabel = {
+    
+    private lazy var cocktailLabel: UILabel = {
         let label = UILabel()
         label.font = GlobalConstants.cocktailCellFont
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let cocktailImageView: UIImageView = {
+    private lazy var cocktailImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     

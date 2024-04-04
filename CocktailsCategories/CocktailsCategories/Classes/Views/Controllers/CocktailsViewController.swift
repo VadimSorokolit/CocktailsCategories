@@ -94,8 +94,9 @@ class CocktailsViewController: UIViewController {
     // MARK: Methods
     
     private func setup() {
-        self.setupViews()
         self.setupNavBar()
+        self.setupViews()
+        self.setupLayout()
         self.loadFirstCategory()
     }
     
@@ -116,7 +117,10 @@ class CocktailsViewController: UIViewController {
     }
     
     private func setupLayout() {
-        
+        self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0.0).isActive = true
+        self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 0.0).isActive = true
+        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
+        self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0.0).isActive = true
     }
     
     @objc private func goToFiltersVC() {
@@ -177,38 +181,43 @@ class CocktailsViewController: UIViewController {
 
 extension CocktailsViewController: UITableViewDelegate {
     
-//    private func setupSectionHeaderView(for section: Int) -> UIView {
-//        
-//        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.width, height: GlobalConstants.headerViewHeight))
-//        headerView.backgroundColor = GlobalConstants.headerBackgroundColor
-//        
-//        let textLabel = UILabel()
-//        textLabel.font = GlobalConstants.headerTextFont
-//        textLabel.textColor = GlobalConstants.headerTextColor
-//        textLabel.text = "Hello Vadimon"
-//        
-//        headerView.addSubview(textLabel)
-//        textLabel.snp.makeConstraints { make in
-//            make.height.equalTo(20)
-//            make.leading.trailing.equalToSuperview().inset(16)
-//            make.centerY.equalToSuperview()
-//        }
-//        
-//        let separator = UIView()
-//        separator.backgroundColor = GlobalConstants.separatorColor
-//        
-//        headerView.addSubview(separator)
-//        separator.snp.makeConstraints { make in
-//            make.leading.trailing.bottom.equalTo(headerView)
-//            make.height.equalTo(1)
-//        }
-//        return headerView
-//    }
-//    
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        return setupSectionHeaderView(for: section)
-//    }
-//    
+    private func setupSectionHeaderView(for section: Int) -> UIView {
+        
+        let headerView = UIView()
+        headerView.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: GlobalConstants.headerViewHeight)
+        headerView.backgroundColor = GlobalConstants.headerBackgroundColor
+        
+        let textLabel = UILabel()
+        textLabel.font = GlobalConstants.headerTextFont
+        textLabel.textColor = GlobalConstants.headerTextColor
+        textLabel.text = "Vadimon"
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        headerView.addSubview(textLabel)
+        
+        textLabel.heightAnchor.constraint(equalToConstant: 20.0).isActive = true
+        textLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16.0).isActive = true
+        textLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16.0).isActive = true
+        textLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor).isActive = true
+
+        let separator = UIView()
+        separator.backgroundColor = GlobalConstants.separatorColor
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        
+        headerView.addSubview(separator)
+        
+        separator.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
+        separator.leadingAnchor.constraint(equalTo: headerView.leadingAnchor).isActive = true
+        separator.trailingAnchor.constraint(equalTo: headerView.trailingAnchor).isActive = true
+        separator.bottomAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
+
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+            return setupSectionHeaderView(for: section)
+    }
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return GlobalConstants.headerViewHeight
     }
@@ -228,13 +237,14 @@ extension CocktailsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CocktailCell.reuseID, for: indexPath) as? CocktailCell else {
-            return UITableViewCell()
-        }
-        let category = self.cocktailsViewModel.filteredCategories[0]
-            cell.setupCell(with: category)
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: CocktailCell.reuseID, for: indexPath) as? CocktailCell else {
+//            return UITableViewCell()
+//        }
+//        let category = self.cocktailsViewModel.filteredCategories[indexPath.row]
+//            cell.setupCell(with: category)
+        let cell = tableView.dequeueReusableCell(withIdentifier: CocktailCell.reuseID, for: indexPath)
+        cell.textLabel?.text = "Hello"
         return cell
-
     }
     
 }
