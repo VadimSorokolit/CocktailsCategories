@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class CocktailCell: UITableViewCell {
     
@@ -74,6 +75,7 @@ class CocktailCell: UITableViewCell {
     }
     
     func setupCell(with cocktail: Cocktail ) {
+        cocktailImageView.sd_setImage(with: URL(string: cocktail.thumbLink ?? ""), placeholderImage: UIImage(named: "placeholder"))
         cocktailLabel.text = cocktail.name
         separatorInset.left = GlobalConstants.defaultPadding * 2
     }
