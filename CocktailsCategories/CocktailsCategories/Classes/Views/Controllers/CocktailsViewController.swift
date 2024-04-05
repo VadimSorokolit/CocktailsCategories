@@ -252,7 +252,7 @@ extension CocktailsViewController: UITableViewDataSource {
         }
         
         let category = self.cocktailsViewModel.filteredCategories[indexPath.section]
-        cell.setupCell(with: category.cocktails.first!)
+        cell.setupCell(with: category.cocktails[indexPath.row])
         return cell
     }
     
