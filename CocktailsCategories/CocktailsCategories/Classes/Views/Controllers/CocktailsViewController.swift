@@ -89,6 +89,8 @@ class CocktailsViewController: UIViewController {
         
         let isBadgeShown = self.cocktailsViewModel.isBadgeShown
         self.navBarBadge.isHidden = !isBadgeShown
+        
+        self.tableView.reloadData()
     }
     
     // MARK: Methods
