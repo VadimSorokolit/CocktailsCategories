@@ -63,14 +63,14 @@ class CocktailCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             cocktailImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            cocktailImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: -GlobalConstants.defaultPadding * 2),
+            cocktailImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: GlobalConstants.defaultPadding * 2),
             cocktailImageView.widthAnchor.constraint(equalToConstant: 60.0),
             cocktailImageView.heightAnchor.constraint(equalToConstant: 60.0),
             
             cocktailLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             cocktailLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             cocktailLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            cocktailLabel.leadingAnchor.constraint(equalTo: cocktailImageView.trailingAnchor, constant: -20),
+            cocktailLabel.leadingAnchor.constraint(equalTo: cocktailImageView.trailingAnchor, constant: 20),
         ])
     }
     
