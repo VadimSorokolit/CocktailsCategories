@@ -37,7 +37,7 @@ class CocktailsViewModel {
     var loadedCategories: [CocktailsSection] = []
     var filteredCategories: [CocktailsSection] = []
     private var tempCategories: [CocktailsSection] = []
-    private var savedCategories: [CocktailsSection] = []
+    var savedCategories: [CocktailsSection] = []
     
     var isEnableApplyFiltersButton: Bool {
         var counter = 0
@@ -160,7 +160,7 @@ class CocktailsViewModel {
     }
     
     // Get first category
-    func loadFirstCategory(completion: @escaping (Result<CocktailsSection, NetworkingError>) -> Void) {
+    func loadFirstCategory(completion: @escaping (Result<Void, NetworkingError>) -> Void) {
         self.getAllCategories(completion: { (result: Result<[Category], NetworkingError>) -> Void in
             switch result {
                 case .failure(let error):
@@ -180,7 +180,7 @@ class CocktailsViewModel {
                                 self.loadedCategories.append(newCategory)
                                 self.filteredCategories.append(newCategory)
                                 self.tempCategories.append(newCategory)
-                                completion(.success(newCategory))
+                                completion(.success(()))
                         }
                     })
             }

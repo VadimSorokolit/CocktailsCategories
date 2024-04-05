@@ -51,7 +51,7 @@ class CocktailsViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(FilterCell.self, forCellReuseIdentifier: FilterCell.reuseID)
+        tableView.register(CocktailCell.self, forCellReuseIdentifier: CocktailCell.reuseID)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
@@ -138,11 +138,12 @@ class CocktailsViewController: UIViewController {
     }
     
     private func loadFirstCategory() {
-        self.cocktailsViewModel.loadFirstCategory(completion: { (result: Result<CocktailsSection, NetworkingError>) -> Void in
+        self.cocktailsViewModel.loadFirstCategory(completion: { (result: Result<Void, NetworkingError>) -> Void in
             switch result {
-                case .success(let category):
-                    print("----Loaded first category----")
-                    self.printCategories([category])
+                case .success:
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
                 case .failure(NetworkingError.noMoreCocktails):
                     print(NetworkingError.noMoreCocktails)
                 default:
@@ -190,7 +191,8 @@ extension CocktailsViewController: UITableViewDelegate {
         let textLabel = UILabel()
         textLabel.font = GlobalConstants.headerTextFont
         textLabel.textColor = GlobalConstants.headerTextColor
-        textLabel.text = "Vadimon".uppercased()
+        let categoryName = self.cocktailsViewModel.filteredCategories[section].category.name
+        textLabel.text = categoryName.uppercased()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         
         headerView.addSubview(textLabel)
@@ -232,16 +234,23 @@ extension CocktailsViewController: UITableViewDelegate {
 
 extension CocktailsViewController: UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        let numberOfSections = cocktailsViewModel.filteredCategories.count
+        return numberOfSections
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.cocktailsViewModel.filteredCategories.count
+        let category = self.cocktailsViewModel.filteredCategories[section]
+        return category.cocktails.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CocktailCell.reuseID, for: indexPath) as? CocktailCell else {
             return UITableViewCell()
         }
-        let category = self.cocktailsViewModel.filteredCategories[indexPath.row]
-        cell.setupCell(with: category)
+        
+        let category = self.cocktailsViewModel.filteredCategories[indexPath.section]
+        cell.setupCell(with: category.cocktails.first!)
         return cell
     }
     

@@ -73,8 +73,8 @@ class CocktailCell: UITableViewCell {
         ])
     }
     
-    func setupCell(with cocktail: CocktailsSection) {
-        cocktailLabel.text = cocktail.category.name
+    func setupCell(with cocktail: Cocktail) {
+        cocktailLabel.text = cocktail.name
         separatorInset.left = GlobalConstants.defaultPadding * 2
     }
     
