@@ -13,24 +13,14 @@ class CocktailsViewController: UIViewController {
     
     private struct LocalConstants {
         static let badgeSideSize: CGFloat = 10.0
+        static let TextLabelHeightAnchor = 20.0
+        static let viewDefaultAnchor = 0.0
+
     }
     
     // MARK: Properties
     
     private let cocktailsViewModel: CocktailsViewModel
-    
-    //    private lazy var loadNextButton: UIButton = {
-    //        let button = UIButton(type: .system)
-    //        button.frame = CGRect(x: 0.0, y: 0.0, width: 160.0, height: 60.0)
-    //        button.center = self.view.center
-    //        button.backgroundColor = .blue
-    //        button.tintColor = .white
-    //        button.layer.cornerRadius = 12.0
-    //        button.layer.masksToBounds = true
-    //        button.setTitle("Paginate cocktails", for: .normal)
-    //        button.addTarget(self, action: #selector(self.loadNextButtonDidTap), for: .touchUpInside)
-    //        return button
-    //    }()
     
     private lazy var navBarBadge: UIView = {
         let badge = UIView()
@@ -57,14 +47,7 @@ class CocktailsViewController: UIViewController {
         tableView.dataSource = self
         return tableView
     }()
-    //    private lazy var header: UIView = {
-    //        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: cocktailsViewModel. , height: GlobalConstants.headerViewHeight))
-    //        headerView.backgroundColor = GlobalConstants.headerBackgroundColor
-    //        return header
-    //    }()
-    //    let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.width, height: Constants.headerViewHeight))
-    //    headerView.backgroundColor = Constants.headerBgColor
-    
+
     // Mark: Initializer
     
     required init(cocktailsViewModel: CocktailsViewModel) {
@@ -119,10 +102,12 @@ class CocktailsViewController: UIViewController {
     }
     
     private func setupLayout() {
-        self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0.0).isActive = true
-        self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 0.0).isActive = true
-        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
-        self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0.0).isActive = true
+        self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: LocalConstants.viewDefaultAnchor).isActive = true
+        self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: LocalConstants.viewDefaultAnchor).isActive = true
+        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: LocalConstants.viewDefaultAnchor).isActive = true
+        self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: LocalConstants.viewDefaultAnchor).isActive = true
+        
+        
     }
     
     @objc private func goToFiltersVC() {
@@ -155,11 +140,12 @@ class CocktailsViewController: UIViewController {
     }
     
     private func loadNextCagegory(completion: @escaping () -> Void) {
-        self.cocktailsViewModel.loadNextCategory(completion: { (result: Result<CocktailsSection, NetworkingError>) -> Void in
+        self.cocktailsViewModel.loadNextCategory(completion: { (result: Result<Void, NetworkingError>) -> Void in
             switch result {
                 case .success(let category):
-                    print("----Loaded next category----")
-                    self.printCategories([category])
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
                     completion()
                 case .failure(NetworkingError.noMoreCocktails):
                     print(NetworkingError.noMoreCocktails)
@@ -187,7 +173,7 @@ extension CocktailsViewController: UITableViewDelegate {
     private func setupSectionHeaderView(for section: Int) -> UIView {
         
         let headerView = UIView()
-        headerView.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: GlobalConstants.headerViewHeight)
+        headerView.frame = CGRect(x: 0.0, y: 0.0, width: tableView.frame.width, height: GlobalConstants.headerViewHeight)
         headerView.backgroundColor = GlobalConstants.headerBackgroundColor
         
         let textLabel = UILabel()
@@ -199,9 +185,9 @@ extension CocktailsViewController: UITableViewDelegate {
         
         headerView.addSubview(textLabel)
         
-        textLabel.heightAnchor.constraint(equalToConstant: 20.0).isActive = true
-        textLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16.0).isActive = true
-        textLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16.0).isActive = true
+        textLabel.heightAnchor.constraint(equalToConstant: LocalConstants.TextLabelHeightAnchor).isActive = true
+        textLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: GlobalConstants.defaultPadding).isActive = true
+        textLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -GlobalConstants.defaultPadding).isActive = true
         textLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor).isActive = true
         
         let separator = UIView()
@@ -210,7 +196,7 @@ extension CocktailsViewController: UITableViewDelegate {
         
         headerView.addSubview(separator)
         
-        separator.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
+        separator.heightAnchor.constraint(equalToConstant: GlobalConstants.separatorHeight).isActive = true
         separator.leadingAnchor.constraint(equalTo: headerView.leadingAnchor).isActive = true
         separator.trailingAnchor.constraint(equalTo: headerView.trailingAnchor).isActive = true
         separator.bottomAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
@@ -251,7 +237,7 @@ extension CocktailsViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let category = self.cocktailsViewModel.filteredCategories[indexPath.section]
+        let category = self.cocktailsViewModel.filteredCategories[indexPath.section] 
         cell.setupCell(with: category.cocktails[indexPath.row])
         return cell
     }

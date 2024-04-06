@@ -188,7 +188,7 @@ class CocktailsViewModel {
     }
     
     // Get next category
-    func loadNextCategory(completion: @escaping (Result<CocktailsSection, NetworkingError>) -> Void) {
+    func loadNextCategory(completion: @escaping (Result<Void, NetworkingError>) -> Void) {
         let nextIndex = self.loadedCategories.count
         let isNextCategoryExist = self.allCategories.indices.contains(nextIndex)
         
@@ -203,7 +203,7 @@ class CocktailsViewModel {
                         self.loadedCategories.append(newCategory)
                         self.filteredCategories.append(newCategory)
                         self.tempCategories.append(newCategory)
-                        completion(.success(newCategory))
+                        completion(.success(()))
                 }
             })
         } else {
