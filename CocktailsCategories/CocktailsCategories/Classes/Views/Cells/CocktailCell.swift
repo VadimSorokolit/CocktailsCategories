@@ -16,10 +16,9 @@ class CocktailCell: UITableViewCell {
         static let reuseIDName: String = "CocktailCell"
     }
     
-    // Mark: Properties
+    // MARK: Properties
     
     static let reuseID = LocalConstants.reuseIDName
-    
     
     private lazy var cocktailLabel: UILabel = {
         let label = UILabel()
@@ -30,6 +29,8 @@ class CocktailCell: UITableViewCell {
     
     private lazy var cocktailImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.layer.cornerRadius = GlobalConstants.defaultPadding
+        imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -70,14 +71,20 @@ class CocktailCell: UITableViewCell {
             cocktailLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             cocktailLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             cocktailLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            cocktailLabel.leadingAnchor.constraint(equalTo: cocktailImageView.trailingAnchor, constant: 20),
+            cocktailLabel.leadingAnchor.constraint(equalTo: cocktailImageView.trailingAnchor, constant: 20.0),
         ])
     }
     
     func setupCell(with cocktail: Cocktail ) {
-        cocktailImageView.sd_setImage(with: URL(string: cocktail.thumbLink ?? ""), placeholderImage: UIImage(named: "placeholder"))
-        cocktailLabel.text = cocktail.name
-        separatorInset.left = GlobalConstants.defaultPadding * 2
+        if let cocktailThumbinkString = cocktail.thumbLink {
+            let URLString = URL(string: cocktailThumbinkString)
+            self.cocktailImageView.sd_setImage(with: URLString )
+        } else {
+            let placeholderImage = UIImage(named: "placeholder")
+            self.cocktailImageView.image = placeholderImage
+        }
+        let cocktailName = cocktail.name
+        self.cocktailLabel.text = cocktailName
     }
     
 }

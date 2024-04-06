@@ -13,9 +13,7 @@ class CocktailsViewController: UIViewController {
     
     private struct LocalConstants {
         static let badgeSideSize: CGFloat = 10.0
-        static let TextLabelHeightAnchor = 20.0
-        static let viewDefaultAnchor = 0.0
-
+        static let textLabelHeightAnchor = 20.0
     }
     
     // MARK: Properties
@@ -87,7 +85,6 @@ class CocktailsViewController: UIViewController {
     
     private func setupViews() {
         self.view.backgroundColor = GlobalConstants.backgroundColor
-        // self.view.addSubview(self.loadNextButton)
         self.view.addSubview(self.tableView)
     }
     
@@ -102,26 +99,10 @@ class CocktailsViewController: UIViewController {
     }
     
     private func setupLayout() {
-        self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: LocalConstants.viewDefaultAnchor).isActive = true
-        self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: LocalConstants.viewDefaultAnchor).isActive = true
-        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: LocalConstants.viewDefaultAnchor).isActive = true
-        self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: LocalConstants.viewDefaultAnchor).isActive = true
-        
-        
-    }
-    
-    @objc private func goToFiltersVC() {
-        let filtersVC = FiltersViewController(viewModel: cocktailsViewModel)
-        self.navigationController?.pushViewController(filtersVC, animated: true)
-    }
-    
-    private func printCategories(_ categories: [CocktailsSection]) {
-        for category in categories {
-            let categoryName = category.category.name
-            let cocktailsCount = category.cocktails.count
-            let resultFormatedString = String(format: "CATEGORY: %@  COUNT OF COCKTAILS ARE: %d", arguments: [categoryName, cocktailsCount])
-            print(resultFormatedString)
-        }
+        self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
     
     private func loadFirstCategory() {
@@ -142,7 +123,7 @@ class CocktailsViewController: UIViewController {
     private func loadNextCagegory(completion: @escaping () -> Void) {
         self.cocktailsViewModel.loadNextCategory(completion: { (result: Result<Void, NetworkingError>) -> Void in
             switch result {
-                case .success(let category):
+                case .success:
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
@@ -153,6 +134,13 @@ class CocktailsViewController: UIViewController {
                     print("Unknown Error")
             }
         })
+    }
+    
+    // MARK: Events
+    
+    @objc private func goToFiltersVC() {
+        let filtersVC = FiltersViewController(viewModel: self.cocktailsViewModel)
+        self.navigationController?.pushViewController(filtersVC, animated: true)
     }
     
     @objc private func loadNextButtonDidTap(withSender sender: UIButton) {
@@ -171,7 +159,6 @@ class CocktailsViewController: UIViewController {
 extension CocktailsViewController: UITableViewDelegate {
     
     private func setupSectionHeaderView(for section: Int) -> UIView {
-        
         let headerView = UIView()
         headerView.frame = CGRect(x: 0.0, y: 0.0, width: tableView.frame.width, height: GlobalConstants.headerViewHeight)
         headerView.backgroundColor = GlobalConstants.headerBackgroundColor
@@ -185,7 +172,7 @@ extension CocktailsViewController: UITableViewDelegate {
         
         headerView.addSubview(textLabel)
         
-        textLabel.heightAnchor.constraint(equalToConstant: LocalConstants.TextLabelHeightAnchor).isActive = true
+        textLabel.heightAnchor.constraint(equalToConstant: LocalConstants.textLabelHeightAnchor).isActive = true
         textLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: GlobalConstants.defaultPadding).isActive = true
         textLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -GlobalConstants.defaultPadding).isActive = true
         textLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor).isActive = true
@@ -223,13 +210,14 @@ extension CocktailsViewController: UITableViewDelegate {
 extension CocktailsViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        let numberOfSections = cocktailsViewModel.filteredCategories.count
+        let numberOfSections = self.cocktailsViewModel.filteredCategories.count
         return numberOfSections
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let category = self.cocktailsViewModel.filteredCategories[section]
-        return category.cocktails.count
+        let cocktailsCount = category.cocktails.count
+        return cocktailsCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -237,8 +225,10 @@ extension CocktailsViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let category = self.cocktailsViewModel.filteredCategories[indexPath.section] 
-        cell.setupCell(with: category.cocktails[indexPath.row])
+        let category = self.cocktailsViewModel.filteredCategories[indexPath.section]
+        let categoryCocktail = category.cocktails[indexPath.row]
+        cell.setupCell(with: categoryCocktail)
+        cell.separatorInset.left = GlobalConstants.defaultPadding * 2
         return cell
     }
     
