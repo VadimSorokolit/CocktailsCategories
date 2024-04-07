@@ -41,13 +41,14 @@ class CocktailsViewController: UIViewController {
         let tableView = UITableView()
         tableView.register(CocktailCell.self, forCellReuseIdentifier: CocktailCell.reuseID)
         tableView.backgroundColor = GlobalConstants.navigationBarColor
+        tableView.contentInset = UIEdgeInsets.zero
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
     }()
 
-    // Mark: Initializer
+    // MARK: Initializer
     
     required init(cocktailsViewModel: CocktailsViewModel) {
         self.cocktailsViewModel = cocktailsViewModel
@@ -64,8 +65,6 @@ class CocktailsViewController: UIViewController {
         super.viewDidLoad()
         
         self.setup()
-        navigationController?.navigationBar.standardAppearance = UINavigationBarAppearance()
-        navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,10 +97,17 @@ class CocktailsViewController: UIViewController {
         
         let barButton = UIBarButtonItem(customView: self.navBarFilterButton)
         self.navigationItem.rightBarButtonItem = barButton
-        
+    }
+    
+    private func setupHeaderViewTopPadding() {
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = CGFloat(0)
+        }
     }
     
     private func setupLayout() {
+        self.setupHeaderViewTopPadding()
+        
         self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
@@ -123,14 +129,13 @@ class CocktailsViewController: UIViewController {
         })
     }
     
-    private func loadNextCagegory(completion: @escaping () -> Void) {
+    private func loadNextCagegory() {
         self.cocktailsViewModel.loadNextCategory(completion: { (result: Result<Void, NetworkingError>) -> Void in
             switch result {
                 case .success:
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
-                    completion()
                 case .failure(NetworkingError.noMoreCocktails):
                     print(NetworkingError.noMoreCocktails)
                 default:
@@ -144,15 +149,6 @@ class CocktailsViewController: UIViewController {
     @objc private func goToFiltersVC() {
         let filtersVC = FiltersViewController(viewModel: self.cocktailsViewModel)
         self.navigationController?.pushViewController(filtersVC, animated: true)
-    }
-    
-    @objc private func loadNextButtonDidTap(withSender sender: UIButton) {
-        sender.isEnabled = false
-        self.loadNextCagegory(completion: { () -> Void in
-            DispatchQueue.main.async(execute: { () -> Void in
-                sender.isEnabled = true
-            })
-        })
     }
     
 }
@@ -194,16 +190,16 @@ extension CocktailsViewController: UITableViewDelegate {
         return headerView
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return self.setupSectionHeaderView(for: section)
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return GlobalConstants.rowHeight
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return GlobalConstants.headerViewHeight
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return GlobalConstants.rowHeight
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return self.setupSectionHeaderView(for: section)
     }
     
 }
@@ -211,11 +207,6 @@ extension CocktailsViewController: UITableViewDelegate {
 // MARK: - UITableViewDataSource
 
 extension CocktailsViewController: UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        let numberOfSections = self.cocktailsViewModel.filteredCategories.count
-        return numberOfSections
-    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let category = self.cocktailsViewModel.filteredCategories[section]
@@ -233,6 +224,11 @@ extension CocktailsViewController: UITableViewDataSource {
         cell.setupCell(with: categoryCocktail)
         cell.separatorInset.left = GlobalConstants.defaultPadding * 2
         return cell
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        let numberOfSections = self.cocktailsViewModel.filteredCategories.count
+        return numberOfSections
     }
     
 }

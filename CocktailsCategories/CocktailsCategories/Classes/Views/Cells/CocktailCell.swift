@@ -29,7 +29,7 @@ class CocktailCell: UITableViewCell {
     
     private lazy var cocktailImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = GlobalConstants.defaultPadding
+        imageView.layer.cornerRadius = GlobalConstants.defaultPadding / 2
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -76,13 +76,7 @@ class CocktailCell: UITableViewCell {
     }
     
     func setupCell(with cocktail: Cocktail ) {
-        if let cocktailThumbinkString = cocktail.thumbLink {
-            let URLString = URL(string: cocktailThumbinkString)
-            self.cocktailImageView.sd_setImage(with: URLString )
-        } else {
-            let placeholderImage = UIImage(named: "placeholder")
-            self.cocktailImageView.image = placeholderImage
-        }
+        cocktailImageView.sd_setImage(with: URL(string: cocktail.thumbLink ?? ""), placeholderImage: UIImage(named: "placeholder"))
         let cocktailName = cocktail.name
         self.cocktailLabel.text = cocktailName
     }

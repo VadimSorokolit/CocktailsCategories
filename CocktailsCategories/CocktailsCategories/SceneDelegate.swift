@@ -11,7 +11,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     private let navController = UINavigationController()
-    private var customBottomLine: UIView? 
     
     private func setupNavBarAppearance() {
         let appearance = UINavigationBarAppearance()
@@ -28,8 +27,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let viewController = CocktailsViewController(cocktailsViewModel: viewModel)
         self.navController.viewControllers = [viewController]
         
-        // Adding the custom bottom line view
-        self.customBottomLine = self.navController.addCustomBottomLine(color: GlobalConstants.separatorColor, height: GlobalConstants.separatorHeight)
+        self.navController.addCustomBottomLine(color: GlobalConstants.separatorColor, height: GlobalConstants.separatorHeight)
+        
     }
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -43,9 +42,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.rootViewController = self.navController
             window.makeKeyAndVisible()
             self.window = window
-            
-            // Hide the custom bottom line initially
-            self.customBottomLine?.isHidden = true
         }
     }
     
@@ -54,8 +50,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 // NavBarBotton Line
 extension UINavigationController {
     
-    @discardableResult
-    func addCustomBottomLine(color: UIColor, height: CGFloat) -> UIView {
+    func addCustomBottomLine(color: UIColor, height: CGFloat) {
         let lineView = UIView()
         lineView.translatesAutoresizingMaskIntoConstraints = false
         lineView.backgroundColor = color
@@ -68,8 +63,6 @@ extension UINavigationController {
             lineView.centerXAnchor.constraint(equalTo: navigationBar.centerXAnchor),
             lineView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
         ])
-        
-        return lineView
     }
     
 }
