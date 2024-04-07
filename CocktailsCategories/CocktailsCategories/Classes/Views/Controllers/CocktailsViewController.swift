@@ -40,6 +40,7 @@ class CocktailsViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(CocktailCell.self, forCellReuseIdentifier: CocktailCell.reuseID)
+        tableView.backgroundColor = GlobalConstants.navigationBarColor
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
@@ -63,6 +64,8 @@ class CocktailsViewController: UIViewController {
         super.viewDidLoad()
         
         self.setup()
+        navigationController?.navigationBar.standardAppearance = UINavigationBarAppearance()
+        navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -192,7 +195,7 @@ extension CocktailsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return setupSectionHeaderView(for: section)
+        return self.setupSectionHeaderView(for: section)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
