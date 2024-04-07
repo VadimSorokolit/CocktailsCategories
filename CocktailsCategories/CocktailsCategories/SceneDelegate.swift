@@ -54,7 +54,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 // NavBarBotton Line
 extension UINavigationController {
     
-    @discardableResult
     func addCustomBottomLine(color: UIColor, height: CGFloat) -> UIView {
         let lineView = UIView()
         lineView.translatesAutoresizingMaskIntoConstraints = false
