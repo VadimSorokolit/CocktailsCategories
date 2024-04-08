@@ -19,7 +19,7 @@ struct GlobalConstants {
     static let headerViewHeight: CGFloat = 30.0
     static let rowHeight: CGFloat = 90.0
     static let badgeColor: UIColor = UIColor(hexString: "E96247")
-    static let backgroundColor: UIColor = UIColor(hexString: "FFFFFF")
+    static let defaultBackgroundColor: UIColor = UIColor(hexString: "FFFFFF")
     static let navigationBarTintColor: UIColor = UIColor(hexString: "000000")
     static let textColor: UIColor = UIColor(hexString: "000000")
     static let navigationBarColor: UIColor = UIColor(hexString: "F7F8F7")

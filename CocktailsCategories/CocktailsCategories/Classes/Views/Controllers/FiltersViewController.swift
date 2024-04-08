@@ -36,7 +36,7 @@ class FiltersViewController: UIViewController {
         button.titleLabel?.font = GlobalConstants.titleLabelFont
         button.setTitleColor(LocalConstants.buttonIsEnableTintColor, for: .normal)
         button.setTitleColor(LocalConstants.buttonIsDisableTintColor, for: .disabled)
-        button.backgroundColor = GlobalConstants.backgroundColor
+        button.backgroundColor = GlobalConstants.defaultBackgroundColor
         button.layer.borderColor = LocalConstants.buttonIsDisableBorderColor.cgColor
         button.layer.cornerRadius = LocalConstants.buttonCornerRadius
         button.layer.masksToBounds = true
@@ -92,7 +92,7 @@ class FiltersViewController: UIViewController {
     }
     
     private func setupViews() {
-        self.view.backgroundColor = GlobalConstants.backgroundColor
+        self.view.backgroundColor = GlobalConstants.defaultBackgroundColor
         self.view.addSubview(self.tableView)
         self.view.addSubview(self.applyFiltersButton)
     }

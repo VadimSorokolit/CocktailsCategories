@@ -13,7 +13,7 @@ class CocktailsViewController: UIViewController {
     
     private struct LocalConstants {
         static let badgeSideSize: CGFloat = 10.0
-        static let textLabelHeightAnchor = 20.0
+        static let textLabelHeightAnchor: CGFloat = 20.0
     }
     
     // MARK: Properties
@@ -40,8 +40,8 @@ class CocktailsViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(CocktailCell.self, forCellReuseIdentifier: CocktailCell.reuseID)
-        tableView.backgroundColor = GlobalConstants.navigationBarColor
-        tableView.contentInset = UIEdgeInsets.zero
+        tableView.backgroundColor = GlobalConstants.defaultBackgroundColor
+        tableView.sectionHeaderTopPadding = .zero
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
@@ -86,7 +86,7 @@ class CocktailsViewController: UIViewController {
     }
     
     private func setupViews() {
-        self.view.backgroundColor = GlobalConstants.backgroundColor
+        self.view.backgroundColor = GlobalConstants.defaultBackgroundColor
         self.view.addSubview(self.tableView)
     }
     
@@ -99,15 +99,7 @@ class CocktailsViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = barButton
     }
     
-    private func setupHeaderViewTopPadding() {
-        if #available(iOS 15.0, *) {
-            tableView.sectionHeaderTopPadding = CGFloat(0)
-        }
-    }
-    
     private func setupLayout() {
-        self.setupHeaderViewTopPadding()
-        
         self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
