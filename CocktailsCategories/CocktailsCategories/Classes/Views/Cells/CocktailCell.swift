@@ -76,7 +76,7 @@ class CocktailCell: UITableViewCell {
     }
     
     func setupCell(with cocktail: Cocktail ) {
-        cocktailImageView.sd_setImage(with: URL(string: cocktail.thumbLink ?? ""), placeholderImage: UIImage(named: "placeholder"))
+        self.cocktailImageView.sd_setImage(with: URL(string: cocktail.thumbLink ?? ""), placeholderImage: UIImage(named: "placeholder"))
         let cocktailName = cocktail.name
         self.cocktailLabel.text = cocktailName
     }

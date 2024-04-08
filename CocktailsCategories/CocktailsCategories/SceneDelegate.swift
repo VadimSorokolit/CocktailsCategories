@@ -28,7 +28,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.navController.viewControllers = [viewController]
         
         self.navController.addCustomBottomLine(color: GlobalConstants.separatorColor, height: GlobalConstants.separatorHeight)
-        
     }
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
