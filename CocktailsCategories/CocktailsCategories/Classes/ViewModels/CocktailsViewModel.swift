@@ -35,10 +35,11 @@ class CocktailsViewModel {
     // MARK: - Properties
     
     private var allCategories: [Category] = []
+    private var tempCategories: [CocktailsSection] = []
+    private var savedCategories: [CocktailsSection] = []
     var loadedCategories: [CocktailsSection] = []
     var filteredCategories: [CocktailsSection] = []
-    private var tempCategories: [CocktailsSection] = []
-    var savedCategories: [CocktailsSection] = []
+    var completion: ((Result<Void, NetworkingError>) -> Void)? = nil
     
     var isEnableApplyFiltersButton: Bool {
         var counter = 0
@@ -159,7 +160,7 @@ class CocktailsViewModel {
             }
         }).resume()
     }
-    
+
     // Get first category
     func loadFirstCategory(completion: @escaping (Result<Void, NetworkingError>) -> Void) {
         self.getAllCategories(completion: { (result: Result<[Category], NetworkingError>) -> Void in
