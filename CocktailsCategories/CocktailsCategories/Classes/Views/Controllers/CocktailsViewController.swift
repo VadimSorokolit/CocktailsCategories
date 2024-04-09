@@ -83,6 +83,7 @@ class CocktailsViewController: UIViewController {
         self.setupNavBar()
         self.setupViews()
         self.setupLayout()
+        self.setObserver()
         self.loadFirstCategory()
     }
     
@@ -107,8 +108,8 @@ class CocktailsViewController: UIViewController {
         self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
     
-    private func loadFirstCategory() {
-        self.cocktailsViewModel.loadFirstCategory(completion: { (result: Result<Void, NetworkingError>) -> Void in
+    private func setObserver() {
+        self.cocktailsViewModel.completion = { result in
             switch result {
                 case .success:
                     DispatchQueue.main.async {
@@ -116,28 +117,21 @@ class CocktailsViewController: UIViewController {
                     }
                 case .failure(NetworkingError.noMoreCocktails):
                     self.alertsManager.showErrorAlert(message: NetworkingError.noMoreCocktails.localizedDescription, in: self)
-                    print(NetworkingError.noMoreCocktails.localizedDescription)
                 default:
                     self.alertsManager.showErrorAlert(message: NetworkingError.unknownError.localizedDescription, in: self)
-                    print(NetworkingError.unknownError.localizedDescription)
             }
+        }
+    }
+    
+    private func loadFirstCategory() {
+        self.cocktailsViewModel.loadFirstCategory(completion: { (result: Result<Void, NetworkingError>) -> Void in
+            self.setObserver()
         })
     }
     
     private func loadNextCagegory() {
         self.cocktailsViewModel.loadNextCategory(completion: { (result: Result<Void, NetworkingError>) -> Void in
-            switch result {
-                case .success:
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
-                case .failure(NetworkingError.noMoreCocktails):
-                    self.alertsManager.showErrorAlert(message: NetworkingError.noMoreCocktails.localizedDescription, in: self)
-                    print(NetworkingError.noMoreCocktails.localizedDescription)
-                default:
-                    self.alertsManager.showErrorAlert(message: NetworkingError.unknownError.localizedDescription, in: self)
-                    print(NetworkingError.unknownError.localizedDescription)
-            }
+            self.setObserver()
         })
     }
 

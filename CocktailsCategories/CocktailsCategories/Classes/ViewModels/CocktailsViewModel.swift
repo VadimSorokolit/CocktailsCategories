@@ -167,9 +167,11 @@ class CocktailsViewModel {
             switch result {
                 case .failure(let error):
                     completion(.failure(error))
+                    self.completion?(.failure(error))
                 case .success(let categories):
                     self.allCategories = categories
                     guard let firstCategory = self.allCategories.first else {
+                        self.completion?(.failure(NetworkingError.emptyFirstCategory))
                         completion(.failure(NetworkingError.emptyFirstCategory))
                         return
                     }
@@ -177,11 +179,13 @@ class CocktailsViewModel {
                         switch result {
                             case .failure(let error):
                                 completion(.failure(error))
+                                self.completion?(.failure(error))
                             case .success(let drinks):
                                 let newCategory = CocktailsSection(category: firstCategory, cocktails: drinks)
                                 self.loadedCategories.append(newCategory)
                                 self.filteredCategories.append(newCategory)
                                 self.tempCategories.append(newCategory)
+                                self.completion?(.success(()))
                                 completion(.success(()))
                         }
                     })
