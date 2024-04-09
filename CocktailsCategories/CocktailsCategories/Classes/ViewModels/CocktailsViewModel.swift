@@ -15,6 +15,7 @@ enum NetworkingError: Error {
     case emptyFirstCategory
     case noMoreCocktails
     case error(Error)
+    case unknownError
 }
 
 struct CocktailsSection: Equatable {
@@ -274,6 +275,10 @@ class CocktailsViewModel {
     // Apply filters
     func applyFilters() {
         self.savedCategories = self.filteredCategories.filter({ $0.isSelected })
+        if self.savedCategories.isEmpty {
+            self.filteredCategories = self.loadedCategories
+            self.savedCategories = loadedCategories
+        }
     }
-
+    
 }

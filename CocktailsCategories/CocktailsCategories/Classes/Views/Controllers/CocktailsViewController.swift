@@ -19,6 +19,7 @@ class CocktailsViewController: UIViewController {
     // MARK: Properties
     
     private let cocktailsViewModel: CocktailsViewModel
+    private let alertsManager = AlertsManager()
     
     private lazy var navBarBadge: UIView = {
         let badge = UIView()
@@ -114,9 +115,11 @@ class CocktailsViewController: UIViewController {
                         self.tableView.reloadData()
                     }
                 case .failure(NetworkingError.noMoreCocktails):
-                    print(NetworkingError.noMoreCocktails)
+                    self.alertsManager.showErrorAlert(message: NetworkingError.noMoreCocktails.localizedDescription, in: self)
+                    print(NetworkingError.noMoreCocktails.localizedDescription)
                 default:
-                    print("Unknown Error")
+                    self.alertsManager.showErrorAlert(message: NetworkingError.unknownError.localizedDescription, in: self)
+                    print(NetworkingError.unknownError.localizedDescription)
             }
         })
     }
@@ -129,13 +132,15 @@ class CocktailsViewController: UIViewController {
                         self.tableView.reloadData()
                     }
                 case .failure(NetworkingError.noMoreCocktails):
-                    print(NetworkingError.noMoreCocktails)
+                    self.alertsManager.showErrorAlert(message: NetworkingError.noMoreCocktails.localizedDescription, in: self)
+                    print(NetworkingError.noMoreCocktails.localizedDescription)
                 default:
-                    print("Unknown Error")
+                    self.alertsManager.showErrorAlert(message: NetworkingError.unknownError.localizedDescription, in: self)
+                    print(NetworkingError.unknownError.localizedDescription)
             }
         })
     }
-    
+
     // MARK: Events
     
     @objc private func goToFiltersVC() {

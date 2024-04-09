@@ -22,6 +22,7 @@
 		DDA10DA32BC09B2500C06837 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DDA10DA22BC09B2500C06837 /* SDWebImageMapKit */; };
 		DDAA8D822BAB736900CABE0F /* GlobalConstans.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAA8D812BAB736900CABE0F /* GlobalConstans.swift.swift */; };
 		DDC0B6292BA750AF0005BE73 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC0B6282BA750AF0005BE73 /* FilterCell.swift */; };
+		DDEF80382BC486E9009D4594 /* AlertsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEF80372BC486E9009D4594 /* AlertsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		DDA10D9D2BBDE84600C06837 /* CocktailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailCell.swift; sourceTree = "<group>"; };
 		DDAA8D812BAB736900CABE0F /* GlobalConstans.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstans.swift.swift; sourceTree = "<group>"; };
 		DDC0B6282BA750AF0005BE73 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
+		DDEF80372BC486E9009D4594 /* AlertsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,8 +80,9 @@
 				DD4BB6512B8699470076A34F /* Resources */,
 				DDAA8D802BAB729000CABE0F /* Constants */,
 				DD4BB6542B8699F20076A34F /* SupportingFiles */,
-				DD4BB6362B8696240076A34F /* AppDelegate.swift */,
+				DDEF80362BC4867C009D4594 /* Managers */,
 				DD4BB6382B8696240076A34F /* SceneDelegate.swift */,
+				DD4BB6362B8696240076A34F /* AppDelegate.swift */,
 				DD4BB63F2B8696250076A34F /* Assets.xcassets */,
 				DD4BB6412B8696250076A34F /* LaunchScreen.storyboard */,
 				DD4BB6442B8696250076A34F /* Info.plist */,
@@ -196,6 +199,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		DDEF80362BC4867C009D4594 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				DDEF80372BC486E9009D4594 /* AlertsManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -281,6 +292,7 @@
 				DDA10D9A2BB7742900C06837 /* UIColorChangedByHexString.swift in Sources */,
 				DD4BB6372B8696240076A34F /* AppDelegate.swift in Sources */,
 				DDC0B6292BA750AF0005BE73 /* FilterCell.swift in Sources */,
+				DDEF80382BC486E9009D4594 /* AlertsManager.swift in Sources */,
 				DD4BB6392B8696240076A34F /* SceneDelegate.swift in Sources */,
 				DDA10D9E2BBDE84600C06837 /* CocktailCell.swift in Sources */,
 				DD1066992BA377A500C34563 /* FiltersViewController.swift in Sources */,
