@@ -275,11 +275,10 @@ class CocktailsViewModel {
     
     // Apply filters
     func applyFilters() {
+        self.savedCategories = self.filteredCategories.filter({ $0.isSelected })
         if self.savedCategories.isEmpty {
             self.filteredCategories = self.loadedCategories
             self.savedCategories = loadedCategories
-        } else {
-            self.savedCategories = self.filteredCategories.filter({ $0.isSelected })
         }
         self.completion?(.success(()))
     }
