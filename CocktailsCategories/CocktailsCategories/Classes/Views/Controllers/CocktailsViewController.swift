@@ -189,6 +189,7 @@ extension CocktailsViewController: UITableViewDelegate {
         return self.setupSectionHeaderView(for: section)
     }
     
+    // Only for test !!!
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.loadNextCagegory()
     }
