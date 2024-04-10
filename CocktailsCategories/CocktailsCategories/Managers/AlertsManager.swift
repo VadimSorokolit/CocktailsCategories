@@ -26,8 +26,8 @@ class AlertsManager {
         viewContoller.present(alert, animated: true, completion: nil)
     }
     
-    func showErrorAlert(message: String, in viewController: UIViewController) {
-        self.showAlert(title: LocalConstants.errorTitle, message: message, in: viewController, okCompletion: nil)
+    func showErrorAlert(error: Error, in viewController: UIViewController) {
+        self.showAlert(title: LocalConstants.errorTitle, message: error.localizedDescription, in: viewController, okCompletion: nil)
     }
     
 }
