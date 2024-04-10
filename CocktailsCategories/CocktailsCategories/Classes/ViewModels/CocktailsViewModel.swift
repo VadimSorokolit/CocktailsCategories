@@ -162,23 +162,20 @@ class CocktailsViewModel {
     }
 
     // Get first category
-    func loadFirstCategory(completion: @escaping (Result<Void, NetworkingError>) -> Void) {
+    func loadFirstCategory() {
         self.getAllCategories(completion: { (result: Result<[Category], NetworkingError>) -> Void in
             switch result {
                 case .failure(let error):
-                    completion(.failure(error))
                     self.completion?(.failure(error))
                 case .success(let categories):
                     self.allCategories = categories
                     guard let firstCategory = self.allCategories.first else {
                         self.completion?(.failure(NetworkingError.emptyFirstCategory))
-                        completion(.failure(NetworkingError.emptyFirstCategory))
                         return
                     }
                     self.getCocktails(by: firstCategory.name, completion: { (result: Result<[Cocktail], NetworkingError>) -> Void in
                         switch result {
                             case .failure(let error):
-                                completion(.failure(error))
                                 self.completion?(.failure(error))
                             case .success(let drinks):
                                 let newCategory = CocktailsSection(category: firstCategory, cocktails: drinks)
@@ -186,7 +183,6 @@ class CocktailsViewModel {
                                 self.filteredCategories.append(newCategory)
                                 self.tempCategories.append(newCategory)
                                 self.completion?(.success(()))
-                                completion(.success(()))
                         }
                     })
             }
@@ -194,7 +190,7 @@ class CocktailsViewModel {
     }
     
     // Get next category
-    func loadNextCategory(completion: @escaping (Result<Void, NetworkingError>) -> Void) {
+    func loadNextCategory() {
         let nextIndex = self.loadedCategories.count
         let isNextCategoryExist = self.allCategories.indices.contains(nextIndex)
         
@@ -203,17 +199,17 @@ class CocktailsViewModel {
             self.getCocktails(by: nextCategory.name, completion: { (result: Result<[Cocktail], NetworkingError>) in
                 switch result {
                     case .failure(let error):
-                        completion(.failure(error))
+                        self.completion?(.failure(error))
                     case .success(let drinks):
                         let newCategory = CocktailsSection(category: nextCategory, cocktails: drinks)
                         self.loadedCategories.append(newCategory)
                         self.filteredCategories.append(newCategory)
                         self.tempCategories.append(newCategory)
-                        completion(.success(()))
+                        self.completion?(.success(()))
                 }
             })
         } else {
-            completion(.failure(NetworkingError.noMoreCocktails))
+            self.completion?(.failure(NetworkingError.noMoreCocktails))
         }
     }
     
@@ -279,11 +275,13 @@ class CocktailsViewModel {
     
     // Apply filters
     func applyFilters() {
-        self.savedCategories = self.filteredCategories.filter({ $0.isSelected })
         if self.savedCategories.isEmpty {
             self.filteredCategories = self.loadedCategories
             self.savedCategories = loadedCategories
+        } else {
+            self.savedCategories = self.filteredCategories.filter({ $0.isSelected })
         }
+        self.completion?(.success(()))
     }
     
 }

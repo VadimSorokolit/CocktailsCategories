@@ -109,30 +109,26 @@ class CocktailsViewController: UIViewController {
     }
     
     private func setObserver() {
-        self.cocktailsViewModel.completion = { result in
-            switch result {
-                case .success:
-                    DispatchQueue.main.async {
+        self.cocktailsViewModel.completion = { (result: Result<Void, NetworkingError>) -> Void in
+            DispatchQueue.main.async {
+                switch result {
+                    case .success:
                         self.tableView.reloadData()
-                    }
-                case .failure(NetworkingError.noMoreCocktails):
-                    self.alertsManager.showErrorAlert(message: NetworkingError.noMoreCocktails.localizedDescription, in: self)
-                default:
-                    self.alertsManager.showErrorAlert(message: NetworkingError.unknownError.localizedDescription, in: self)
+                    case .failure(NetworkingError.noMoreCocktails):
+                        self.alertsManager.showErrorAlert(error: NetworkingError.noMoreCocktails, in: self)
+                    default:
+                        self.alertsManager.showErrorAlert(error: NetworkingError.unknownError, in: self)
+                }
             }
         }
     }
     
     private func loadFirstCategory() {
-        self.cocktailsViewModel.loadFirstCategory(completion: { (result: Result<Void, NetworkingError>) -> Void in
-            self.setObserver()
-        })
+        self.cocktailsViewModel.loadFirstCategory()
     }
     
     private func loadNextCagegory() {
-        self.cocktailsViewModel.loadNextCategory(completion: { (result: Result<Void, NetworkingError>) -> Void in
-            self.setObserver()
-        })
+        self.cocktailsViewModel.loadNextCategory()
     }
 
     // MARK: Events
