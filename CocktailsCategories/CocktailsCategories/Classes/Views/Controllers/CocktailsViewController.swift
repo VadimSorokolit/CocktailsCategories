@@ -109,7 +109,7 @@ class CocktailsViewController: UIViewController {
     }
     
     private func setObserver() {
-        self.cocktailsViewModel.completion = { result in
+        self.cocktailsViewModel.completion = { (result: Result<Void, NetworkingError>) -> Void in
             switch result {
                 case .success:
                     DispatchQueue.main.async {
