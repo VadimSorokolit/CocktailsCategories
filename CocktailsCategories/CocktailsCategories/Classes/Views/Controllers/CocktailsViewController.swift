@@ -191,7 +191,6 @@ extension CocktailsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.loadNextCagegory()
-//        self.cocktailsViewModel.completion?(.success(()))
     }
     
 }
