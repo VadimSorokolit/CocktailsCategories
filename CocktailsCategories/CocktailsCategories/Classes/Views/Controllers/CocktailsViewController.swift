@@ -113,7 +113,7 @@ class CocktailsViewController: UIViewController {
             DispatchQueue.main.async {
                 switch result {
                     case .success:
-                        self.tableView.reloadData()
+                        self.reloadAndScrollToTop()
                     case .failure(NetworkingError.noMoreCocktails):
                         self.alertsManager.showErrorAlert(error: NetworkingError.noMoreCocktails, in: self)
                     default:
@@ -121,6 +121,12 @@ class CocktailsViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    private func reloadAndScrollToTop() {
+        tableView.reloadData()
+        tableView.layoutIfNeeded()
+        tableView.contentOffset = CGPoint(x: 0, y: -GlobalConstants.rowHeight)
     }
     
     private func loadFirstCategory() {
@@ -215,6 +221,7 @@ extension CocktailsViewController: UITableViewDataSource {
         let categoryCocktail = category.cocktails[indexPath.row]
         cell.setupCell(with: categoryCocktail)
         cell.separatorInset.left = GlobalConstants.defaultPadding * 2
+        cell.selectionStyle = .none
         return cell
     }
     
