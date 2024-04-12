@@ -202,10 +202,12 @@ class CocktailsViewModel {
                         self.completion?(.failure(error))
                     case .success(let drinks):
                         let newCategory = CocktailsSection(category: nextCategory, cocktails: drinks)
-                        self.loadedCategories.append(newCategory)
-                        self.filteredCategories.append(newCategory)
-                        self.tempCategories.append(newCategory)
-                        self.completion?(.success(()))
+                        if !self.loadedCategories.contains(newCategory) {
+                            self.loadedCategories.append(newCategory)
+                            self.filteredCategories.append(newCategory)
+                            self.tempCategories.append(newCategory)
+                            self.completion?(.success(()))
+                        }
                 }
             })
         } else {
