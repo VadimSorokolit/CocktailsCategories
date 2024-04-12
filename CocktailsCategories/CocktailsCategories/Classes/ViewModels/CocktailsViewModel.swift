@@ -40,6 +40,7 @@ class CocktailsViewModel {
     var loadedCategories: [CocktailsSection] = []
     var filteredCategories: [CocktailsSection] = []
     var completion: ((Result<Void, NetworkingError>) -> Void)? = nil
+    var isLoadingDate: Bool = false
     
     var isEnableApplyFiltersButton: Bool {
         var counter = 0
@@ -195,8 +196,10 @@ class CocktailsViewModel {
         let isNextCategoryExist = self.allCategories.indices.contains(nextIndex)
         
         if isNextCategoryExist {
+            self.isLoadingDate = true
             let nextCategory = self.allCategories[nextIndex]
             self.getCocktails(by: nextCategory.name, completion: { (result: Result<[Cocktail], NetworkingError>) in
+                self.isLoadingDate = false
                 switch result {
                     case .failure(let error):
                         self.completion?(.failure(error))
