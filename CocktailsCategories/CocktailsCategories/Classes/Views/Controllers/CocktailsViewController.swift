@@ -232,6 +232,12 @@ extension CocktailsViewController: UITableViewDataSource {
     
 }
 
+extension CocktailsViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let tableView = scrollView as? UITableView else { return }
+    }
+}
 
 
 
