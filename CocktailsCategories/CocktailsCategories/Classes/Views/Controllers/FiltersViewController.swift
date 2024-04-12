@@ -80,7 +80,6 @@ class FiltersViewController: UIViewController {
         
         if !self.isApplyFiltersButtonPressed {
             self.viewModel.resetFilters()
-            self.reloadAndScrollToTop()
         }
     }
     
@@ -118,13 +117,7 @@ class FiltersViewController: UIViewController {
     private func goToCocktailsViewController() {
         self.navigationController?.popViewController(animated: true)
     }
-    
-    private func reloadAndScrollToTop() {
-        tableView.reloadData()
-        tableView.layoutIfNeeded()
-        tableView.contentOffset = CGPoint(x: 0, y: -GlobalConstants.rowHeight)
-    }
-    
+
     private func setupApplyFiltersButton() {
         self.applyFiltersButton.isEnabled = self.viewModel.isEnableApplyFiltersButton
         if self.applyFiltersButton.isEnabled {

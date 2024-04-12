@@ -73,8 +73,7 @@ class CocktailsViewController: UIViewController {
         
         let isBadgeShown = self.cocktailsViewModel.isBadgeShown
         self.navBarBadge.isHidden = !isBadgeShown
-        
-        self.tableView.reloadData()
+        self.reloadAndScrollToTop()
     }
     
     // MARK: Methods
@@ -113,7 +112,7 @@ class CocktailsViewController: UIViewController {
             DispatchQueue.main.async {
                 switch result {
                     case .success:
-                        self.reloadAndScrollToTop()
+                        self.tableView.reloadData()
                     case .failure(NetworkingError.noMoreCocktails):
                         self.alertsManager.showErrorAlert(error: NetworkingError.noMoreCocktails, in: self)
                     default:
@@ -123,7 +122,7 @@ class CocktailsViewController: UIViewController {
         }
     }
     
-    private func reloadAndScrollToTop() {
+    func reloadAndScrollToTop() {
         tableView.reloadData()
         tableView.layoutIfNeeded()
         tableView.contentOffset = CGPoint(x: 0, y: -GlobalConstants.rowHeight)
