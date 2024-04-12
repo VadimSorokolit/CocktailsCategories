@@ -115,8 +115,10 @@ class CocktailsViewController: UIViewController {
                         self.tableView.reloadData()
                     case .failure(NetworkingError.noMoreCocktails):
                         self.alertsManager.showErrorAlert(error: NetworkingError.noMoreCocktails, in: self)
+                        self.tableView.reloadData()
                     default:
                         self.alertsManager.showErrorAlert(error: NetworkingError.unknownError, in: self)
+                        self.tableView.reloadData()
                 }
             }
         }
@@ -220,7 +222,6 @@ extension CocktailsViewController: UITableViewDataSource {
         let categoryCocktail = category.cocktails[indexPath.row]
         cell.setupCell(with: categoryCocktail)
         cell.separatorInset.left = GlobalConstants.defaultPadding * 2
-        cell.selectionStyle = .default
         return cell
     }
     

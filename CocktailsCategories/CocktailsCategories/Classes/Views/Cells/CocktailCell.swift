@@ -82,6 +82,7 @@ class CocktailCell: UITableViewCell {
         self.cocktailImageView.sd_setImage(with: url, placeholderImage: placeHolder )
         let cocktailName = cocktail.name
         self.cocktailLabel.text = cocktailName
+        self.selectionStyle = .default
     }
     
 }
