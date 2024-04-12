@@ -220,7 +220,7 @@ extension CocktailsViewController: UITableViewDataSource {
         let categoryCocktail = category.cocktails[indexPath.row]
         cell.setupCell(with: categoryCocktail)
         cell.separatorInset.left = GlobalConstants.defaultPadding * 2
-        cell.selectionStyle = .none
+        cell.selectionStyle = .default
         return cell
     }
     
