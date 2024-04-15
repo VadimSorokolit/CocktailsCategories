@@ -115,10 +115,8 @@ class CocktailsViewController: UIViewController {
                         self.tableView.reloadData()
                     case .failure(NetworkingError.noMoreCocktails):
                         self.alertsManager.showErrorAlert(error: NetworkingError.noMoreCocktails, in: self)
-                        self.tableView.reloadData()
                     default:
                         self.alertsManager.showErrorAlert(error: NetworkingError.unknownError, in: self)
-                        self.tableView.reloadData()
                 }
             }
         }
@@ -198,6 +196,7 @@ extension CocktailsViewController: UITableViewDelegate {
     
     // Only for test !!!
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: true)
         self.loadNextCagegory()
     }
     
