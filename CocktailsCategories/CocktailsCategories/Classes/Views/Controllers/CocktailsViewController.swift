@@ -194,9 +194,9 @@ extension CocktailsViewController: UITableViewDelegate {
         return self.setupSectionHeaderView(for: section)
     }
     
-    // Only for test !!!
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.tableView.deselectRow(at: indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+        // Only for test !!!
         self.loadNextCagegory()
     }
     
