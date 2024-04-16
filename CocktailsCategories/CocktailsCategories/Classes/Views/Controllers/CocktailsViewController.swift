@@ -81,6 +81,7 @@ class CocktailsViewController: UIViewController {
         super.viewWillAppear(animated)
         
         let isBadgeShown = self.cocktailsViewModel.isBadgeShown
+        self.cocktailsViewModel.hasFilters = isBadgeShown
         self.navBarBadge.isHidden = !isBadgeShown
         self.reloadAndScrollToTop()
     }
@@ -145,6 +146,7 @@ class CocktailsViewController: UIViewController {
         self.tableView.reloadData()
         self.tableView.layoutIfNeeded()
         self.tableView.contentOffset = CGPoint(x: 0.0, y: -GlobalConstants.rowHeight)
+        self.stopFooterSpinner()
     }
     
     private func startFooterSpinner() {
@@ -152,12 +154,14 @@ class CocktailsViewController: UIViewController {
         self.footerSpinner.startAnimating()
     }
     
+    private func stopFooterSpinner() {
+        self.tableView.tableFooterView = nil
+        self.footerSpinner.stopAnimating()
+    }
+    
     private func stopFooterSpinnerAndShowAlert(withError error: NetworkingError) {
-        DispatchQueue.main.async {
-            self.tableView.tableFooterView = nil
-            self.footerSpinner.stopAnimating()
-            self.alertsManager.showErrorAlert(error: error, in: self)
-        }
+        self.stopFooterSpinner()
+        self.alertsManager.showErrorAlert(error: error, in: self)
     }
     
     private func loadFirstCategory() {
@@ -171,6 +175,7 @@ class CocktailsViewController: UIViewController {
     private func getMoreCocktailsIfNeeded(for indexPath: IndexPath) {
         if indexPath == tableView.lastIndexPath,
            self.cocktailsViewModel.isLoadingData,
+           !self.cocktailsViewModel.hasFilters,
            !self.cocktailsViewModel.noMoreCocktails {
             
             DispatchQueue.main.async {

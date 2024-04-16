@@ -93,7 +93,7 @@ class CocktailsViewModel {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "thecocktaildb.com"
-        components.path = "1/api/json/v1/1/list.php"
+        components.path = "/api/json/v1/1/list.php"
         components.queryItems = [
             URLQueryItem(name: "c", value: "list")
         ]
