@@ -169,7 +169,7 @@ class CocktailsViewController: UIViewController {
     }
     
     private func getMoreCocktailsIfNeeded(for indexPath: IndexPath) {
-        if indexPath == tableView.lastIndexPath(),
+        if indexPath == tableView.lastIndexPath,
            self.cocktailsViewModel.isLoadingData,
            !self.cocktailsViewModel.noMoreCocktails {
             
