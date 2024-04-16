@@ -14,6 +14,7 @@ class CocktailsViewController: UIViewController {
     private struct LocalConstants {
         static let badgeSideSize: CGFloat = 10.0
         static let textLabelHeightAnchor: CGFloat = 20.0
+        static let spinnerHeight: CGFloat = 60.0
     }
     
     // MARK: Properties
@@ -47,6 +48,14 @@ class CocktailsViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
+    }()
+    
+    private lazy var footerSpinner: UIActivityIndicatorView = {
+        let spinnerView = UIActivityIndicatorView()
+        spinnerView.hidesWhenStopped = true
+        let spinnerWidth = self.view.bounds.width
+        spinnerView.frame = CGRect(x: 0.0, y: 0.0, width: spinnerWidth, height: LocalConstants.spinnerHeight)
+        return spinnerView
     }()
 
     // MARK: Initializer
@@ -125,7 +134,7 @@ class CocktailsViewController: UIViewController {
     func reloadAndScrollToTop() {
         tableView.reloadData()
         tableView.layoutIfNeeded()
-        tableView.contentOffset = CGPoint(x: 0, y: -GlobalConstants.rowHeight)
+        tableView.contentOffset = CGPoint(x: 0.0, y: -GlobalConstants.rowHeight)
     }
     
     private func loadFirstCategory() {
@@ -134,6 +143,19 @@ class CocktailsViewController: UIViewController {
     
     private func loadNextCagegory() {
         self.cocktailsViewModel.loadNextCategory()
+    }
+    
+    private func getMoreCocktailsIfNeeded(for indexPath: IndexPath) {
+        if indexPath == tableView.lastIndexPath(),
+           cocktailsViewModel.isLoadedData,
+           !cocktailsViewModel.noMoreCocktails {
+            
+            DispatchQueue.main.async {
+                self.tableView.tableFooterView = self.footerSpinner
+                self.footerSpinner.startAnimating()
+                self.cocktailsViewModel.loadNextCategory()
+            }
+        }
     }
 
     // MARK: Events

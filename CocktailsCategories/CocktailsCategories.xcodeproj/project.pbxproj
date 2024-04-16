@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DD1066992BA377A500C34563 /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1066982BA377A500C34563 /* FiltersViewController.swift */; };
+		DD29D4502BCDB84700669446 /* UITableViewLastIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD29D44F2BCDB84700669446 /* UITableViewLastIndexPath.swift */; };
 		DD30A82B2B87765600D9C842 /* CocktailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD30A82A2B87765600D9C842 /* CocktailsViewModel.swift */; };
 		DD30A82D2B8782AE00D9C842 /* CoctailsCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD30A82C2B8782AE00D9C842 /* CoctailsCategoryModel.swift */; };
 		DD30A82F2B87842B00D9C842 /* CoctailsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD30A82E2B87842B00D9C842 /* CoctailsListModel.swift */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		DD1066982BA377A500C34563 /* FiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
+		DD29D44F2BCDB84700669446 /* UITableViewLastIndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UITableViewLastIndexPath.swift; path = CocktailsCategories/Classes/Extensions/UITableViewLastIndexPath.swift; sourceTree = SOURCE_ROOT; };
 		DD30A82A2B87765600D9C842 /* CocktailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailsViewModel.swift; sourceTree = "<group>"; };
 		DD30A82C2B8782AE00D9C842 /* CoctailsCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoctailsCategoryModel.swift; sourceTree = "<group>"; };
 		DD30A82E2B87842B00D9C842 /* CoctailsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoctailsListModel.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				DDA10D992BB7742900C06837 /* UIColorChangedByHexString.swift */,
+				DD29D44F2BCDB84700669446 /* UITableViewLastIndexPath.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				DDC0B6292BA750AF0005BE73 /* FilterCell.swift in Sources */,
 				DDEF80382BC486E9009D4594 /* AlertsManager.swift in Sources */,
 				DD4BB6392B8696240076A34F /* SceneDelegate.swift in Sources */,
+				DD29D4502BCDB84700669446 /* UITableViewLastIndexPath.swift in Sources */,
 				DDA10D9E2BBDE84600C06837 /* CocktailCell.swift in Sources */,
 				DD1066992BA377A500C34563 /* FiltersViewController.swift in Sources */,
 			);
