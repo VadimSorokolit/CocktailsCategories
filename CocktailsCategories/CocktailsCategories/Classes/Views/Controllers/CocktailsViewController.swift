@@ -139,6 +139,11 @@ class CocktailsViewController: UIViewController {
         self.tableView.contentOffset = CGPoint(x: 0.0, y: -GlobalConstants.rowHeight)
     }
     
+    private func startFooterSpinner() {
+        self.tableView.tableFooterView = self.footerSpinner
+        self.footerSpinner.startAnimating()
+    }
+    
     private func stopFooterSpinner() {
         DispatchQueue.main.async {
             self.tableView.tableFooterView = nil
@@ -160,8 +165,7 @@ class CocktailsViewController: UIViewController {
            !self.cocktailsViewModel.noMoreCocktails {
             
             DispatchQueue.main.async {
-                self.tableView.tableFooterView = self.footerSpinner
-                self.footerSpinner.startAnimating()
+                self.startFooterSpinner()
                 self.cocktailsViewModel.loadNextCategory()
             }
         }
