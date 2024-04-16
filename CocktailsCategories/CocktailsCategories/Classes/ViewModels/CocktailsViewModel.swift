@@ -199,7 +199,7 @@ class CocktailsViewModel {
         let isNextCategoryExist = self.allCategories.indices.contains(nextIndex)
         
         if isNextCategoryExist {
-            self.isLoadingData = true
+            self.isLoadingData = false
             let nextCategory = self.allCategories[nextIndex]
             self.getCocktails(by: nextCategory.name, completion: { (result: Result<[Cocktail], NetworkingError>) in
                 switch result {
@@ -207,6 +207,7 @@ class CocktailsViewModel {
 //                        self.isLoadingData = false
                         self.completion?(.failure(error))
                     case .success(let drinks):
+                        self.isLoadingData = true
                         let newCategory = CocktailsSection(category: nextCategory, cocktails: drinks)
                         if !self.loadedCategories.contains(newCategory) {
                             self.loadedCategories.append(newCategory)

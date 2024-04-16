@@ -122,12 +122,20 @@ class CocktailsViewController: UIViewController {
                 switch result {
                     case .success:
                         self.tableView.reloadData()
+                    case .failure(NetworkingError.invalidURL):
+                        self.stopFooterSpinnerAndShowAlert(withError: NetworkingError.invalidURL)
+                    case .failure(NetworkingError.invalidDecoding):
+                        self.stopFooterSpinnerAndShowAlert(withError: NetworkingError.invalidDecoding)
+                    case .failure(NetworkingError.invalidData):
+                        self.stopFooterSpinnerAndShowAlert(withError: NetworkingError.invalidData)
+                    case .failure(NetworkingError.responseError):
+                        self.stopFooterSpinnerAndShowAlert(withError: NetworkingError.responseError)
+                    case .failure(NetworkingError.emptyFirstCategory):
+                        self.stopFooterSpinnerAndShowAlert(withError: NetworkingError.emptyFirstCategory)
                     case .failure(NetworkingError.noMoreCocktails):
-                        self.stopFooterSpinner()
-                        self.alertsManager.showErrorAlert(error: NetworkingError.noMoreCocktails, in: self)
+                        self.stopFooterSpinnerAndShowAlert(withError: NetworkingError.noMoreCocktails)
                     default:
-                        self.stopFooterSpinner()
-                        self.alertsManager.showErrorAlert(error: NetworkingError.unknownError, in: self)
+                        self.stopFooterSpinnerAndShowAlert(withError: NetworkingError.unknownError)
                 }
             }
         }
@@ -144,10 +152,11 @@ class CocktailsViewController: UIViewController {
         self.footerSpinner.startAnimating()
     }
     
-    private func stopFooterSpinner() {
+    private func stopFooterSpinnerAndShowAlert(withError error: NetworkingError) {
         DispatchQueue.main.async {
             self.tableView.tableFooterView = nil
             self.footerSpinner.stopAnimating()
+            self.alertsManager.showErrorAlert(error: error, in: self)
         }
     }
     
