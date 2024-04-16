@@ -204,7 +204,7 @@ class CocktailsViewModel {
             self.getCocktails(by: nextCategory.name, completion: { (result: Result<[Cocktail], NetworkingError>) in
                 switch result {
                     case .failure(let error):
-                        self.isLoadingData = false
+//                        self.isLoadingData = false
                         self.completion?(.failure(error))
                     case .success(let drinks):
                         let newCategory = CocktailsSection(category: nextCategory, cocktails: drinks)
@@ -217,9 +217,9 @@ class CocktailsViewModel {
                 }
             })
         } else {
-            self.completion?(.failure(NetworkingError.noMoreCocktails))
             self.isLoadingData = false
             self.noMoreCocktails = true
+            self.completion?(.failure(NetworkingError.noMoreCocktails))
         }
     }
     
