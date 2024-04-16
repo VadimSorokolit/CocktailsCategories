@@ -222,7 +222,6 @@ class CocktailsViewModel {
             self.getCocktails(by: nextCategory.name, completion: { (result: Result<[Cocktail], NetworkingError>) in
                 switch result {
                     case .failure(let error):
-//                        self.isLoadingData = false
                         self.completion?(.failure(error))
                     case .success(let drinks):
                         self.isLoadingData = true
