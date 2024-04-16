@@ -293,20 +293,4 @@ class CocktailsViewModel {
         self.completion?(.success(()))
     }
     
-    // Get more cocktails
-    func getMoreCocktails() {
-        for category in allCategories {
-            if !self.loadedCategories.contains(where: { $0.category.name == category.name }) {
-                isLoadedData = false
-                self.loadNextCategory()
-                break
-            } else {
-                if category == allCategories.last, !noMoreCocktails {
-                    noMoreCocktails = true
-                    self.completion?(.failure(NetworkingError.noMoreCocktails))
-                }
-            }
-        }
-    }
-    
 }

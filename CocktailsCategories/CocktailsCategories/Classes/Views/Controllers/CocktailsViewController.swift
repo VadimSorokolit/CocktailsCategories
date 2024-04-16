@@ -123,25 +123,26 @@ class CocktailsViewController: UIViewController {
                     case .success:
                         self.tableView.reloadData()
                     case .failure(NetworkingError.noMoreCocktails):
-                        self.removeFooterSpinner()
+                        self.stopFooterSpinner()
                         self.alertsManager.showErrorAlert(error: NetworkingError.noMoreCocktails, in: self)
                     default:
-                        self.removeFooterSpinner()
-                        self.alertsManager.showErrorAlert(error: NetworkingError.unknownError, in: self)
+                        self.stopFooterSpinner()
+                        self.alertsManager.showErrorAlert(error: NetworkingError.error((any Error).self as! Error), in: self)
                 }
             }
         }
     }
     
     func reloadAndScrollToTop() {
-        tableView.reloadData()
-        tableView.layoutIfNeeded()
-        tableView.contentOffset = CGPoint(x: 0.0, y: -GlobalConstants.rowHeight)
+        self.tableView.reloadData()
+        self.tableView.layoutIfNeeded()
+        self.tableView.contentOffset = CGPoint(x: 0.0, y: -GlobalConstants.rowHeight)
     }
     
-    private func removeFooterSpinner() {
+    private func stopFooterSpinner() {
         DispatchQueue.main.async {
             self.tableView.tableFooterView = nil
+            self.footerSpinner.stopAnimating()
         }
     }
     
@@ -155,13 +156,13 @@ class CocktailsViewController: UIViewController {
     
     private func getMoreCocktailsIfNeeded(for indexPath: IndexPath) {
         if indexPath == tableView.lastIndexPath(),
-           cocktailsViewModel.isLoadedData,
-           !cocktailsViewModel.noMoreCocktails {
+           self.cocktailsViewModel.isLoadedData,
+           !self.cocktailsViewModel.noMoreCocktails {
             
             DispatchQueue.main.async {
                 self.tableView.tableFooterView = self.footerSpinner
                 self.footerSpinner.startAnimating()
-                self.cocktailsViewModel.getMoreCocktails()
+                self.cocktailsViewModel.loadNextCategory()
             }
         }
     }
@@ -212,6 +213,10 @@ extension CocktailsViewController: UITableViewDelegate {
         return headerView
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        self.getMoreCocktailsIfNeeded(for: indexPath)
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return GlobalConstants.rowHeight
     }
@@ -226,10 +231,6 @@ extension CocktailsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        self.getMoreCocktailsIfNeeded(for: indexPath)
     }
     
 }
@@ -263,13 +264,6 @@ extension CocktailsViewController: UITableViewDataSource {
     
 }
 
-//extension CocktailsViewController: UIScrollViewDelegate {
-//    
-//
-////    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-////        guard let tableView = scrollView as? UITableView else { return }
-////    }
-//}
 
 
 
