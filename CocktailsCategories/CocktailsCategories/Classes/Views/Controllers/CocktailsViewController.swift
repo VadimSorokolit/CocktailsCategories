@@ -127,7 +127,7 @@ class CocktailsViewController: UIViewController {
                         self.alertsManager.showErrorAlert(error: NetworkingError.noMoreCocktails, in: self)
                     default:
                         self.stopFooterSpinner()
-                        self.alertsManager.showErrorAlert(error: NetworkingError.error((any Error).self as! Error), in: self)
+                        self.alertsManager.showErrorAlert(error: NetworkingError.unknownError, in: self)
                 }
             }
         }
@@ -161,7 +161,7 @@ class CocktailsViewController: UIViewController {
     
     private func getMoreCocktailsIfNeeded(for indexPath: IndexPath) {
         if indexPath == tableView.lastIndexPath(),
-           self.cocktailsViewModel.isLoadedData,
+           self.cocktailsViewModel.isLoadingData,
            !self.cocktailsViewModel.noMoreCocktails {
             
             DispatchQueue.main.async {

@@ -37,7 +37,7 @@ class CocktailsViewModel {
     private var allCategories: [Category] = []
     private var tempCategories: [CocktailsSection] = []
     private var savedCategories: [CocktailsSection] = []
-    var isLoadedData: Bool = false
+    var isLoadingData: Bool = false
     var hasFilters: Bool = false
     var noMoreCocktails = false
     var loadedCategories: [CocktailsSection] = []
@@ -181,7 +181,7 @@ class CocktailsViewModel {
                             case .failure(let error):
                                 self.completion?(.failure(error))
                             case .success(let drinks):
-                                self.isLoadedData = true
+                                self.isLoadingData = true
                                 let newCategory = CocktailsSection(category: firstCategory, cocktails: drinks)
                                 self.loadedCategories.append(newCategory)
                                 self.filteredCategories.append(newCategory)
@@ -199,12 +199,12 @@ class CocktailsViewModel {
         let isNextCategoryExist = self.allCategories.indices.contains(nextIndex)
         
         if isNextCategoryExist {
-            self.isLoadedData = true
+            self.isLoadingData = true
             let nextCategory = self.allCategories[nextIndex]
             self.getCocktails(by: nextCategory.name, completion: { (result: Result<[Cocktail], NetworkingError>) in
                 switch result {
                     case .failure(let error):
-                        self.isLoadedData = false
+                        self.isLoadingData = false
                         self.completion?(.failure(error))
                     case .success(let drinks):
                         let newCategory = CocktailsSection(category: nextCategory, cocktails: drinks)
@@ -218,7 +218,7 @@ class CocktailsViewModel {
             })
         } else {
             self.completion?(.failure(NetworkingError.noMoreCocktails))
-            self.isLoadedData = false
+            self.isLoadingData = false
             self.noMoreCocktails = true
         }
     }
