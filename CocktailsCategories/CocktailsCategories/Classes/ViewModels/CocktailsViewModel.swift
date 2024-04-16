@@ -37,10 +37,12 @@ class CocktailsViewModel {
     private var allCategories: [Category] = []
     private var tempCategories: [CocktailsSection] = []
     private var savedCategories: [CocktailsSection] = []
+    var isLoadedData: Bool = false
+    var hasFilters: Bool = false
+    var noMoreCocktails = false
     var loadedCategories: [CocktailsSection] = []
     var filteredCategories: [CocktailsSection] = []
     var completion: ((Result<Void, NetworkingError>) -> Void)? = nil
-    var isLoadingDate: Bool = false
     
     var isEnableApplyFiltersButton: Bool {
         var counter = 0
@@ -196,10 +198,10 @@ class CocktailsViewModel {
         let isNextCategoryExist = self.allCategories.indices.contains(nextIndex)
         
         if isNextCategoryExist {
-            self.isLoadingDate = true
+            self.isLoadedData = true
             let nextCategory = self.allCategories[nextIndex]
             self.getCocktails(by: nextCategory.name, completion: { (result: Result<[Cocktail], NetworkingError>) in
-                self.isLoadingDate = false
+                self.isLoadedData = false
                 switch result {
                     case .failure(let error):
                         self.completion?(.failure(error))
@@ -215,6 +217,8 @@ class CocktailsViewModel {
             })
         } else {
             self.completion?(.failure(NetworkingError.noMoreCocktails))
+            self.isLoadedData = false
+            self.noMoreCocktails = true
         }
     }
     
@@ -287,5 +291,19 @@ class CocktailsViewModel {
         }
         self.completion?(.success(()))
     }
+    
+    // Get more cocktails
+//    func getMoreCocktails() {
+//        for category in allCategories {
+//            if !self.loadedCategories.contains(where: { $0.category.name == category.name }) {
+//                isLoadedData = false
+//                break
+//            } else {
+//                if category == allCategories.last, !noMoreCocktails {
+//                    noMoreCocktails = true
+//                }
+//            }
+//        }
+//    }
     
 }
