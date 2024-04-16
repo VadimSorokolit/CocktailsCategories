@@ -181,6 +181,7 @@ class CocktailsViewModel {
                             case .failure(let error):
                                 self.completion?(.failure(error))
                             case .success(let drinks):
+                                self.isLoadedData = true
                                 let newCategory = CocktailsSection(category: firstCategory, cocktails: drinks)
                                 self.loadedCategories.append(newCategory)
                                 self.filteredCategories.append(newCategory)
@@ -201,9 +202,9 @@ class CocktailsViewModel {
             self.isLoadedData = true
             let nextCategory = self.allCategories[nextIndex]
             self.getCocktails(by: nextCategory.name, completion: { (result: Result<[Cocktail], NetworkingError>) in
-                self.isLoadedData = false
                 switch result {
                     case .failure(let error):
+                        self.isLoadedData = false
                         self.completion?(.failure(error))
                     case .success(let drinks):
                         let newCategory = CocktailsSection(category: nextCategory, cocktails: drinks)
@@ -293,17 +294,19 @@ class CocktailsViewModel {
     }
     
     // Get more cocktails
-//    func getMoreCocktails() {
-//        for category in allCategories {
-//            if !self.loadedCategories.contains(where: { $0.category.name == category.name }) {
-//                isLoadedData = false
-//                break
-//            } else {
-//                if category == allCategories.last, !noMoreCocktails {
-//                    noMoreCocktails = true
-//                }
-//            }
-//        }
-//    }
+    func getMoreCocktails() {
+        for category in allCategories {
+            if !self.loadedCategories.contains(where: { $0.category.name == category.name }) {
+                isLoadedData = false
+                self.loadNextCategory()
+                break
+            } else {
+                if category == allCategories.last, !noMoreCocktails {
+                    noMoreCocktails = true
+                    self.completion?(.failure(NetworkingError.noMoreCocktails))
+                }
+            }
+        }
+    }
     
 }

@@ -123,8 +123,10 @@ class CocktailsViewController: UIViewController {
                     case .success:
                         self.tableView.reloadData()
                     case .failure(NetworkingError.noMoreCocktails):
+                        self.removeFooterSpinner()
                         self.alertsManager.showErrorAlert(error: NetworkingError.noMoreCocktails, in: self)
                     default:
+                        self.removeFooterSpinner()
                         self.alertsManager.showErrorAlert(error: NetworkingError.unknownError, in: self)
                 }
             }
@@ -135,6 +137,12 @@ class CocktailsViewController: UIViewController {
         tableView.reloadData()
         tableView.layoutIfNeeded()
         tableView.contentOffset = CGPoint(x: 0.0, y: -GlobalConstants.rowHeight)
+    }
+    
+    private func removeFooterSpinner() {
+        DispatchQueue.main.async {
+            self.tableView.tableFooterView = nil
+        }
     }
     
     private func loadFirstCategory() {
@@ -153,7 +161,7 @@ class CocktailsViewController: UIViewController {
             DispatchQueue.main.async {
                 self.tableView.tableFooterView = self.footerSpinner
                 self.footerSpinner.startAnimating()
-                self.cocktailsViewModel.loadNextCategory()
+                self.cocktailsViewModel.getMoreCocktails()
             }
         }
     }
@@ -218,8 +226,10 @@ extension CocktailsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        // Only for test !!!
-        self.loadNextCagegory()
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        self.getMoreCocktailsIfNeeded(for: indexPath)
     }
     
 }
@@ -255,9 +265,10 @@ extension CocktailsViewController: UITableViewDataSource {
 
 //extension CocktailsViewController: UIScrollViewDelegate {
 //    
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        guard let tableView = scrollView as? UITableView else { return }
-//    }
+//
+////    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+////        guard let tableView = scrollView as? UITableView else { return }
+////    }
 //}
 
 
