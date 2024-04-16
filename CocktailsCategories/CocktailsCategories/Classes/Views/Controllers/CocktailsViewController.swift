@@ -134,8 +134,8 @@ class CocktailsViewController: UIViewController {
                         self.stopFooterSpinnerAndShowAlert(withError: NetworkingError.emptyFirstCategory)
                     case .failure(NetworkingError.noMoreCocktails):
                         self.stopFooterSpinnerAndShowAlert(withError: NetworkingError.noMoreCocktails)
-                    default:
-                        self.stopFooterSpinnerAndShowAlert(withError: NetworkingError.unknownError)
+                    case .failure(let error):
+                        self.stopFooterSpinnerAndShowAlert(withError: error)
                 }
             }
         }

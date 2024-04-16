@@ -26,8 +26,9 @@ class AlertsManager {
         viewContoller.present(alert, animated: true, completion: nil)
     }
     
-    func showErrorAlert(error: NetworkingError, in viewController: UIViewController) {
-        self.showAlert(title: LocalConstants.errorTitle, message: error.localizedDescription, in: viewController, okCompletion: nil)
+    func showErrorAlert(error: Error, in viewController: UIViewController) {
+        let errorString = error.localizedDescription
+        showAlert(title: LocalConstants.errorTitle, message: errorString, in: viewController, okCompletion: nil)
     }
     
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum NetworkingError: Error {
+enum NetworkingError: LocalizedError {
     case invalidURL
     case invalidDecoding
     case invalidData
@@ -15,7 +15,25 @@ enum NetworkingError: Error {
     case emptyFirstCategory
     case noMoreCocktails
     case error(Error)
-    case unknownError
+    
+    var errorDescription: String? {
+        switch self {
+        case .invalidURL:
+            return NSLocalizedString("Invalid URL", comment: "NetworkingError - invalidURL")
+        case .invalidDecoding:
+            return NSLocalizedString("Invalid decoding", comment: "NetworkingError - invalidDecoding")
+        case .invalidData:
+            return NSLocalizedString("Invalid data", comment: "NetworkingError - invalidData")
+        case .responseError:
+            return NSLocalizedString("Response error", comment: "NetworkingError - responseError")
+        case .emptyFirstCategory:
+            return NSLocalizedString("Empty first category", comment: "NetworkingError - emptyFirstCategory")
+        case .noMoreCocktails:
+            return NSLocalizedString("No more cocktails", comment: "NetworkingError - noMoreCocktails")
+        case .error(let underlyingError):
+            return NSLocalizedString("An error occurred: \(underlyingError.localizedDescription)", comment: "NetworkingError - error")
+        }
+    }
 }
 
 struct CocktailsSection: Equatable {
@@ -75,7 +93,7 @@ class CocktailsViewModel {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "thecocktaildb.com"
-        components.path = "/api/json/v1/1/list.php"
+        components.path = "1/api/json/v1/1/list.php"
         components.queryItems = [
             URLQueryItem(name: "c", value: "list")
         ]
