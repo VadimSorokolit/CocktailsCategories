@@ -13,6 +13,7 @@ class AlertsManager {
     // MARK: Objects
     
     private struct LocalConstants {
+        static let warningTitle = "Warning"
         static let errorTitle = "Error"
         static let okActionTitle = "Ok"
     }
@@ -27,8 +28,12 @@ class AlertsManager {
     }
     
     func showErrorAlert(error: Error, in viewController: UIViewController) {
-        let errorDescription = error.localizedDescription
-        self.showAlert(title: LocalConstants.errorTitle, message: errorDescription, in: viewController, okCompletion: nil)
+        let errorDescriptionMessage = error.localizedDescription
+        self.showAlert(title: LocalConstants.errorTitle, message: errorDescriptionMessage, in: viewController, okCompletion: nil)
     }
     
+    func showWarningAlert(warning: Error, in viewController: UIViewController) {
+        let warningDescriptionMessage = warning.localizedDescription
+        self.showAlert(title: LocalConstants.warningTitle, message: warningDescriptionMessage, in: viewController, okCompletion: nil)
+    }
 }

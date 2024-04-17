@@ -27,7 +27,6 @@ class CocktailsViewController: UIViewController {
         let badge = UIView()
         badge.frame = CGRect(x: 17.0, y: -4.0, width: LocalConstants.badgeSideSize, height: LocalConstants.badgeSideSize)
         badge.backgroundColor = GlobalConstants.badgeColor
-        badge.isHidden = true
         badge.layer.cornerRadius = LocalConstants.badgeSideSize / 2
         return badge
     }()
@@ -54,7 +53,7 @@ class CocktailsViewController: UIViewController {
     private lazy var footerSpinner: UIActivityIndicatorView = {
         let spinnerView = UIActivityIndicatorView()
         spinnerView.hidesWhenStopped = true
-        let spinnerWidth = self.view.bounds.width
+        let spinnerWidth = self.tableView.bounds.width
         spinnerView.frame = CGRect(x: 0.0, y: 0.0, width: spinnerWidth, height: LocalConstants.spinnerHeight)
         return spinnerView
     }()
@@ -124,20 +123,12 @@ class CocktailsViewController: UIViewController {
                 switch result {
                     case .success:
                         self.tableView.reloadData()
-                    case .failure(NetworkingError.invalidURL):
-                        self.ShowAlert(withError: NetworkingError.invalidURL)
-                    case .failure(NetworkingError.invalidDecoding):
-                        self.ShowAlert(withError: NetworkingError.invalidDecoding)
-                    case .failure(NetworkingError.invalidData):
-                        self.ShowAlert(withError: NetworkingError.invalidData)
-                    case .failure(NetworkingError.responseError):
-                        self.ShowAlert(withError: NetworkingError.responseError)
-                    case .failure(NetworkingError.emptyFirstCategory):
-                        self.ShowAlert(withError: NetworkingError.emptyFirstCategory)
-                    case .failure(NetworkingError.noMoreCocktails):
-                        self.ShowAlert(withError: NetworkingError.noMoreCocktails)
-                    case .failure(let error):
-                        self.ShowAlert(withError: error)
+                    case .failure(.error(let systemError)):
+                        self.showAlert(withError: systemError)
+                        break
+                    case .failure(let customError):
+                        self.showAlert(withWarning: customError)
+                        break
                 }
             }
         }
@@ -159,8 +150,12 @@ class CocktailsViewController: UIViewController {
         self.footerSpinner.stopAnimating()
     }
     
-    private func ShowAlert(withError error: NetworkingError) {
+    private func showAlert(withError error: Error) {
         self.alertsManager.showErrorAlert(error: error, in: self)
+    }
+    
+    private func showAlert(withWarning error: NetworkingError) {
+        self.alertsManager.showWarningAlert(warning: error, in: self)
     }
     
     private func loadFirstCategory() {
@@ -171,9 +166,9 @@ class CocktailsViewController: UIViewController {
         self.cocktailsViewModel.loadNextCategory()
     }
     
-    private func getMoreCocktailsIfNeeded(for indexPath: IndexPath) {
-        if indexPath == tableView.lastIndexPath,
-           self.cocktailsViewModel.isLoadingData,
+    private func getMoreCocktails(for indexPath: IndexPath) {
+        if indexPath == self.tableView.lastIndexPath,
+           !self.cocktailsViewModel.isLoadingData,
            !self.cocktailsViewModel.hasFilters,
            !self.cocktailsViewModel.noMoreCocktails {
             
@@ -230,7 +225,7 @@ extension CocktailsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        self.getMoreCocktailsIfNeeded(for: indexPath)
+        self.getMoreCocktails(for: indexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -267,8 +262,8 @@ extension CocktailsViewController: UITableViewDataSource {
         }
         
         let category = self.cocktailsViewModel.filteredCategories[indexPath.section]
-        let categoryCocktail = category.cocktails[indexPath.row]
-        cell.setupCell(with: categoryCocktail)
+        let cocktail = category.cocktails[indexPath.row]
+        cell.setupCell(with: cocktail)
         cell.separatorInset.left = GlobalConstants.defaultPadding * 2
         return cell
     }
