@@ -139,7 +139,7 @@ class CocktailsViewModel {
     private func getCocktails(by categoryName: String, completion: @escaping (Result<[Cocktail], NetworkingError>) -> Void) {
         var components = URLComponents()
         components.scheme = "https"
-        components.host = "1thecocktaildb.com"
+        components.host = "thecocktaildb.com"
         components.path = "/api/json/v1/1/filter.php"
         components.queryItems = [
             URLQueryItem(name: "c", value: categoryName)
