@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		DD1066992BA377A500C34563 /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1066982BA377A500C34563 /* FiltersViewController.swift */; };
 		DD29D4502BCDB84700669446 /* UITableViewLastIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD29D44F2BCDB84700669446 /* UITableViewLastIndexPath.swift */; };
+		DD29D4532BD0085C00669446 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DD29D4522BD0085C00669446 /* SnapKit */; };
+		DD29D4552BD0085C00669446 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = DD29D4542BD0085C00669446 /* SnapKit-Dynamic */; };
 		DD30A82B2B87765600D9C842 /* CocktailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD30A82A2B87765600D9C842 /* CocktailsViewModel.swift */; };
 		DD30A82D2B8782AE00D9C842 /* CoctailsCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD30A82C2B8782AE00D9C842 /* CoctailsCategoryModel.swift */; };
 		DD30A82F2B87842B00D9C842 /* CoctailsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD30A82E2B87842B00D9C842 /* CoctailsListModel.swift */; };
@@ -51,8 +53,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD29D4532BD0085C00669446 /* SnapKit in Frameworks */,
 				DDA10DA32BC09B2500C06837 /* SDWebImageMapKit in Frameworks */,
 				DDA10DA12BC09B2500C06837 /* SDWebImage in Frameworks */,
+				DD29D4552BD0085C00669446 /* SnapKit-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,6 +233,8 @@
 			packageProductDependencies = (
 				DDA10DA02BC09B2500C06837 /* SDWebImage */,
 				DDA10DA22BC09B2500C06837 /* SDWebImageMapKit */,
+				DD29D4522BD0085C00669446 /* SnapKit */,
+				DD29D4542BD0085C00669446 /* SnapKit-Dynamic */,
 			);
 			productName = CocktailsCategories;
 			productReference = DD4BB6332B8696240076A34F /* CocktailsCategories.app */;
@@ -260,6 +266,7 @@
 			mainGroup = DD4BB62A2B8696240076A34F;
 			packageReferences = (
 				DDA10D9F2BC09B2500C06837 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				DD29D4512BD0085C00669446 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = DD4BB6342B8696240076A34F /* Products */;
 			projectDirPath = "";
@@ -514,6 +521,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		DD29D4512BD0085C00669446 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
 		DDA10D9F2BC09B2500C06837 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
@@ -525,6 +540,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		DD29D4522BD0085C00669446 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DD29D4512BD0085C00669446 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		DD29D4542BD0085C00669446 /* SnapKit-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DD29D4512BD0085C00669446 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = "SnapKit-Dynamic";
+		};
 		DDA10DA02BC09B2500C06837 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DDA10D9F2BC09B2500C06837 /* XCRemoteSwiftPackageReference "SDWebImage" */;
