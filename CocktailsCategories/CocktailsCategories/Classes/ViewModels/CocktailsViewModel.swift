@@ -18,19 +18,19 @@ enum NetworkingError: LocalizedError {
     
     var errorDescription: String? {
         switch self {
-        case .invalidURL:
-            return NSLocalizedString("Invalid URL", comment: "NetworkingError - invalidURL")
-        case .invalidDecoding:
-            return NSLocalizedString("Invalid decoding", comment: "NetworkingError - invalidDecoding")
-        case .invalidData:
-            return NSLocalizedString("Invalid data", comment: "NetworkingError - invalidData")
-        case .responseError:
-            return NSLocalizedString("Response error", comment: "NetworkingError - responseError")
-        case .emptyFirstCategory:
-            return NSLocalizedString("Empty first category", comment: "NetworkingError - emptyFirstCategory")
-        case .noMoreCocktails:
-            return NSLocalizedString("No more cocktails", comment: "NetworkingError - noMoreCocktails")
-        case .error(let error):
+            case .invalidURL:
+                return NSLocalizedString("Invalid URL", comment: "NetworkingError - invalidURL")
+            case .invalidDecoding:
+                return NSLocalizedString("Invalid decoding", comment: "NetworkingError - invalidDecoding")
+            case .invalidData:
+                return NSLocalizedString("Invalid data", comment: "NetworkingError - invalidData")
+            case .responseError:
+                return NSLocalizedString("Response error", comment: "NetworkingError - responseError")
+            case .emptyFirstCategory:
+                return NSLocalizedString("Empty first category", comment: "NetworkingError - emptyFirstCategory")
+            case .noMoreCocktails:
+                return NSLocalizedString("No more cocktails", comment: "NetworkingError - noMoreCocktails")
+            case .error(let error):
                 return NSLocalizedString(error.localizedDescription, comment: "NetworkingError - error")
         }
     }
@@ -56,7 +56,6 @@ class CocktailsViewModel {
     private var tempCategories: [CocktailsSection] = []
     private var savedCategories: [CocktailsSection] = []
     var isLoadingData: Bool = false
-    var hasFilters: Bool = false
     var noMoreCocktails = false
     var loadedCategories: [CocktailsSection] = []
     var filteredCategories: [CocktailsSection] = []
@@ -80,10 +79,10 @@ class CocktailsViewModel {
         }
     }
     
-    var isBadgeShown: Bool {
+    var hasFilters: Bool {
         let selectedCategoies = self.loadedCategories.filter({ $0.isSelected })
-        let isBadgeShown = !selectedCategoies.isEmpty
-        return isBadgeShown
+        let hasFilters = !selectedCategoies.isEmpty
+        return hasFilters
     }
     
     // MARK: - Methods

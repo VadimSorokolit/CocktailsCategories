@@ -81,9 +81,8 @@ class CocktailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let isBadgeShown = self.cocktailsViewModel.isBadgeShown
-        self.cocktailsViewModel.hasFilters = isBadgeShown
-        self.navBarBadge.isHidden = !isBadgeShown
+        let hasFilters = self.cocktailsViewModel.hasFilters
+        self.navBarBadge.isHidden = !hasFilters
         self.reloadAndScrollToTop()
     }
     
@@ -93,7 +92,7 @@ class CocktailsViewController: UIViewController {
         self.setupNavBar()
         self.setupViews()
         self.setupLayout()
-        self.setObserver()
+        self.setObservers()
         self.loadFirstCategory()
     }
     
@@ -118,36 +117,36 @@ class CocktailsViewController: UIViewController {
         self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
     
-    private func setObserver() {
+    private func setObservers() {
         self.cocktailsViewModel.completion = { (result: Result<Void, NetworkingError>) -> Void in
             DispatchQueue.main.async {
+                self.stopFooterSpinner()
                 switch result {
                     case .success:
                         self.tableView.reloadData()
                     case .failure(NetworkingError.invalidURL):
-                        self.stopFooterSpinnerAndShowAlert(withError: NetworkingError.invalidURL)
+                        self.ShowAlert(withError: NetworkingError.invalidURL)
                     case .failure(NetworkingError.invalidDecoding):
-                        self.stopFooterSpinnerAndShowAlert(withError: NetworkingError.invalidDecoding)
+                        self.ShowAlert(withError: NetworkingError.invalidDecoding)
                     case .failure(NetworkingError.invalidData):
-                        self.stopFooterSpinnerAndShowAlert(withError: NetworkingError.invalidData)
+                        self.ShowAlert(withError: NetworkingError.invalidData)
                     case .failure(NetworkingError.responseError):
-                        self.stopFooterSpinnerAndShowAlert(withError: NetworkingError.responseError)
+                        self.ShowAlert(withError: NetworkingError.responseError)
                     case .failure(NetworkingError.emptyFirstCategory):
-                        self.stopFooterSpinnerAndShowAlert(withError: NetworkingError.emptyFirstCategory)
+                        self.ShowAlert(withError: NetworkingError.emptyFirstCategory)
                     case .failure(NetworkingError.noMoreCocktails):
-                        self.stopFooterSpinnerAndShowAlert(withError: NetworkingError.noMoreCocktails)
+                        self.ShowAlert(withError: NetworkingError.noMoreCocktails)
                     case .failure(let error):
-                        self.stopFooterSpinnerAndShowAlert(withError: error)
+                        self.ShowAlert(withError: error)
                 }
             }
         }
     }
     
-    func reloadAndScrollToTop() {
+    private func reloadAndScrollToTop() {
         self.tableView.reloadData()
         self.tableView.layoutIfNeeded()
         self.tableView.contentOffset = CGPoint(x: 0.0, y: -GlobalConstants.rowHeight)
-        self.stopFooterSpinner()
     }
     
     private func startFooterSpinner() {
@@ -160,8 +159,7 @@ class CocktailsViewController: UIViewController {
         self.footerSpinner.stopAnimating()
     }
     
-    private func stopFooterSpinnerAndShowAlert(withError error: NetworkingError) {
-        self.stopFooterSpinner()
+    private func ShowAlert(withError error: NetworkingError) {
         self.alertsManager.showErrorAlert(error: error, in: self)
     }
     
@@ -169,7 +167,7 @@ class CocktailsViewController: UIViewController {
         self.cocktailsViewModel.loadFirstCategory()
     }
     
-    private func loadNextCagegory() {
+    private func loadNextCategory() {
         self.cocktailsViewModel.loadNextCategory()
     }
     
@@ -179,10 +177,9 @@ class CocktailsViewController: UIViewController {
            !self.cocktailsViewModel.hasFilters,
            !self.cocktailsViewModel.noMoreCocktails {
             
-            DispatchQueue.main.async {
-                self.startFooterSpinner()
-                self.cocktailsViewModel.loadNextCategory()
-            }
+            // Pagination
+            self.startFooterSpinner()
+            self.loadNextCategory()
         }
     }
 
@@ -201,7 +198,7 @@ extension CocktailsViewController: UITableViewDelegate {
     
     private func setupSectionHeaderView(for section: Int) -> UIView {
         let headerView = UIView()
-        headerView.frame = CGRect(x: 0.0, y: 0.0, width: tableView.frame.width, height: GlobalConstants.headerViewHeight)
+        headerView.frame = CGRect(x: 0.0, y: 0.0, width: self.tableView.frame.width, height: GlobalConstants.headerViewHeight)
         headerView.backgroundColor = GlobalConstants.headerBackgroundColor
         
         let textLabel = UILabel()
