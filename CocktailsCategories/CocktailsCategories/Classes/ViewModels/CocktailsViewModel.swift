@@ -30,8 +30,8 @@ enum NetworkingError: LocalizedError {
             return NSLocalizedString("Empty first category", comment: "NetworkingError - emptyFirstCategory")
         case .noMoreCocktails:
             return NSLocalizedString("No more cocktails", comment: "NetworkingError - noMoreCocktails")
-        case .error(let underlyingError):
-            return NSLocalizedString("An error occurred: \(underlyingError.localizedDescription)", comment: "NetworkingError - error")
+        case .error(let error):
+                return NSLocalizedString(error.localizedDescription, comment: "NetworkingError - error")
         }
     }
 }
@@ -139,7 +139,7 @@ class CocktailsViewModel {
     private func getCocktails(by categoryName: String, completion: @escaping (Result<[Cocktail], NetworkingError>) -> Void) {
         var components = URLComponents()
         components.scheme = "https"
-        components.host = "thecocktaildb.com"
+        components.host = "1thecocktaildb.com"
         components.path = "/api/json/v1/1/filter.php"
         components.queryItems = [
             URLQueryItem(name: "c", value: categoryName)
