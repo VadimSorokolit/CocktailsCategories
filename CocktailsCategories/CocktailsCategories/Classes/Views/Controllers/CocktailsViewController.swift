@@ -92,7 +92,6 @@ class CocktailsViewController: UIViewController {
         self.setupNavBar()
         self.setupViews()
         self.setupLayout()
-        self.showHUD()
         self.setObservers()
         self.loadFirstCategory()
     }
@@ -160,6 +159,7 @@ class CocktailsViewController: UIViewController {
     }
     
     private func loadFirstCategory() {
+        self.showHUD()
         self.cocktailsViewModel.loadFirstCategory()
     }
     
@@ -167,12 +167,11 @@ class CocktailsViewController: UIViewController {
         self.cocktailsViewModel.loadNextCategory()
     }
     
-    private func getMoreCocktails(for indexPath: IndexPath) {
-        let canPaginate = (indexPath == self.tableView.lastIndexPath) &&
-                          !self.cocktailsViewModel.isLoadingData &&
-                          !self.cocktailsViewModel.hasFilters &&
-                          !self.cocktailsViewModel.noMoreCocktails
-        
+    private func getMoreCocktailsPaginateIfNeeded(for indexPath: IndexPath) {
+        let canPaginate = (indexPath == self.tableView.lastIndexPath)
+                          && !self.cocktailsViewModel.isLoadingData
+                          && !self.cocktailsViewModel.hasFilters
+                          && !self.cocktailsViewModel.noMoreCocktails
         // Pagination
         if canPaginate {
             self.startFooterSpinner()
@@ -227,7 +226,7 @@ extension CocktailsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        self.getMoreCocktails(for: indexPath)
+        self.getMoreCocktailsPaginateIfNeeded(for: indexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

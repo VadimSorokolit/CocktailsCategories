@@ -5,7 +5,6 @@
 //  Created by Vadym Sorokolit on 18.04.2024.
 //
 
-import Foundation
 import MBProgressHUD
 
 extension UIViewController {
@@ -19,4 +18,5 @@ extension UIViewController {
         progressHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
         progressHUD.label.text = message
     }
+    
 }

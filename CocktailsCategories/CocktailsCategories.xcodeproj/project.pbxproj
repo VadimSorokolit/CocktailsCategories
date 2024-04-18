@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		D69B347F52B86DA1E9F0B173 /* Pods_CocktailsCategories.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28B3015E39FBEC9BAB3402BD /* Pods_CocktailsCategories.framework */; };
 		DD1066992BA377A500C34563 /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1066982BA377A500C34563 /* FiltersViewController.swift */; };
-		DD29D4502BCDB84700669446 /* UITableViewLastIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD29D44F2BCDB84700669446 /* UITableViewLastIndexPath.swift */; };
+		DD29D4502BCDB84700669446 /* UITableView+lastIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD29D44F2BCDB84700669446 /* UITableView+lastIndexPath.swift */; };
 		DD30A82B2B87765600D9C842 /* CocktailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD30A82A2B87765600D9C842 /* CocktailsViewModel.swift */; };
 		DD30A82D2B8782AE00D9C842 /* CoctailsCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD30A82C2B8782AE00D9C842 /* CoctailsCategoryModel.swift */; };
 		DD30A82F2B87842B00D9C842 /* CoctailsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD30A82E2B87842B00D9C842 /* CoctailsListModel.swift */; };
@@ -18,7 +18,7 @@
 		DD4BB63B2B8696240076A34F /* CocktailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB63A2B8696240076A34F /* CocktailsViewController.swift */; };
 		DD4BB6402B8696250076A34F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD4BB63F2B8696250076A34F /* Assets.xcassets */; };
 		DD4BB6432B8696250076A34F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD4BB6412B8696250076A34F /* LaunchScreen.storyboard */; };
-		DDA10D9A2BB7742900C06837 /* UIColorChangedByHexString.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA10D992BB7742900C06837 /* UIColorChangedByHexString.swift */; };
+		DDA10D9A2BB7742900C06837 /* UIColor+hexString.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA10D992BB7742900C06837 /* UIColor+hexString.swift */; };
 		DDA10D9E2BBDE84600C06837 /* CocktailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA10D9D2BBDE84600C06837 /* CocktailCell.swift */; };
 		DDAA8D822BAB736900CABE0F /* GlobalConstans.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAA8D812BAB736900CABE0F /* GlobalConstans.swift.swift */; };
 		DDC0B6292BA750AF0005BE73 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC0B6282BA750AF0005BE73 /* FilterCell.swift */; };
@@ -31,7 +31,7 @@
 		28B3015E39FBEC9BAB3402BD /* Pods_CocktailsCategories.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CocktailsCategories.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		664B8317C6B44E5CC5541865 /* Pods-CocktailsCategories.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocktailsCategories.debug.xcconfig"; path = "Target Support Files/Pods-CocktailsCategories/Pods-CocktailsCategories.debug.xcconfig"; sourceTree = "<group>"; };
 		DD1066982BA377A500C34563 /* FiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
-		DD29D44F2BCDB84700669446 /* UITableViewLastIndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UITableViewLastIndexPath.swift; path = CocktailsCategories/Classes/Extensions/UITableViewLastIndexPath.swift; sourceTree = SOURCE_ROOT; };
+		DD29D44F2BCDB84700669446 /* UITableView+lastIndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UITableView+lastIndexPath.swift"; path = "CocktailsCategories/Classes/Extensions/UITableView+lastIndexPath.swift"; sourceTree = SOURCE_ROOT; };
 		DD30A82A2B87765600D9C842 /* CocktailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailsViewModel.swift; sourceTree = "<group>"; };
 		DD30A82C2B8782AE00D9C842 /* CoctailsCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoctailsCategoryModel.swift; sourceTree = "<group>"; };
 		DD30A82E2B87842B00D9C842 /* CoctailsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoctailsListModel.swift; sourceTree = "<group>"; };
@@ -42,7 +42,7 @@
 		DD4BB63F2B8696250076A34F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DD4BB6422B8696250076A34F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DD4BB6442B8696250076A34F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DDA10D992BB7742900C06837 /* UIColorChangedByHexString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorChangedByHexString.swift; sourceTree = "<group>"; };
+		DDA10D992BB7742900C06837 /* UIColor+hexString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hexString.swift"; sourceTree = "<group>"; };
 		DDA10D9D2BBDE84600C06837 /* CocktailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailCell.swift; sourceTree = "<group>"; };
 		DDAA8D812BAB736900CABE0F /* GlobalConstans.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstans.swift.swift; sourceTree = "<group>"; };
 		DDC0B6282BA750AF0005BE73 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
@@ -162,8 +162,8 @@
 		DD4BB64F2B86986A0076A34F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				DDA10D992BB7742900C06837 /* UIColorChangedByHexString.swift */,
-				DD29D44F2BCDB84700669446 /* UITableViewLastIndexPath.swift */,
+				DDA10D992BB7742900C06837 /* UIColor+hexString.swift */,
+				DD29D44F2BCDB84700669446 /* UITableView+lastIndexPath.swift */,
 				DDCAB9422BD181AE0086F0F7 /* UIViewController+progressHUD.swift */,
 			);
 			path = Extensions;
@@ -353,12 +353,12 @@
 				DDCAB9432BD181AE0086F0F7 /* UIViewController+progressHUD.swift in Sources */,
 				DD4BB63B2B8696240076A34F /* CocktailsViewController.swift in Sources */,
 				DD30A82B2B87765600D9C842 /* CocktailsViewModel.swift in Sources */,
-				DDA10D9A2BB7742900C06837 /* UIColorChangedByHexString.swift in Sources */,
+				DDA10D9A2BB7742900C06837 /* UIColor+hexString.swift in Sources */,
 				DD4BB6372B8696240076A34F /* AppDelegate.swift in Sources */,
 				DDC0B6292BA750AF0005BE73 /* FilterCell.swift in Sources */,
 				DDEF80382BC486E9009D4594 /* AlertsManager.swift in Sources */,
 				DD4BB6392B8696240076A34F /* SceneDelegate.swift in Sources */,
-				DD29D4502BCDB84700669446 /* UITableViewLastIndexPath.swift in Sources */,
+				DD29D4502BCDB84700669446 /* UITableView+lastIndexPath.swift in Sources */,
 				DDA10D9E2BBDE84600C06837 /* CocktailCell.swift in Sources */,
 				DD1066992BA377A500C34563 /* FiltersViewController.swift in Sources */,
 			);

@@ -1,5 +1,5 @@
 //
-//  UITableViewLastIndexPath.swift
+//  UITableView+lastIndexPath.swift
 //  CocktailsCategories
 //
 //  Created by Vadym Sorokolit on 15.04.2024.
