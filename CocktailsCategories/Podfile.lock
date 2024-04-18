@@ -1,18 +1,26 @@
 PODS:
+  - ProgressHUD (14.1.1)
   - SDWebImage (5.19.1):
     - SDWebImage/Core (= 5.19.1)
   - SDWebImage/Core (5.19.1)
+  - SnapKit (5.0.1)
 
 DEPENDENCIES:
+  - ProgressHUD
   - SDWebImage
+  - SnapKit (~> 5.0.0)
 
 SPEC REPOS:
   trunk:
+    - ProgressHUD
     - SDWebImage
+    - SnapKit
 
 SPEC CHECKSUMS:
+  ProgressHUD: abb9136ae23c85204236828562cb9a8ec98efb44
   SDWebImage: 40b0b4053e36c660a764958bff99eed16610acbb
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 72d648d5f674b7e377cc02fe0aa3bbe6e44dc5ad
+PODFILE CHECKSUM: ca168e412eedaa22ceaf777082b56e9da459c200
 
 COCOAPODS: 1.14.3
