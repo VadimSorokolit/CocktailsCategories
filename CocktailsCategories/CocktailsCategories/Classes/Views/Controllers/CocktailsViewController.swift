@@ -6,8 +6,7 @@
 //
 
 import UIKit
-import SnapKit
-import ProgressHUD
+import MBProgressHUD
 import SDWebImage
 
 class CocktailsViewController: UIViewController {
@@ -93,6 +92,7 @@ class CocktailsViewController: UIViewController {
         self.setupNavBar()
         self.setupViews()
         self.setupLayout()
+        self.showHUD()
         self.setObservers()
         self.loadFirstCategory()
     }
@@ -122,6 +122,7 @@ class CocktailsViewController: UIViewController {
         self.cocktailsViewModel.completion = { (result: Result<Void, NetworkingError>) -> Void in
             DispatchQueue.main.async {
                 self.stopFooterSpinner()
+                self.hideHUD()
                 switch result {
                     case .success:
                         self.tableView.reloadData()
