@@ -1,5 +1,5 @@
 //
-//  UIColorChangedByHexString.swift
+//  UIColor+hexString.swift
 //  CocktailsCategories
 //
 //  Created by Vadym Sorokolit on 30.03.2024.
