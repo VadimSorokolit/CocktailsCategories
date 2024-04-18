@@ -7,10 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D69B347F52B86DA1E9F0B173 /* Pods_CocktailsCategories.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28B3015E39FBEC9BAB3402BD /* Pods_CocktailsCategories.framework */; };
 		DD1066992BA377A500C34563 /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1066982BA377A500C34563 /* FiltersViewController.swift */; };
 		DD29D4502BCDB84700669446 /* UITableViewLastIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD29D44F2BCDB84700669446 /* UITableViewLastIndexPath.swift */; };
-		DD29D4532BD0085C00669446 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DD29D4522BD0085C00669446 /* SnapKit */; };
-		DD29D4552BD0085C00669446 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = DD29D4542BD0085C00669446 /* SnapKit-Dynamic */; };
 		DD30A82B2B87765600D9C842 /* CocktailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD30A82A2B87765600D9C842 /* CocktailsViewModel.swift */; };
 		DD30A82D2B8782AE00D9C842 /* CoctailsCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD30A82C2B8782AE00D9C842 /* CoctailsCategoryModel.swift */; };
 		DD30A82F2B87842B00D9C842 /* CoctailsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD30A82E2B87842B00D9C842 /* CoctailsListModel.swift */; };
@@ -21,14 +20,15 @@
 		DD4BB6432B8696250076A34F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD4BB6412B8696250076A34F /* LaunchScreen.storyboard */; };
 		DDA10D9A2BB7742900C06837 /* UIColorChangedByHexString.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA10D992BB7742900C06837 /* UIColorChangedByHexString.swift */; };
 		DDA10D9E2BBDE84600C06837 /* CocktailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA10D9D2BBDE84600C06837 /* CocktailCell.swift */; };
-		DDA10DA12BC09B2500C06837 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = DDA10DA02BC09B2500C06837 /* SDWebImage */; };
-		DDA10DA32BC09B2500C06837 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DDA10DA22BC09B2500C06837 /* SDWebImageMapKit */; };
 		DDAA8D822BAB736900CABE0F /* GlobalConstans.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAA8D812BAB736900CABE0F /* GlobalConstans.swift.swift */; };
 		DDC0B6292BA750AF0005BE73 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC0B6282BA750AF0005BE73 /* FilterCell.swift */; };
 		DDEF80382BC486E9009D4594 /* AlertsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEF80372BC486E9009D4594 /* AlertsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2628FBC4C40B6913A10027C3 /* Pods-CocktailsCategories.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocktailsCategories.release.xcconfig"; path = "Target Support Files/Pods-CocktailsCategories/Pods-CocktailsCategories.release.xcconfig"; sourceTree = "<group>"; };
+		28B3015E39FBEC9BAB3402BD /* Pods_CocktailsCategories.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CocktailsCategories.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		664B8317C6B44E5CC5541865 /* Pods-CocktailsCategories.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocktailsCategories.debug.xcconfig"; path = "Target Support Files/Pods-CocktailsCategories/Pods-CocktailsCategories.debug.xcconfig"; sourceTree = "<group>"; };
 		DD1066982BA377A500C34563 /* FiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
 		DD29D44F2BCDB84700669446 /* UITableViewLastIndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UITableViewLastIndexPath.swift; path = CocktailsCategories/Classes/Extensions/UITableViewLastIndexPath.swift; sourceTree = SOURCE_ROOT; };
 		DD30A82A2B87765600D9C842 /* CocktailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailsViewModel.swift; sourceTree = "<group>"; };
@@ -53,21 +53,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD29D4532BD0085C00669446 /* SnapKit in Frameworks */,
-				DDA10DA32BC09B2500C06837 /* SDWebImageMapKit in Frameworks */,
-				DDA10DA12BC09B2500C06837 /* SDWebImage in Frameworks */,
-				DD29D4552BD0085C00669446 /* SnapKit-Dynamic in Frameworks */,
+				D69B347F52B86DA1E9F0B173 /* Pods_CocktailsCategories.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C07C909CCAB545E71F389E6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				28B3015E39FBEC9BAB3402BD /* Pods_CocktailsCategories.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B14C3EC140D88B6EBF082F28 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				664B8317C6B44E5CC5541865 /* Pods-CocktailsCategories.debug.xcconfig */,
+				2628FBC4C40B6913A10027C3 /* Pods-CocktailsCategories.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		DD4BB62A2B8696240076A34F = {
 			isa = PBXGroup;
 			children = (
 				DD4BB6352B8696240076A34F /* CocktailsCategories */,
 				DD4BB6342B8696240076A34F /* Products */,
+				B14C3EC140D88B6EBF082F28 /* Pods */,
+				2C07C909CCAB545E71F389E6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -221,21 +237,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DD4BB6472B8696250076A34F /* Build configuration list for PBXNativeTarget "CocktailsCategories" */;
 			buildPhases = (
+				A1BD79933A518C1CB7E7ECA8 /* [CP] Check Pods Manifest.lock */,
 				DD4BB62F2B8696240076A34F /* Sources */,
 				DD4BB6302B8696240076A34F /* Frameworks */,
 				DD4BB6312B8696240076A34F /* Resources */,
+				04864D006E557D8F1B0043EE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = CocktailsCategories;
-			packageProductDependencies = (
-				DDA10DA02BC09B2500C06837 /* SDWebImage */,
-				DDA10DA22BC09B2500C06837 /* SDWebImageMapKit */,
-				DD29D4522BD0085C00669446 /* SnapKit */,
-				DD29D4542BD0085C00669446 /* SnapKit-Dynamic */,
-			);
 			productName = CocktailsCategories;
 			productReference = DD4BB6332B8696240076A34F /* CocktailsCategories.app */;
 			productType = "com.apple.product-type.application";
@@ -264,10 +276,6 @@
 				Base,
 			);
 			mainGroup = DD4BB62A2B8696240076A34F;
-			packageReferences = (
-				DDA10D9F2BC09B2500C06837 /* XCRemoteSwiftPackageReference "SDWebImage" */,
-				DD29D4512BD0085C00669446 /* XCRemoteSwiftPackageReference "SnapKit" */,
-			);
 			productRefGroup = DD4BB6342B8696240076A34F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -288,6 +296,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		04864D006E557D8F1B0043EE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CocktailsCategories/Pods-CocktailsCategories-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CocktailsCategories/Pods-CocktailsCategories-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CocktailsCategories/Pods-CocktailsCategories-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A1BD79933A518C1CB7E7ECA8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CocktailsCategories-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DD4BB62F2B8696240076A34F /* Sources */ = {
@@ -361,7 +411,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -424,7 +474,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -445,6 +495,7 @@
 		};
 		DD4BB6482B8696250076A34F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 664B8317C6B44E5CC5541865 /* Pods-CocktailsCategories.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -472,6 +523,7 @@
 		};
 		DD4BB6492B8696250076A34F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2628FBC4C40B6913A10027C3 /* Pods-CocktailsCategories.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -519,48 +571,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		DD29D4512BD0085C00669446 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.7.1;
-			};
-		};
-		DDA10D9F2BC09B2500C06837 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.19.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		DD29D4522BD0085C00669446 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DD29D4512BD0085C00669446 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-		DD29D4542BD0085C00669446 /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DD29D4512BD0085C00669446 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
-		};
-		DDA10DA02BC09B2500C06837 /* SDWebImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DDA10D9F2BC09B2500C06837 /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImage;
-		};
-		DDA10DA22BC09B2500C06837 /* SDWebImageMapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DDA10D9F2BC09B2500C06837 /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImageMapKit;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DD4BB62B2B8696240076A34F /* Project object */;
 }
