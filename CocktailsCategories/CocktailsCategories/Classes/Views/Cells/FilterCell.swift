@@ -9,17 +9,17 @@ import UIKit
 
 class FilterCell: UITableViewCell {
     
-    // MARK: Objects
+    // MARK: - Objects
     
     private struct LocalConstants {
         static let imageName: String = "circle"
         static let reuseIDName: String = "FilterCell"
         static let labelLeadingAnchor: CGFloat = 20.0
-        static let badgeDefaultPadding: CGFloat = 12
+        static let badgeDefaultPadding: CGFloat = 12.0
         static let labelNumberOfLines: Int = 1
     }
     
-    // Mark: Properties
+    // MARK: - Properties
     
     static let reuseID = LocalConstants.reuseIDName
  
@@ -51,7 +51,7 @@ class FilterCell: UITableViewCell {
         fatalError(GlobalConstants.fatalError)
     }
     
-    // MARK: Methods
+    // MARK: - Methods
     
     private func setup() {
         self.setupViews()

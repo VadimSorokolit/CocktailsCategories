@@ -10,7 +10,7 @@ import UIKit
 
 class AlertsManager {
     
-    // MARK: Objects
+    // MARK: - Objects
     
     private struct LocalConstants {
         static let warningTitle = "Warning"
@@ -18,7 +18,7 @@ class AlertsManager {
         static let okActionTitle = "Ok"
     }
     
-    // MARK: Methods
+    // MARK: - Methods
     
     func showAlert(title: String, message: String, in viewContoller: UIViewController, okCompletion: ((UIAlertAction) -> (Void))?) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -36,4 +36,5 @@ class AlertsManager {
         let warningDescriptionMessage = warning.localizedDescription
         self.showAlert(title: LocalConstants.warningTitle, message: warningDescriptionMessage, in: viewController, okCompletion: nil)
     }
+    
 }

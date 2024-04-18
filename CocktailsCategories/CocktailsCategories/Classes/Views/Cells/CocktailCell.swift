@@ -10,13 +10,13 @@ import SDWebImage
 
 class CocktailCell: UITableViewCell {
     
-    // MARK: Objects
+    // MARK: - Objects
     
     private struct LocalConstants {
         static let reuseIDName: String = "CocktailCell"
     }
     
-    // MARK: Properties
+    // MARK: - Properties
     
     static let reuseID = LocalConstants.reuseIDName
     
@@ -45,7 +45,7 @@ class CocktailCell: UITableViewCell {
         fatalError(GlobalConstants.fatalError)
     }
     
-    // MARK: Methods
+    // MARK: - Methods
     
     private func setup() {
         self.setupViews()
@@ -77,12 +77,11 @@ class CocktailCell: UITableViewCell {
     
     func setupCell(with cocktail: Cocktail) {
         let url = URL(string: cocktail.thumbLink ?? "")
-        let placeHolder = UIImage(named: "placeholder")
+        let placeholder = UIImage(named: "placeholder")
         
-        self.cocktailImageView.sd_setImage(with: url, placeholderImage: placeHolder )
+        self.cocktailImageView.sd_setImage(with: url, placeholderImage: placeholder )
         let cocktailName = cocktail.name
         self.cocktailLabel.text = cocktailName
-        self.selectionStyle = .default
     }
     
 }

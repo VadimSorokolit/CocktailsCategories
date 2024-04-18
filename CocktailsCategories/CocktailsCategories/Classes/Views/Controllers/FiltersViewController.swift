@@ -10,7 +10,7 @@ import SnapKit
 
 class FiltersViewController: UIViewController {
     
-    // MARK: Objects
+    // MARK: - Objects
     
     private struct LocalConstants {
         static let buttonCornerRadius: CGFloat = 10.0
@@ -20,13 +20,13 @@ class FiltersViewController: UIViewController {
         static let viewDefaultAnchor: CGFloat = 0.0
         static let safeAreaDefaultAnchor: CGFloat = 16.0
         static let buttonName: String = "Apply Filters"
-        static let buttonIsEnableTintColor: UIColor = UIColor(hexString: "000000")
-        static let buttonIsDisableTintColor: UIColor = UIColor(hexString: "808080")
-        static let buttonIsEnableBorderColor: UIColor = UIColor(hexString: "808080")
-        static let buttonIsDisableBorderColor: UIColor = UIColor(hexString: "D3D3D3")
+        static let buttonIsEnabledTintColor: UIColor = UIColor(hexString: "000000")
+        static let buttonIsDisabledTintColor: UIColor = UIColor(hexString: "808080")
+        static let buttonIsEnabledBorderColor: UIColor = UIColor(hexString: "808080")
+        static let buttonIsDisabledBorderColor: UIColor = UIColor(hexString: "D3D3D3")
     }
     
-    // MARK: Properties
+    // MARK: - Properties
         
     private let viewModel: CocktailsViewModel
     private var isApplyFiltersButtonPressed: Bool = false
@@ -35,10 +35,10 @@ class FiltersViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle(LocalConstants.buttonName, for: .normal)
         button.titleLabel?.font = GlobalConstants.titleLabelFont
-        button.setTitleColor(LocalConstants.buttonIsEnableTintColor, for: .normal)
-        button.setTitleColor(LocalConstants.buttonIsDisableTintColor, for: .disabled)
+        button.setTitleColor(LocalConstants.buttonIsEnabledTintColor, for: .normal)
+        button.setTitleColor(LocalConstants.buttonIsDisabledTintColor, for: .disabled)
         button.backgroundColor = GlobalConstants.defaultBackgroundColor
-        button.layer.borderColor = LocalConstants.buttonIsDisableBorderColor.cgColor
+        button.layer.borderColor = LocalConstants.buttonIsDisabledBorderColor.cgColor
         button.layer.cornerRadius = LocalConstants.buttonCornerRadius
         button.layer.masksToBounds = true
         button.layer.borderWidth = LocalConstants.buttonBorderWidth
@@ -57,7 +57,7 @@ class FiltersViewController: UIViewController {
         return tableView
     }()
     
-    // Mark: Initializer
+    // MARK: - Initializer
     
     required init(viewModel: CocktailsViewModel) {
         self.viewModel = viewModel
@@ -68,7 +68,7 @@ class FiltersViewController: UIViewController {
         fatalError(GlobalConstants.fatalError)
     }
     
-    // MARK: Lifecycle
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +84,7 @@ class FiltersViewController: UIViewController {
         }
     }
     
-    // MARK: Methods
+    // MARK: - Methods
     
     private func setup() {
         self.setupViews()
@@ -122,11 +122,13 @@ class FiltersViewController: UIViewController {
     private func setupApplyFiltersButton() {
         self.applyFiltersButton.isEnabled = self.viewModel.isEnableApplyFiltersButton
         if self.applyFiltersButton.isEnabled {
-            self.applyFiltersButton.layer.borderColor = LocalConstants.buttonIsEnableBorderColor.cgColor
+            self.applyFiltersButton.layer.borderColor = LocalConstants.buttonIsEnabledBorderColor.cgColor
         } else {
-            self.applyFiltersButton.layer.borderColor  = LocalConstants.buttonIsDisableBorderColor.cgColor
+            self.applyFiltersButton.layer.borderColor  = LocalConstants.buttonIsDisabledBorderColor.cgColor
         }
     }
+    
+    // MARK: - Events
 
     @objc private func onApplyFiltersButtonDidTap() {
         self.isApplyFiltersButtonPressed = true

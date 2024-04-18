@@ -55,11 +55,13 @@ class CocktailsViewModel {
     private var allCategories: [Category] = []
     private var tempCategories: [CocktailsSection] = []
     private var savedCategories: [CocktailsSection] = []
-    var isLoadingData: Bool = false
-    var noMoreCocktails = false
     var loadedCategories: [CocktailsSection] = []
     var filteredCategories: [CocktailsSection] = []
+    
     var completion: ((Result<Void, NetworkingError>) -> Void)? = nil
+    
+    var isLoadingData: Bool = false
+    var noMoreCocktails: Bool = false
     
     var isEnableApplyFiltersButton: Bool {
         var counter = 0
@@ -183,7 +185,9 @@ class CocktailsViewModel {
 
     // Get first category
     func loadFirstCategory() {
+        self.isLoadingData = true
         self.getAllCategories(completion: { (result: Result<[Category], NetworkingError>) -> Void in
+            self.isLoadingData = false
             switch result {
                 case .failure(let error):
                     self.completion?(.failure(error))

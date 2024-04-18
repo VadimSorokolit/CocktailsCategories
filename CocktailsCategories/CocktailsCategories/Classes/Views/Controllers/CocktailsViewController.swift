@@ -10,7 +10,7 @@ import SnapKit
 
 class CocktailsViewController: UIViewController {
     
-    // MARK: Objects
+    // MARK: - Objects
     
     private struct LocalConstants {
         static let badgeSideSize: CGFloat = 10.0
@@ -18,7 +18,7 @@ class CocktailsViewController: UIViewController {
         static let spinnerHeight: CGFloat = 60.0
     }
     
-    // MARK: Properties
+    // MARK: - Properties
     
     private let cocktailsViewModel: CocktailsViewModel
     private let alertsManager = AlertsManager()
@@ -58,7 +58,7 @@ class CocktailsViewController: UIViewController {
         return spinnerView
     }()
 
-    // MARK: Initializer
+    // MARK: - Initializer
     
     required init(cocktailsViewModel: CocktailsViewModel) {
         self.cocktailsViewModel = cocktailsViewModel
@@ -69,7 +69,7 @@ class CocktailsViewController: UIViewController {
         fatalError(GlobalConstants.fatalError)
     }
     
-    // MARK: Lifecycle
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,7 +85,7 @@ class CocktailsViewController: UIViewController {
         self.reloadAndScrollToTop()
     }
     
-    // MARK: Methods
+    // MARK: - Methods
     
     private func setup() {
         self.setupNavBar()
@@ -125,10 +125,8 @@ class CocktailsViewController: UIViewController {
                         self.tableView.reloadData()
                     case .failure(.error(let systemError)):
                         self.showAlert(withError: systemError)
-                        break
                     case .failure(let customError):
                         self.showAlert(withWarning: customError)
-                        break
                 }
             }
         }
@@ -167,18 +165,19 @@ class CocktailsViewController: UIViewController {
     }
     
     private func getMoreCocktails(for indexPath: IndexPath) {
-        if indexPath == self.tableView.lastIndexPath,
-           !self.cocktailsViewModel.isLoadingData,
-           !self.cocktailsViewModel.hasFilters,
-           !self.cocktailsViewModel.noMoreCocktails {
-            
-            // Pagination
+        let canPaginate = (indexPath == self.tableView.lastIndexPath) &&
+                          !self.cocktailsViewModel.isLoadingData &&
+                          !self.cocktailsViewModel.hasFilters &&
+                          !self.cocktailsViewModel.noMoreCocktails
+        
+        // Pagination
+        if canPaginate {
             self.startFooterSpinner()
             self.loadNextCategory()
         }
     }
 
-    // MARK: Events
+    // MARK: - Events
     
     @objc private func goToFiltersVC() {
         let filtersVC = FiltersViewController(viewModel: self.cocktailsViewModel)
@@ -187,7 +186,7 @@ class CocktailsViewController: UIViewController {
     
 }
 
-// MARK: - table view delegate
+// MARK: - UITableViewDelegate
 
 extension CocktailsViewController: UITableViewDelegate {
     
