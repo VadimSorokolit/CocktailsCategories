@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class FilterCell: UITableViewCell {
     
@@ -65,19 +66,32 @@ class FilterCell: UITableViewCell {
     }
     
     private func setupLayout() {
-        let contentView = self.contentView
-        let nameLabel = self.nameLabel
-        let badge = self.badge
         
-        NSLayoutConstraint.activate([
-            badge.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            badge.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -GlobalConstants.defaultPadding),
-            badge.widthAnchor.constraint(equalToConstant: LocalConstants.badgeDefaultPadding),
-            badge.heightAnchor.constraint(equalToConstant: LocalConstants.badgeDefaultPadding),
-            nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LocalConstants.labelLeadingAnchor),
-            nameLabel.trailingAnchor.constraint(equalTo: badge.leadingAnchor, constant: -GlobalConstants.defaultPadding),
-        ])
+        self.badge.snp.makeConstraints { make in
+            make.centerY.equalTo(self.contentView.snp.centerY)
+            make.trailing.equalTo(self.contentView.snp.trailing).offset(-GlobalConstants.defaultPadding)
+            make.width.height.equalTo(LocalConstants.badgeDefaultPadding)
+        }
+        
+        self.nameLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(self.contentView.snp.centerY)
+            make.leading.equalTo(self.contentView.snp.leading).offset(LocalConstants.labelLeadingAnchor)
+            make.trailing.equalTo(self.badge.snp.leading).offset(-GlobalConstants.defaultPadding)
+        }
+//        let contentView = self.contentView
+//        let nameLabel = self.nameLabel
+//        let badge = self.badge
+        
+        //        NSLayoutConstraint.activate([
+        //            badge.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+        //            badge.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -GlobalConstants.defaultPadding),
+        //            badge.widthAnchor.constraint(equalToConstant: LocalConstants.badgeDefaultPadding),
+        //            badge.heightAnchor.constraint(equalToConstant: LocalConstants.badgeDefaultPadding),
+        //            nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+        //            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LocalConstants.labelLeadingAnchor),
+        //            nameLabel.trailingAnchor.constraint(equalTo: badge.leadingAnchor, constant: -GlobalConstants.defaultPadding),
+        //        ])
+        
     }
     
     func configureCell(with section: CocktailsSection) {

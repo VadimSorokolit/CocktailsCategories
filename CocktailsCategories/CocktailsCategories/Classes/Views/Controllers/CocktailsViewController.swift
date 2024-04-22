@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 import MBProgressHUD
 import SDWebImage
 
@@ -17,6 +18,7 @@ class CocktailsViewController: UIViewController {
         static let badgeSideSize: CGFloat = 10.0
         static let textLabelHeightAnchor: CGFloat = 20.0
         static let spinnerHeight: CGFloat = 60.0
+        static let viewDefaultAnchor: CGFloat = 0.0
     }
     
     // MARK: - Properties
@@ -111,10 +113,17 @@ class CocktailsViewController: UIViewController {
     }
     
     private func setupLayout() {
-        self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        
+        self.tableView.snp.makeConstraints { make in
+            make.top.equalTo(self.view.snp.top)
+            make.leading.trailing.equalTo(self.view).inset(LocalConstants.viewDefaultAnchor)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+        }
+        //        self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        //        self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        //        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        //        self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        
     }
     
     private func setObservers() {
