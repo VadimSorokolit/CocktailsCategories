@@ -27,7 +27,6 @@ class FilterCell: UITableViewCell {
     private lazy var badge: UIView = {
         let badgeSideSizeView: CGFloat = LocalConstants.badgeDefaultPadding
         let badgeView = UIView()
-        badgeView.translatesAutoresizingMaskIntoConstraints = false
         badgeView.backgroundColor = GlobalConstants.badgeColor
         badgeView.clipsToBounds = true
         badgeView.layer.cornerRadius = badgeSideSizeView / 2
@@ -36,7 +35,6 @@ class FilterCell: UITableViewCell {
     
     private lazy var nameLabel: UILabel = {
         let outputLabel = UILabel()
-        outputLabel.translatesAutoresizingMaskIntoConstraints = false
         outputLabel.numberOfLines = LocalConstants.labelNumberOfLines
         outputLabel.font = GlobalConstants.cocktailCellFont
         outputLabel.textColor = GlobalConstants.textColor
@@ -78,19 +76,6 @@ class FilterCell: UITableViewCell {
             make.leading.equalTo(self.contentView.snp.leading).offset(LocalConstants.labelLeadingAnchor)
             make.trailing.equalTo(self.badge.snp.leading).offset(-GlobalConstants.defaultPadding)
         }
-//        let contentView = self.contentView
-//        let nameLabel = self.nameLabel
-//        let badge = self.badge
-        
-        //        NSLayoutConstraint.activate([
-        //            badge.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-        //            badge.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -GlobalConstants.defaultPadding),
-        //            badge.widthAnchor.constraint(equalToConstant: LocalConstants.badgeDefaultPadding),
-        //            badge.heightAnchor.constraint(equalToConstant: LocalConstants.badgeDefaultPadding),
-        //            nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-        //            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LocalConstants.labelLeadingAnchor),
-        //            nameLabel.trailingAnchor.constraint(equalTo: badge.leadingAnchor, constant: -GlobalConstants.defaultPadding),
-        //        ])
         
     }
     

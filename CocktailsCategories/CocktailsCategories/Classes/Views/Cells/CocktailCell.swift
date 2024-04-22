@@ -15,8 +15,8 @@ class CocktailCell: UITableViewCell {
     
     private struct LocalConstants {
         static let reuseIDName: String = "CocktailCell"
-        static let cocktailImageViewDefaultAnchor: CGFloat = 60.0
-        static let cocktailLabelDefaultAnchor: CGFloat = 20.0
+        static let cocktailImageViewDefaultWidth: CGFloat = 60.0
+        static let cocktailLabelDefaultWidth: CGFloat = 20.0
     }
     
     // MARK: - Properties
@@ -26,7 +26,6 @@ class CocktailCell: UITableViewCell {
     private lazy var cocktailLabel: UILabel = {
         let label = UILabel()
         label.font = GlobalConstants.cocktailCellFont
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -34,7 +33,6 @@ class CocktailCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = GlobalConstants.defaultPadding / 2
         imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -65,30 +63,15 @@ class CocktailCell: UITableViewCell {
         self.cocktailImageView.snp.makeConstraints { make in
             make.centerY.equalTo(self.contentView.snp.centerY)
             make.leading.equalTo(self.contentView.snp.leading).offset(GlobalConstants.defaultPadding * 2)
-            make.width.height.equalTo(LocalConstants.cocktailImageViewDefaultAnchor)
+            make.width.height.equalTo(LocalConstants.cocktailImageViewDefaultWidth)
         }
         
         self.cocktailLabel.snp.makeConstraints { make in
             make.top.equalTo(self.contentView.snp.top)
-            make.leading.equalTo(self.cocktailImageView.snp.trailing).offset(LocalConstants.cocktailLabelDefaultAnchor)
+            make.leading.equalTo(self.cocktailImageView.snp.trailing).offset(LocalConstants.cocktailLabelDefaultWidth)
             make.trailing.equalTo(self.contentView.snp.trailing)
             make.bottom.equalTo(self.contentView.snp.bottom)
         }
-        //        let contentView = self.contentView
-        //        let cocktailLabel = self.cocktailLabel
-        //        let cocktailImageView = self.cocktailImageView
-        //
-        //        NSLayoutConstraint.activate([
-        //            cocktailImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-        //            cocktailImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: GlobalConstants.defaultPadding * 2),
-        //            cocktailImageView.widthAnchor.constraint(equalToConstant: 60.0),
-        //            cocktailImageView.heightAnchor.constraint(equalToConstant: 60.0),
-        //
-        //            cocktailLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-        //            cocktailLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-        //            cocktailLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-        //            cocktailLabel.leadingAnchor.constraint(equalTo: cocktailImageView.trailingAnchor, constant: 20.0),
-        //        ])
         
     }
     

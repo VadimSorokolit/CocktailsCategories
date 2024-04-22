@@ -42,7 +42,6 @@ class FiltersViewController: UIViewController {
         button.layer.cornerRadius = LocalConstants.buttonCornerRadius
         button.layer.masksToBounds = true
         button.layer.borderWidth = LocalConstants.buttonBorderWidth
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.isEnabled = false
         button.addTarget(self, action: #selector(self.onApplyFiltersButtonDidTap), for: .touchUpInside)
         return button
@@ -51,7 +50,6 @@ class FiltersViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(FilterCell.self, forCellReuseIdentifier: FilterCell.reuseID)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
@@ -110,20 +108,12 @@ class FiltersViewController: UIViewController {
             make.leading.trailing.equalTo(self.view).inset(LocalConstants.buttonDefaultAnchor)
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-LocalConstants.safeAreaDefaultAnchor)
         }
+        
         self.tableView.snp.makeConstraints { make in
             make.top.equalTo(self.view.snp.top).offset(LocalConstants.viewDefaultAnchor)
             make.leading.trailing.equalTo(self.view).inset(LocalConstants.viewDefaultAnchor)
             make.bottom.equalTo(self.applyFiltersButton.snp.top)
         }
-        //        self.applyFiltersButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: LocalConstants.buttonDefaultAnchor).isActive = true
-        //        self.applyFiltersButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -LocalConstants.buttonDefaultAnchor).isActive = true
-        //        self.applyFiltersButton.heightAnchor.constraint(equalToConstant: LocalConstants.buttonHeightAnchor).isActive = true
-        //        self.applyFiltersButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -LocalConstants.safeAreaDefaultAnchor).isActive = true
-        
-        //        self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: LocalConstants.viewDefaultAnchor).isActive = true
-        //        self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: LocalConstants.viewDefaultAnchor).isActive = true
-        //        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: LocalConstants.viewDefaultAnchor).isActive = true
-        //        self.tableView.bottomAnchor.constraint(equalTo: self.applyFiltersButton.topAnchor).isActive = true
         
     }
     

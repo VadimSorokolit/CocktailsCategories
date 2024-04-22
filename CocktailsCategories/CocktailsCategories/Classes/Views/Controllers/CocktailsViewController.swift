@@ -47,7 +47,6 @@ class CocktailsViewController: UIViewController {
         tableView.register(CocktailCell.self, forCellReuseIdentifier: CocktailCell.reuseID)
         tableView.backgroundColor = GlobalConstants.defaultBackgroundColor
         tableView.sectionHeaderTopPadding = .zero
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
@@ -119,10 +118,6 @@ class CocktailsViewController: UIViewController {
             make.leading.trailing.equalTo(self.view).inset(LocalConstants.viewDefaultAnchor)
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
         }
-        //        self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        //        self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        //        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        //        self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
     }
     
