@@ -65,13 +65,13 @@ class FilterCell: UITableViewCell {
     
     private func setupLayout() {
         
-        self.badge.snp.makeConstraints { make in
+        self.badge.snp.makeConstraints { (make) -> Void in
             make.centerY.equalTo(self.contentView.snp.centerY)
             make.trailing.equalTo(self.contentView.snp.trailing).offset(-GlobalConstants.defaultPadding)
             make.width.height.equalTo(LocalConstants.badgeDefaultPadding)
         }
         
-        self.nameLabel.snp.makeConstraints { make in
+        self.nameLabel.snp.makeConstraints { (make) -> Void in
             make.centerY.equalTo(self.contentView.snp.centerY)
             make.leading.equalTo(self.contentView.snp.leading).offset(LocalConstants.labelLeadingAnchor)
             make.trailing.equalTo(self.badge.snp.leading).offset(-GlobalConstants.defaultPadding)

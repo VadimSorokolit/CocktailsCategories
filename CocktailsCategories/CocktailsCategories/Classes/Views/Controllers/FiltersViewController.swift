@@ -103,13 +103,13 @@ class FiltersViewController: UIViewController {
     
     private func setupLayout() {
         
-        self.applyFiltersButton.snp.makeConstraints { make in
+        self.applyFiltersButton.snp.makeConstraints { (make) -> Void in
             make.height.equalTo(LocalConstants.buttonHeightAnchor)
             make.leading.trailing.equalTo(self.view).inset(LocalConstants.buttonDefaultAnchor)
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-LocalConstants.safeAreaDefaultAnchor)
         }
         
-        self.tableView.snp.makeConstraints { make in
+        self.tableView.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(self.view.snp.top).offset(LocalConstants.viewDefaultAnchor)
             make.leading.trailing.equalTo(self.view).inset(LocalConstants.viewDefaultAnchor)
             make.bottom.equalTo(self.applyFiltersButton.snp.top)

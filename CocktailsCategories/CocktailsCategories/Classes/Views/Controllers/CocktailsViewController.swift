@@ -113,7 +113,7 @@ class CocktailsViewController: UIViewController {
     
     private func setupLayout() {
         
-        self.tableView.snp.makeConstraints { make in
+        self.tableView.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(self.view.snp.top)
             make.leading.trailing.equalTo(self.view).inset(LocalConstants.viewDefaultAnchor)
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)

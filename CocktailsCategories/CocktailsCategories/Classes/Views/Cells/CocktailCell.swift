@@ -60,13 +60,13 @@ class CocktailCell: UITableViewCell {
     
     private func setupLayout() {
         
-        self.cocktailImageView.snp.makeConstraints { make in
+        self.cocktailImageView.snp.makeConstraints { (make) -> Void in
             make.centerY.equalTo(self.contentView.snp.centerY)
             make.leading.equalTo(self.contentView.snp.leading).offset(GlobalConstants.defaultPadding * 2)
             make.width.height.equalTo(LocalConstants.cocktailImageViewDefaultWidth)
         }
         
-        self.cocktailLabel.snp.makeConstraints { make in
+        self.cocktailLabel.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(self.contentView.snp.top)
             make.leading.equalTo(self.cocktailImageView.snp.trailing).offset(LocalConstants.cocktailLabelDefaultWidth)
             make.trailing.equalTo(self.contentView.snp.trailing)
