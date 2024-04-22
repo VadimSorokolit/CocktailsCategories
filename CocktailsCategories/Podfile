@@ -6,7 +6,8 @@ target 'CocktailsCategories' do
   use_frameworks!
 
   # Pods for CocktailsCategories
-
+	
+	pod 'SnapKit', '~> 5.0.0'
 	pod 'MBProgressHUD', '~> 1.2.0'
 	pod 'SDWebImage'
 
