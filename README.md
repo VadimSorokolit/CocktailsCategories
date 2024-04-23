@@ -1,5 +1,5 @@
 # CocktailsCategories
 <br />
-# CocktailsCategories based on Free Cocktail API
+CocktailsCategories based on Free Cocktail API
 <br />
-# It make retrieving remote cocktails and filtering them
+It make retrieving remote cocktails and filtering them
