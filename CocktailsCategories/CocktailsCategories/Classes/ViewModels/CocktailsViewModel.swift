@@ -53,6 +53,7 @@ class CocktailsViewModel {
     
     // MARK: - Properties
     
+    private let provider = MoyaProvider<CocktailsCategories>()
     private var allCategories: [Category] = []
     private var tempCategories: [CocktailsSection] = []
     private var savedCategories: [CocktailsSection] = []
