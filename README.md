@@ -1,4 +1,5 @@
 # CocktailsCategories
 **Flow:**
 <br />
-Retrieve remote cocktails and filter them
+CocktailsCategories based on Free Cocktail API
+It make retrieving remote cocktails and filtering them
