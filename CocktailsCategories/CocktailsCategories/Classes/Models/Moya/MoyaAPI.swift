@@ -18,7 +18,7 @@ enum CocktailsCategories {
 extension CocktailsCategories: TargetType {
     
     var baseURL: URL {
-        guard let url = URL(string: "https://www.thecocktaildb.com/api/json/v1/1") else {
+        guard let url = URL(string: "ht3tps://www.the1cocktaildb.com/api/json/v1/1") else {
             fatalError("Invalid base URL")
         }
         return url

@@ -9,24 +9,24 @@ import Foundation
 import Moya
 
 enum NetworkingError: LocalizedError {
-    case invalidURL
+//    case invalidURL
     case invalidDecoding
     case invalidData
-    case responseError
+//    case responseError
     case emptyFirstCategory
     case noMoreCocktails
     case error(Error)
     
     var errorDescription: String? {
         switch self {
-            case .invalidURL:
-                return NSLocalizedString("Invalid URL", comment: "NetworkingError - invalidURL")
+//            case .invalidURL:
+//                return NSLocalizedString("Invalid URL", comment: "NetworkingError - invalidURL")
             case .invalidDecoding:
                 return NSLocalizedString("Invalid decoding", comment: "NetworkingError - invalidDecoding")
             case .invalidData:
                 return NSLocalizedString("Invalid data", comment: "NetworkingError - invalidData")
-            case .responseError:
-                return NSLocalizedString("Response error", comment: "NetworkingError - responseError")
+//            case .responseError:
+//                return NSLocalizedString("Response error", comment: "NetworkingError - responseError")
             case .emptyFirstCategory:
                 return NSLocalizedString("Empty first category", comment: "NetworkingError - emptyFirstCategory")
             case .noMoreCocktails:
@@ -91,99 +91,148 @@ class CocktailsViewModel {
     
     // MARK: - Methods
     
-    // Get all categories
-    private func getAllCategories(completion: @escaping (Result<[Category], NetworkingError>) -> Void) {
-        var components = URLComponents()
-        components.scheme = "https"
-        components.host = "thecocktaildb.com"
-        components.path = "/api/json/v1/1/list.php"
-        components.queryItems = [
-            URLQueryItem(name: "c", value: "list")
-        ]
-        
-        guard let urlString = components.string else {
-            completion(.failure(NetworkingError.invalidURL))
-            return
+    // MARK: - JSON Decoder
+    
+    private func getDecodedType<T: Decodable>(from data: Data) -> T? {
+        do {
+            let decodedGeneric = try JSONDecoder().decode(T.self, from: data)
+            return decodedGeneric
+        } catch {
+            let error = error
+            return error as? T
         }
-        guard let url = URL(string: urlString) else {
-            completion(.failure(NetworkingError.invalidURL))
-            return
-        }
-        URLSession.shared.dataTask(with: url, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
-            if let error {
-                completion(.failure(NetworkingError.error(error)))
-                return
-            }
-            if let response = (response as? HTTPURLResponse), (200...299).contains(response.statusCode) {
-                let responseString = String(format: "Success with status code: %d", response.statusCode)
-                print(responseString)
-            } else {
-                completion(.failure(NetworkingError.responseError))
-                return
-            }
-            guard let data = data else {
-                completion(.failure(NetworkingError.invalidData))
-                return
-            }
-            do {
-                let decodedData = try JSONDecoder().decode(CocktailsCategoriesWrapper.self, from: data)
-                guard let categories = decodedData.drinks else {
-                    completion(.failure(NetworkingError.invalidDecoding))
-                    return
-                }
-                completion(Result.success(categories))
-            } catch let error {
-                completion(Result.failure(NetworkingError.error(error)))
-            }
-        }).resume()
     }
     
-    // Get Cocktails List by Category
-    private func getCocktails(by categoryName: String, completion: @escaping (Result<[Cocktail], NetworkingError>) -> Void) {
-        var components = URLComponents()
-        components.scheme = "https"
-        components.host = "thecocktaildb.com"
-        components.path = "/api/json/v1/1/filter.php"
-        components.queryItems = [
-            URLQueryItem(name: "c", value: categoryName)
-        ]
-        
-        guard let urlString = components.string else {
-            completion(.failure(NetworkingError.invalidURL))
-            return
-        }
-        guard let url = URL(string: urlString) else {
-            completion(.failure(NetworkingError.invalidURL))
-            return
-        }
-        URLSession.shared.dataTask(with: url, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
-            if let error {
-                completion(Result.failure(NetworkingError.error(error)))
-                return
-            }
-            if let response = (response as? HTTPURLResponse), (200...299).contains(response.statusCode) {
-                let responseString = String(format: "Success with status code: %d", response.statusCode)
-                print(responseString)
-            } else {
-                completion(.failure(NetworkingError.responseError))
-                return
-            }
-            guard let data = data else {
-                completion(.failure(NetworkingError.invalidData))
-                return
-            }
-            do {
-                let decodedData = try JSONDecoder().decode(CocktailsListWrapper.self, from: data)
-                guard let drinks = decodedData.drinks else {
+    // Get all categories
+    func getAllCategories(completion: @escaping (Result<[Category], NetworkingError>) -> Void) {
+        provider.request(.getAllCategories) { result in
+            switch result {
+            case .success(let moyaResponse):
+                do {
+                    let categoriesWrapper = try JSONDecoder().decode(CocktailsCategoriesWrapper.self, from: moyaResponse.data)
+                    if let categories = categoriesWrapper.drinks {
+                        self.allCategories = categories
+                        completion(.success(categories))
+                    } else {
+                        completion(.failure(NetworkingError.invalidData))
+                    }
+                } catch {
                     completion(.failure(NetworkingError.invalidDecoding))
-                    return
                 }
-                completion(Result.success(drinks))
-            } catch let error {
-                completion(Result.failure(NetworkingError.error(error)))
+            case .failure(let error):
+                completion(.failure(NetworkingError.error(error)))
             }
-        }).resume()
+        }
     }
+//    private func getAllCategories(completion: @escaping (Result<[Category], NetworkingError>) -> Void) {
+//        var components = URLComponents()
+//        components.scheme = "https"
+//        components.host = "thecocktaildb.com"
+//        components.path = "/api/json/v1/1/list.php"
+//        components.queryItems = [
+//            URLQueryItem(name: "c", value: "list")
+//        ]
+//        
+//        guard let urlString = components.string else {
+//            completion(.failure(NetworkingError.invalidURL))
+//            return
+//        }
+//        guard let url = URL(string: urlString) else {
+//            completion(.failure(NetworkingError.invalidURL))
+//            return
+//        }
+//        URLSession.shared.dataTask(with: url, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
+//            if let error {
+//                completion(.failure(NetworkingError.error(error)))
+//                return
+//            }
+//            if let response = (response as? HTTPURLResponse), (200...299).contains(response.statusCode) {
+//                let responseString = String(format: "Success with status code: %d", response.statusCode)
+//                print(responseString)
+//            } else {
+//                completion(.failure(NetworkingError.responseError))
+//                return
+//            }
+//            guard let data = data else {
+//                completion(.failure(NetworkingError.invalidData))
+//                return
+//            }
+//            do {
+//                let decodedData = try JSONDecoder().decode(CocktailsCategoriesWrapper.self, from: data)
+//                guard let categories = decodedData.drinks else {
+//                    completion(.failure(NetworkingError.invalidDecoding))
+//                    return
+//                }
+//                completion(Result.success(categories))
+//            } catch let error {
+//                completion(Result.failure(NetworkingError.error(error)))
+//            }
+//        }).resume()
+//    }
+    
+    // Get Cocktails List by Category
+    func getCocktails(by categoryName: Category, completion: @escaping (Result<[Cocktail], Error>) -> Void) {
+        provider.request(.filter(by: categoryName.name)) { result in
+            switch result {
+            case .success(let moyaResponse):
+                    do {
+                        let cocktailsWrapper = try JSONDecoder().decode(CocktailsListWrapper.self, from: moyaResponse.data)
+                        if let cocktailsDrinks = cocktailsWrapper.drinks {
+                            completion(.success(cocktailsDrinks))
+                        }
+                    } catch {
+                    completion(.failure(NetworkingError.error(error)))
+                }
+            case .failure(let error):
+                    completion(.failure(NetworkingError.error(error)))
+            }
+        }
+    }
+//    private func getCocktails(by categoryName: String, completion: @escaping (Result<[Cocktail], NetworkingError>) -> Void) {
+//        var components = URLComponents()
+//        components.scheme = "https"
+//        components.host = "thecocktaildb.com"
+//        components.path = "/api/json/v1/1/filter.php"
+//        components.queryItems = [
+//            URLQueryItem(name: "c", value: categoryName)
+//        ]
+//        
+//        guard let urlString = components.string else {
+//            completion(.failure(NetworkingError.invalidURL))
+//            return
+//        }
+//        guard let url = URL(string: urlString) else {
+//            completion(.failure(NetworkingError.invalidURL))
+//            return
+//        }
+//        URLSession.shared.dataTask(with: url, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
+//            if let error {
+//                completion(Result.failure(NetworkingError.error(error)))
+//                return
+//            }
+//            if let response = (response as? HTTPURLResponse), (200...299).contains(response.statusCode) {
+//                let responseString = String(format: "Success with status code: %d", response.statusCode)
+//                print(responseString)
+//            } else {
+//                completion(.failure(NetworkingError.responseError))
+//                return
+//            }
+//            guard let data = data else {
+//                completion(.failure(NetworkingError.invalidData))
+//                return
+//            }
+//            do {
+//                let decodedData = try JSONDecoder().decode(CocktailsListWrapper.self, from: data)
+//                guard let drinks = decodedData.drinks else {
+//                    completion(.failure(NetworkingError.invalidDecoding))
+//                    return
+//                }
+//                completion(Result.success(drinks))
+//            } catch let error {
+//                completion(Result.failure(NetworkingError.error(error)))
+//            }
+//        }).resume()
+//    }
 
     // Get first category
     func loadFirstCategory() {
@@ -199,10 +248,10 @@ class CocktailsViewModel {
                         self.completion?(.failure(NetworkingError.emptyFirstCategory))
                         return
                     }
-                    self.getCocktails(by: firstCategory.name, completion: { (result: Result<[Cocktail], NetworkingError>) -> Void in
+                    self.getCocktails(by: firstCategory, completion: { (result: Result<[Cocktail], Error>) -> Void in
                         switch result {
                             case .failure(let error):
-                                self.completion?(.failure(error))
+                                self.completion?(.failure(NetworkingError.error(error)))
                             case .success(let drinks):
                                 let newCategory = CocktailsSection(category: firstCategory, cocktails: drinks)
                                 self.loadedCategories.append(newCategory)
@@ -223,11 +272,11 @@ class CocktailsViewModel {
         if isNextCategoryExist {
             self.isLoadingData = true
             let nextCategory = self.allCategories[nextIndex]
-            self.getCocktails(by: nextCategory.name, completion: { (result: Result<[Cocktail], NetworkingError>) in
+            self.getCocktails(by: nextCategory, completion: { (result: Result<[Cocktail], Error>) in
                 self.isLoadingData = false
                 switch result {
                     case .failure(let error):
-                        self.completion?(.failure(error))
+                        self.completion?(.failure(NetworkingError.error(error)))
                     case .success(let drinks):
                         let newCategory = CocktailsSection(category: nextCategory, cocktails: drinks)
                         if !self.loadedCategories.contains(newCategory) {
