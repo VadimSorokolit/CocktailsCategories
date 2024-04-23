@@ -87,7 +87,7 @@ class CocktailsViewModel {
 
     // Get all categories
     func getAllCategories(completion: @escaping (Result<[Category], NetworkingError>) -> Void) {
-        let requestCompletion: (Result<Response, MoyaError>) -> Void = { (result: Result<Response, MoyaError>) -> Void in
+        self.provider.request(.getAllCategories, completion: { (result: Result<Response, MoyaError>) -> Void in
             switch result {
                 case .success(let moyaResponse):
                     do {
@@ -104,14 +104,12 @@ class CocktailsViewModel {
                 case .failure(let error):
                     completion(.failure(NetworkingError.error(error)))
             }
-        }
-        
-        self.provider.request(.getAllCategories, completion: requestCompletion)
+        })
     }
 
     // Get Cocktails List by Category
-    func getCocktails(by categoryName: Category, completion: @escaping (Result<[Cocktail], Error>) -> Void) {
-        let requestCompletion: (Result<Response, MoyaError>) -> Void = { (result: Result<Response, MoyaError>) -> Void in
+    func getCocktails(by category: Category, completion: @escaping (Result<[Cocktail], Error>) -> Void) {
+        self.provider.request(.filter(by: category.name), completion: { (result: Result<Response, MoyaError>) -> Void in
             switch result {
                 case .success(let moyaResponse):
                     do {
@@ -125,9 +123,7 @@ class CocktailsViewModel {
                 case .failure(let error):
                     completion(.failure(NetworkingError.error(error)))
             }
-        }
-        
-        self.provider.request(.filter(by: categoryName.name), completion: requestCompletion)
+        })
     }
 
     // Get first category

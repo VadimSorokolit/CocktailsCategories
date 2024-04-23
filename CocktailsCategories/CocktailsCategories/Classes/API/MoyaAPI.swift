@@ -45,8 +45,8 @@ extension CocktailsService: TargetType {
         switch self {
             case .getAllCategories:
                 return .requestParameters(parameters: ["c" : "list"], encoding: URLEncoding.default)
-            case .filter(let categoryName):
-                return .requestParameters(parameters: ["c" : "\(categoryName)"], encoding: URLEncoding.default)
+            case .filter(let category):
+                return .requestParameters(parameters: ["c" : "\(category)"], encoding: URLEncoding.default)
         }
     }
     
