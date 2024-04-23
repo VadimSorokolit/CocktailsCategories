@@ -23,6 +23,7 @@
 		DDAA8D822BAB736900CABE0F /* GlobalConstans.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAA8D812BAB736900CABE0F /* GlobalConstans.swift.swift */; };
 		DDC0B6292BA750AF0005BE73 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC0B6282BA750AF0005BE73 /* FilterCell.swift */; };
 		DDCAB9432BD181AE0086F0F7 /* UIViewController+progressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCAB9422BD181AE0086F0F7 /* UIViewController+progressHUD.swift */; };
+		DDE684672BD7AFA4005D21ED /* MoyaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE684662BD7AFA4005D21ED /* MoyaAPI.swift */; };
 		DDEF80382BC486E9009D4594 /* AlertsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEF80372BC486E9009D4594 /* AlertsManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		DDAA8D812BAB736900CABE0F /* GlobalConstans.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstans.swift.swift; sourceTree = "<group>"; };
 		DDC0B6282BA750AF0005BE73 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		DDCAB9422BD181AE0086F0F7 /* UIViewController+progressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+progressHUD.swift"; sourceTree = "<group>"; };
+		DDE684662BD7AFA4005D21ED /* MoyaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaAPI.swift; sourceTree = "<group>"; };
 		DDEF80372BC486E9009D4594 /* AlertsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,6 +133,7 @@
 			children = (
 				DD30A82C2B8782AE00D9C842 /* CoctailsCategoryModel.swift */,
 				DD30A82E2B87842B00D9C842 /* CoctailsListModel.swift */,
+				DDE684652BD7AF08005D21ED /* Moya */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -223,6 +226,14 @@
 				DDA10D9D2BBDE84600C06837 /* CocktailCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		DDE684652BD7AF08005D21ED /* Moya */ = {
+			isa = PBXGroup;
+			children = (
+				DDE684662BD7AFA4005D21ED /* MoyaAPI.swift */,
+			);
+			path = Moya;
 			sourceTree = "<group>";
 		};
 		DDEF80362BC4867C009D4594 /* Managers */ = {
@@ -360,6 +371,7 @@
 				DD4BB6392B8696240076A34F /* SceneDelegate.swift in Sources */,
 				DD29D4502BCDB84700669446 /* UITableView+lastIndexPath.swift in Sources */,
 				DDA10D9E2BBDE84600C06837 /* CocktailCell.swift in Sources */,
+				DDE684672BD7AFA4005D21ED /* MoyaAPI.swift in Sources */,
 				DD1066992BA377A500C34563 /* FiltersViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
