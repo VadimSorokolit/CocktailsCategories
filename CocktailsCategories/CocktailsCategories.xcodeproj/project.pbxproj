@@ -133,7 +133,6 @@
 			children = (
 				DD30A82C2B8782AE00D9C842 /* CoctailsCategoryModel.swift */,
 				DD30A82E2B87842B00D9C842 /* CoctailsListModel.swift */,
-				DDE684652BD7AF08005D21ED /* Moya */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -158,6 +157,7 @@
 		DD4BB64E2B86985B0076A34F /* API */ = {
 			isa = PBXGroup;
 			children = (
+				DDE684662BD7AFA4005D21ED /* MoyaAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -226,14 +226,6 @@
 				DDA10D9D2BBDE84600C06837 /* CocktailCell.swift */,
 			);
 			path = Cells;
-			sourceTree = "<group>";
-		};
-		DDE684652BD7AF08005D21ED /* Moya */ = {
-			isa = PBXGroup;
-			children = (
-				DDE684662BD7AFA4005D21ED /* MoyaAPI.swift */,
-			);
-			path = Moya;
 			sourceTree = "<group>";
 		};
 		DDEF80362BC4867C009D4594 /* Managers */ = {

@@ -8,17 +8,17 @@
 import Foundation
 import Moya
 
-enum CocktailsCategories {
+enum CocktailsService {
     case getAllCategories
     case filter(by: String)
 }
 
 // MARK: - TargetType Protocol Implementation
 
-extension CocktailsCategories: TargetType {
+extension CocktailsService: TargetType {
     
     var baseURL: URL {
-        guard let url = URL(string: "ht3tps://www.the1cocktaildb.com/api/json/v1/1") else {
+        guard let url = URL(string: "https://www.thecocktaildb.com/api/json/v1/1") else {
             fatalError("Invalid base URL")
         }
         return url
@@ -34,10 +34,7 @@ extension CocktailsCategories: TargetType {
     }
     
     var method: Moya.Method {
-        switch self {
-            case .getAllCategories, .filter:
-                return .get
-        }
+        return .get
     }
     
     var sampleData: Data {
