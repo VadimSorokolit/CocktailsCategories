@@ -15,8 +15,8 @@ class CocktailCell: UITableViewCell {
     
     private struct LocalConstants {
         static let reuseIDName: String = "CocktailCell"
-        static let cocktailImageViewDefaultWidth: CGFloat = 60.0
-        static let cocktailLabelDefaultWidth: CGFloat = 20.0
+        static let cocktailImageViewWidth: CGFloat = 60.0
+        static let cocktailLabelWidth: CGFloat = 20.0
     }
     
     // MARK: - Properties
@@ -63,12 +63,12 @@ class CocktailCell: UITableViewCell {
         self.cocktailImageView.snp.makeConstraints { (make) -> Void in
             make.centerY.equalTo(self.contentView.snp.centerY)
             make.leading.equalTo(self.contentView.snp.leading).offset(GlobalConstants.defaultPadding * 2)
-            make.width.height.equalTo(LocalConstants.cocktailImageViewDefaultWidth)
+            make.width.height.equalTo(LocalConstants.cocktailImageViewWidth)
         }
         
         self.cocktailLabel.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(self.contentView.snp.top)
-            make.leading.equalTo(self.cocktailImageView.snp.trailing).offset(LocalConstants.cocktailLabelDefaultWidth)
+            make.leading.equalTo(self.cocktailImageView.snp.trailing).offset(LocalConstants.cocktailLabelWidth)
             make.trailing.equalTo(self.contentView.snp.trailing)
             make.bottom.equalTo(self.contentView.snp.bottom)
         }
