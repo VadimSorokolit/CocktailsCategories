@@ -5,7 +5,7 @@
 <br />
 * Architecture - **MVVM**
 * Layout - **Snapkit**
-* Bindigs - **Closure**
+* Bindigs - **Closures**
 * Networking - **Moya**
 * Resources - **SDWebImage**
 <br />
