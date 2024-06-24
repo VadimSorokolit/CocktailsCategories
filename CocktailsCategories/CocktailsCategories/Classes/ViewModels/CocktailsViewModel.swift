@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  CocktailsViewModel.swift
 //  CocktailsCategories
 //
 //  Created by Vadym Sorokolit on 22.02.2024.
@@ -86,7 +86,7 @@ class CocktailsViewModel {
     // MARK: - Methods
 
     // Get all categories
-    func getAllCategories(completion: @escaping (Result<[Category], NetworkingError>) -> Void) {
+    private func getAllCategories(completion: @escaping (Result<[Category], NetworkingError>) -> Void) {
         self.provider.request(.getAllCategories, completion: { (result: Result<Response, MoyaError>) -> Void in
             switch result {
                 case .success(let moyaResponse):
@@ -108,7 +108,7 @@ class CocktailsViewModel {
     }
 
     // Get Cocktails List by Category
-    func getCocktails(by category: Category, completion: @escaping (Result<[Cocktail], Error>) -> Void) {
+    private func getCocktails(by category: Category, completion: @escaping (Result<[Cocktail], Error>) -> Void) {
         self.provider.request(.filter(by: category.name), completion: { (result: Result<Response, MoyaError>) -> Void in
             switch result {
                 case .success(let moyaResponse):
@@ -186,7 +186,7 @@ class CocktailsViewModel {
     }
     
     // Filter categories
-    func filterCagegories(by text: String, completion: ([Int]) -> Void) {
+    private func filterCagegories(by text: String, completion: ([Int]) -> Void) {
         let characterNumbers = Array(text)
         let numbers = characterNumbers.compactMap({ Int(String($0)) })
         let indices = Array(Set(numbers)).sorted()
@@ -241,7 +241,7 @@ class CocktailsViewModel {
     }
     
     // Setup Filters
-    func setupFilters() {
+    private func setupFilters() {
         self.filteredCategories = self.loadedCategories.filter({ $0.isSelected })
     }
     

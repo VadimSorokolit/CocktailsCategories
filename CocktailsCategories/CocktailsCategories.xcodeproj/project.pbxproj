@@ -103,9 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				DD4BB64A2B8697E60076A34F /* Classes */,
-				DD4BB6512B8699470076A34F /* Resources */,
 				DDAA8D802BAB729000CABE0F /* Constants */,
-				DD4BB6542B8699F20076A34F /* SupportingFiles */,
 				DDEF80362BC4867C009D4594 /* Managers */,
 				DD4BB6382B8696240076A34F /* SceneDelegate.swift */,
 				DD4BB6362B8696240076A34F /* AppDelegate.swift */,
@@ -179,36 +177,6 @@
 				DD1066982BA377A500C34563 /* FiltersViewController.swift */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		DD4BB6512B8699470076A34F /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				DD4BB6532B8699830076A34F /* Images */,
-				DD4BB6522B8699680076A34F /* Fonts */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		DD4BB6522B8699680076A34F /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Fonts;
-			sourceTree = "<group>";
-		};
-		DD4BB6532B8699830076A34F /* Images */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Images;
-			sourceTree = "<group>";
-		};
-		DD4BB6542B8699F20076A34F /* SupportingFiles */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 		DDAA8D802BAB729000CABE0F /* Constants */ = {
